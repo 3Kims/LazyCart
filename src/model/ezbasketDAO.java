@@ -25,6 +25,6 @@ public interface ezbasketDAO {
 	void deleteCustomer(int id);
 	void updateProduct(customerVO vo);
 	
-	void addcart(String url)throws SQLException;
+	void addcart(productVO product)throws SQLException;
 	
 }

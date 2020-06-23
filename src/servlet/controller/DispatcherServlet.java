@@ -52,8 +52,6 @@ public class DispatcherServlet extends HttpServlet {
 			else 
 				request.getRequestDispatcher(path).forward(request, response);
 		}
-		
-		
 		System.out.println("contextPath :: "+contextPath); 
 	}//doProcess
 }

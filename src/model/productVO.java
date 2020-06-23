@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class productVO {
 	private int id;
 	private String name;
@@ -7,8 +9,20 @@ public class productVO {
 	private String shop;
 	private String url;
 	private String category;
-	private String[] img;
-	private String option;
+	private ArrayList<String> img;
+	private ArrayList<String> option;
+	
+	public productVO(String name, int price, String shop, String url, String category, ArrayList<String> img,
+			ArrayList<String> option) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.shop = shop;
+		this.url = url;
+		this.category = category;
+		this.img = img;
+		this.option = option;
+	}
 	
 	public productVO(int id,String name, int price, String shop, String url, String category, String[] img,
 			String option) {
