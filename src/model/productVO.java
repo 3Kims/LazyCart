@@ -7,10 +7,10 @@ public class productVO {
 	private String shop;
 	private String url;
 	private String category;
-	private String img;
+	private String[] img;
 	private String option;
 	
-	public productVO(int id, String name, int price, String shop, String url, String category, String img,
+	public productVO(int id,String name, int price, String shop, String url, String category, String[] img,
 			String option) {
 		super();
 		this.id = id;
@@ -23,6 +23,7 @@ public class productVO {
 		this.option = option;
 	}
 	
+
 	public productVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -63,10 +64,10 @@ public class productVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getImg() {
+	public String[] getImg() {
 		return img;
 	}
-	public void setImg(String img) {
+	public void setImg(String[] img) {
 		this.img = img;
 	}
 	public String getOption() {

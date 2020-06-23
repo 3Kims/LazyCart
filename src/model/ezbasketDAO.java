@@ -12,21 +12,19 @@ public interface ezbasketDAO {
 	void closeAll(PreparedStatement ps, Connection conn)throws SQLException ;
 	void closeAll(ResultSet rs, PreparedStatement ps, Connection conn)throws SQLException ;
 	
-	void registerProduct(productVO pvo)throws SQLException;
-	void registerCustomer(customerVO cvo)throws SQLException;
+	void registerProduct(productVO vo)throws SQLException;
+	void registerCustomer(customerVO vo)throws SQLException;
 	
-	ArrayList<productVO> searchALLProduct();
-	productVO searchProduct(int id);
-	void insertProduct(productVO pvo);
-	void deleteProduct(int id);
-	void updateProduct(productVO pvo);
+	ArrayList<productVO> searchALLProduct() throws SQLException;
+	productVO searchProduct(String url) throws SQLException;
+	void deleteProduct(String url);
+	void updateProduct(productVO vo);
 	
 	ArrayList<customerVO> searchALLcustomer();
 	productVO searchCustomer(int id);
-	void insertCustomer(customerVO cvo);
 	void deleteCustomer(int id);
-	void updateProduct(customerVO cvo);
+	void updateProduct(customerVO vo);
 	
-	productVO addcart(String url)throws SQLException;
+	void addcart(String url)throws SQLException;
 	
 }
