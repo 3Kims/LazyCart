@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +71,7 @@
 			  <div class="collapse navbar-collapse" id="add_basket">
 			    <div class="navbar-nav">
 			      <div id="search_box" nav-item nav-link active>
-				  		<form action="search_product.do" method="post">
+				  		<form action="addcart.do" method="post">
 								<div class="input-group">
 							    <input type="text" class="form-control" placeholder="Please enter product's url...." name="url">
 							    <div class="input-group-append">
@@ -142,7 +144,7 @@
 					</nav>
 					<hr>
 					<article>
-						<!-- 장바구니 리스트 영역 -->
+					<!-- 장바구니 리스트 영역 -->
 						-<br>
 						-<br>
 						-<br>
