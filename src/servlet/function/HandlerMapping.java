@@ -3,8 +3,6 @@ package servlet.function;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servlet.controller.Controller;
-
 public class HandlerMapping {
 	
 	private static HandlerMapping handler = new HandlerMapping();   

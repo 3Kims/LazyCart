@@ -1,4 +1,4 @@
-package servlet.controller;
+package servlet.parser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

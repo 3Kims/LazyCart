@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.parser;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;

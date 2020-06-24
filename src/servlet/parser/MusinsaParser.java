@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.parser;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,6 @@ import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import model.productVO;
-import servlet.controller.Parser;
 
 public class MusinsaParser implements Parser {
 
