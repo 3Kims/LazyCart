@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ page import="java.util.HashMap"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +16,12 @@
 <style type="text/css">
 	.bi{
 		margin:0px;
+	}
+	.checkbox{
+		border:1px solid #777;border-radius:50%;float:right;height:14px;margin-left:24px;padding:2px;width:14px
+	}
+	.checked{
+		border-color:#4285f4; background:#4285f4;
 	}
 </style>
 </head>
@@ -132,7 +140,34 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
+		      <!-- 분류 조건 배열 생성 -->
+		      <%
+		      	HashMap categoryMap= new HashMap();
+		      %>	
+		      <c:set var="categoryList" value=<%=map %>>
 		      <!-- 분류 조건영역 -->
+		      <div class = "category price">
+		      	<p>가격</p>
+		      	<!-- for each를 이용해 아래와 같은 형식으로 뿌려줘야한다. -->
+		      	<c:forEach items="${priceList}" var="price">	<!-- priceList생성 필요, productList에 있는 아이템을 가격별로 나눈 List -->
+		      		<a class="categoryClick" id="price"><span>${price}</span><span class="checkbox"></span></a>	
+		      	</c:forEach>
+		      	
+		      </div>
+		      <div class = "category product">
+		      	<p>카테고리</p>
+		      	<c:forEach items="${categoryList}" var="category">
+		      		<a href="categoryClick" id="category"><span>${category}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
+		      	
+		      </div>
+		      <hr>
+		      <div class = "category shop">
+		      	<p>쇼핑몰</p>
+		      	<c:forEach items="${shopList}" var="shop">
+		      		<a href="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
+		      </div>
 		      
 		      </section>
 		    </div>
@@ -141,7 +176,7 @@
 						<div><!-- 통계아이콘 --></div> <div><!-- 아이콘영역 --></div> <div><!-- 정렬 영역 --></div>
 					</nav>
 					<hr>
-					<article>
+					<article id="bucketList">
 						<!-- 장바구니 리스트 영역 -->
 						-<br>
 						-<br>
@@ -253,7 +288,24 @@
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
-	 });
+		 	
+		 	$('.categoryClick').click(function()){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		 		var category = $(this).attr("id");	//정렬 기준
+		 		var option = $(this).text();
+		 		$.ajax({
+		 			type: post,
+		 			url: 'category.do',
+		 			data: {'productList':${productList},'category':category, 'option':option},
+		 			error:function(xhr,status,message){
+						alert("error : "+message );
+					},
+					success:function(data){
+						$('#bucketList').html(data);	// 장바구니에 데이터를 출력
+					}
+		 		});	//ajax
+		 	};
+		 	
+	 });	
 	 </script>
 </body>
 </html>
