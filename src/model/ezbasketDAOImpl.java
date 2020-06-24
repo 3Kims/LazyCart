@@ -173,9 +173,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			String[] getimg = rs.getString("img").split(","); 
 			if(rs.next()) {
 				//id, name, price, shop, url, category, img, option
-				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
-							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-							getimg,rs.getString("option"));
+				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"), rs.getString("option"));
 			}
 		}finally {
 			closeAll(rs,ps,conn);
@@ -207,53 +205,6 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		ResultSet rs = null;
 		ArrayList<customerVO> list = new ArrayList<>();
 		try {
-<<<<<<< HEAD
-			//카트 정보에 없으면
-			//
-
-			conn = getConnection();
-			String productURL = product.getUrl();
-			int productID = ExistProduct(productURL, conn);
-			int quantity = 0;
-			if(productID == 0) {
-				//product에 추가를 하고  추가한 id를 받아와서
-				String insertProductQuery = "insert into product(name, price, shop, url, category, img, options) values(?, ?, ?, ?, ?, ?, ?)";
-				ps=conn.prepareStatement(insertProductQuery);
-				ps.setString(1, product.getName());
-				ps.setInt(2, product.getPrice());
-				ps.setString(3, product.getShop());
-				ps.setString(4, product.getUrl());
-				ps.setString(5, product.getCategory());
-				ps.setString(6, product.getImg());
-				ps.setString(7, product.getOption());
-				ps.executeUpdate();
-				
-				String getProductIDQuery = "select id from product where url=?";
-				ps=conn.prepareStatement(getProductIDQuery);
-				ps.setString(1, product.getUrl());
-				rs = ps.executeQuery();
-				rs.next();
-				productID = rs.getInt("id");
-				
-				String addCartQuery = "insert into cart(customer_id, product_id, quantity, date) values(?, ?, ?, ?)";
-				ps=conn.prepareStatement(addCartQuery);
-				ps.setString(1, id);
-				ps.setInt(2, productID);
-				ps.setInt(3, quantity+1);
-				String date = java.time.LocalDate.now().toString();
-				ps.setString(4, date);
-				ps.executeUpdate();
-			}
-			else {
-				//카트에 있는 정보 가져와서 
-				String getProductIDQuery = "update cart set quantity=? where customer_id=? and product_id=(select id from product where url = ?);";
-
-			}
-			//장바구니에 추가
-			
-			
-			
-=======
 			conn = getConnection();
 			String query = "SELECT * FROM customer";
 			ps = conn.prepareStatement(query);
@@ -268,7 +219,6 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 										rs.getString("address"),
 										rs.getString("phone")));
 			}
->>>>>>> 070b25acc9b87e50d37bea2945668fe17fc7e0ae
 		}finally {
 			closeAll(rs, ps, conn);
 		}
