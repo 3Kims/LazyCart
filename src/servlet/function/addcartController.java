@@ -18,20 +18,21 @@ public class addcartController implements Controller {
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) {
 		
-		String path = "index.jsp";
+		String path = "";
 		String url = request.getParameter("url");
-		
 		
 		String id = (String) request.getSession().getAttribute("id");
 		if (id==null) {
+			System.out.println("addcart controller..no session...go to main.jsp");
 			path = "main.jsp";
 			return new ModelAndView(path);
 		} else {
+			System.out.println("addcart controller..session on..");
 			productVO product = ParserMapping.getInstance().createParser(url);
 			try {
 				ezbasketDAOImpl dao = ezbasketDAOImpl.getInstance();
 				dao.addcart(product, id);
-				System.out.println("Added");
+				System.out.println("item add success...");
 				ArrayList<productVO> productList = dao.getcart(id);
 				request.getSession().setAttribute("productList", productList);
 				return new ModelAndView("main.jsp");

@@ -250,10 +250,9 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		ResultSet rs = null;
 		
 		try {
-			
-/*			Exist
- * 			insert into product(name, price, shop, url, category, img) values(?, ?, ?, ?, ?);
-			insert into cart(customer_id, product_id, quantity, data) values(?, ?, ?, ?);*/
+			//카트 정보에 없으면
+			//
+
 			conn = getConnection();
 			String productURL = product.getUrl();
 			int productID = ExistProduct(productURL, conn);
@@ -277,17 +276,24 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 				rs = ps.executeQuery();
 				rs.next();
 				productID = rs.getInt("id");
+				
+				String addCartQuery = "insert into cart(customer_id, product_id, quantity, date) values(?, ?, ?, ?)";
+				ps=conn.prepareStatement(addCartQuery);
+				ps.setString(1, id);
+				ps.setInt(2, productID);
+				ps.setInt(3, quantity+1);
+				String date = java.time.LocalDate.now().toString();
+				ps.setString(4, date);
+				ps.executeUpdate();
+			}
+			else {
+				//카트에 있는 정보 가져와서 
+				String getProductIDQuery = "update cart set quantity=? where customer_id=? and product_id=(select id from product where url = ?);";
+
 			}
 			//장바구니에 추가
 			
-			String addCartQuery = "insert into cart(customer_id, product_id, quantity, date) values(?, ?, ?, ?)";
-			ps=conn.prepareStatement(addCartQuery);
-			ps.setString(1, id);
-			ps.setInt(2, productID);
-			ps.setInt(3, quantity);
-			String date = java.time.LocalDate.now().toString();
-			ps.setString(4, date);
-			ps.executeUpdate();
+			
 			
 		}finally {
 			closeAll(rs,ps,conn);
