@@ -20,7 +20,7 @@ public interface ezbasketDAO {
 	void deleteProduct(String url);
 	void updateProduct(productVO vo);
 	
-	ArrayList<customerVO> searchALLcustomer();
+	ArrayList<customerVO> searchALLcustomer() throws SQLException;
 	customerVO searchCustomer(String id) throws SQLException;
 	void deleteCustomer(int id);
 	void updateProduct(customerVO vo);

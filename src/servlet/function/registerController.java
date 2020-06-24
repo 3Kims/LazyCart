@@ -24,6 +24,8 @@ public class registerController implements Controller {
 		String address = request.getParameter("address");
 		System.out.println(id+password+name+phone+address);
 		
+		customerVO vo=ezbasketDAOImpl.getInstance().searchCustomer(id);
+		if(id.contentEquals(vo.getId());
 		//2.VO 객체 생성
 		System.out.println("2. customerVO 생성..");
 		customerVO vo = new customerVO(id, password, name, address,phone);

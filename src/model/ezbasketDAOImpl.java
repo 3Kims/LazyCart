@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.config.ServerInfo;
+import servlet.model.BookVO;
 
 
 
@@ -200,9 +201,31 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 
 	@Override
-	public ArrayList<customerVO> searchALLcustomer() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<customerVO> searchALLcustomer() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<customerVO> list = new ArrayList<>();
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM customer";
+			ps = conn.prepareStatement(query);
+			System.out.println("PreparedStatement....showAllBook..");
+
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(new customerVO(rs.getString("id"),
+										rs.getString("password"),
+										rs.getString("img"),
+										rs.getString("name"),
+										rs.getString("address"),
+										rs.getString("phone")));
+			}
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+		return list;
+
 	}
 
 	@Override
