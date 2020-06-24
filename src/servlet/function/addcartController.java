@@ -27,5 +27,5 @@ public class addcartController implements Controller {
 			e.printStackTrace();
 			return new ModelAndView(path);
 		}
-	}
+	}	
 }
