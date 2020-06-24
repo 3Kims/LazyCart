@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import servlet.function.Controller;
 import servlet.function.HandlerMapping;
 
 @WebServlet(urlPatterns="*.do",loadOnStartup = 1)
@@ -52,8 +53,6 @@ public class DispatcherServlet extends HttpServlet {
 			else 
 				request.getRequestDispatcher(path).forward(request, response);
 		}
-		
-		
 		System.out.println("contextPath :: "+contextPath); 
 	}//doProcess
 }
