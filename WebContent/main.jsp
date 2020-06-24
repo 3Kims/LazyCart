@@ -140,11 +140,14 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-		      <!-- 분류 조건 배열 생성 -->
-		      <%
-		      	HashMap categoryMap= new HashMap();
-		      %>	
-		      <c:set var="categoryList" value=<%=map %>>
+ 		      <!-- 분류 조건 배열 생성 -->
+
+		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
+		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
+		      <c:forEach items ="${productList}" var=product>
+		      	${categoryList}.add(${product.category});
+		      	${shopList}.add(${product.shop});
+		      </c:forEach>
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
 		      	<p>가격</p>
@@ -156,17 +159,15 @@
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
-		      	<c:forEach items="${categoryList}" var="category">
-		      		<a href="categoryClick" id="category"><span>${category}</span><span class="checkbox"></span></a>
+		      	<c:forEach items="${productList}" var="product">
+		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
 		      	</c:forEach>
 		      	
 		      </div>
 		      <hr>
-		      <div class = "category shop">
+		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<c:forEach items="${shopList}" var="shop">
-		      		<a href="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
-		      	</c:forEach>
+		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
 		      </div>
 		      
 		      </section>
