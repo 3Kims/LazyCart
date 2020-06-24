@@ -16,53 +16,51 @@ import model.config.ServerInfo;
 
 
 public class ezbasketDAOImpl implements ezbasketDAO {
-	//private DataSource ds;
+
 	private DataSource ds;
 	
-	//싱글톤...
 	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
 	private ezbasketDAOImpl() {
 		try {
 			//Naming Service(JNDI API)...javax.naming.Context
 			InitialContext ic = new InitialContext();			
 			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
-			System.out.println("DataSource  Lookup 성공...");
+			System.out.println("DataSource  Lookup Success...");
 		}catch(NamingException e) {
-			System.out.println("DataSource  Lookup 실패...");
+			System.out.println("DataSource  Lookup Fail...");
 		}	
 	}	
 	public static ezbasketDAOImpl getInstance() {
 		return dao;
 	}
 
-//	@Override
-//	public Connection getConnection() throws SQLException {
-//		// TODO Auto-generated method stub
-//		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
-//		System.out.println("디비연결 성공....");
-//		return conn;
-//	}
+/*	@Override
+	public Connection getConnection() throws SQLException {
+		 TODO Auto-generated method stub
+		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
+		System.out.println("디비연결 성공....");
+		return conn;
+	}
 	
-//
-//  	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
-// 
-//  	private ezbasketDAOImpl() {
-//		try {
-//			InitialContext ic = new InitialContext();
-//			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
-//			System.out.println("DataSource  Lookup 성공...");
-//		}catch(NamingException e) {
-//			System.out.println("DataSource  Lookup 실패...");
-//		}
-//	}
-//	
-//	public static ezbasketDAOImpl getInstance() {
-//		return dao;
-//	}
+
+  	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
+ 
+  	private ezbasketDAOImpl() {
+		try {
+			InitialContext ic = new InitialContext();
+			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+			System.out.println("DataSource  Lookup 성공...");
+		}catch(NamingException e) {
+			System.out.println("DataSource  Lookup 실패...");
+		}
+	}
+	
+	public static ezbasketDAOImpl getInstance() {
+		return dao;
+	}*/
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		// TODO Auto-generated method stub
 		System.out.println("getConnection Success");
 		return ds.getConnection();
 	}
@@ -77,12 +75,10 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	public void closeAll(ResultSet rs, PreparedStatement ps, Connection conn) throws SQLException {
 		if(rs != null)	rs.close();
 		closeAll(ps, conn);	
-		
 	}
 
 	@Override
 	public void registerProduct(productVO vo) throws SQLException {
-		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -109,7 +105,6 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 
 	@Override
 	public void registerCustomer(customerVO cvo) throws SQLException {
-		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement ps = null;
 		System.out.println("registerCustomer 진입======");
@@ -266,9 +261,10 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 
 	@Override
-	public void addcart(productVO product) throws SQLException {
+	public void addcart(productVO product, String id) throws SQLException {
 		
 	}
+
 
 //	
 //	public static void main(String[] args) throws ClassNotFoundException {

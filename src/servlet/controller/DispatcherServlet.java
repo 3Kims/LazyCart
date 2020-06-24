@@ -35,15 +35,13 @@ public class DispatcherServlet extends HttpServlet {
 		Controller controller=HandlerMapping.getInstance().createController(command);
 		String path = "index.jsp";
 		
-		request.getSession().setAttribute("id", "id01");
+		request.getSession().setAttribute("id", "id01");  //세션임의
 		
 		ModelAndView mv = null;
 		try {
-			System.out.println("mv is not null");
 			mv = controller.handle(request, response);		
 			path = mv.getPath();
 		}catch(Exception e) {
-			System.out.println("mv is null");
 			System.out.println(e);
 		}
 		if( mv!=null) {
