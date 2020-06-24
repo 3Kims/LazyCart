@@ -1,30 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet"><!-- googlr font -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><title>Login</title>
+  <title>Login</title>
+  
+<script>
+function checkit(){
+	var id = $("#id").val();
+	var password = $("#password").val();
+	if(id== ""){
+		alert("아이디를 입력해주세요.");
+		return false;
+	}
+	else if(password==""){
+		alert("비밀번호를 입력해 주세요.");
+		return false;
+	}else if(id!=${id} || password!=${password}){
+		alert("아이디와 비밀번호를 확인 후 다시 입력해 주세요.");
+		return false;
+	return true;}
+}
 
+$( function() {
+    $( ".widget input[type=submit], .widget a, .widget button" ).button();
+    $( "button, input, a" ).hover( function( event ) {
+      event.preventDefault();
+    } );
+  } );
+  
+</script>
 <style>
-	form{width:40%;margin:0 auto;text-align:center;}
+	body{background:#E3F2FD;font-family: 'Iceberg', cursive;}
+	.container{width:40%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:20px; }
+	form{margin:0 auto;text-align:center;}
+	#password,#id{border: 1px solid #e6e6e6; border-radius:2px; width:250px;height:30px;}
 	ul li{list-style-type:none;display:inline;}
-	h1{margin:0 auto;padding:1%;text-align:center;margin-top:5%;}
+	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
+	#loginSubmit,#registerSubmit{
+	font-family: 'Iceberg', cursive;
+	color:#03a9f4ad;
+	border:1px solid #03a9f4ad;
+	background:#fff;
+	border-radius: 2px;
+	font-size:14px;
+	text-align:center;
+	height:30px;
+	width:70px;}
+	
 </style>
 </head>
 <body>
-	<h1>Login</h1>
 	<div class="container">
-	<form id="loginFrm" method="post">
+	<h1>Login</h1>
+	<form action="home.html" id="loginFrm" method="post" onsubmit="return checkit();">
+		<br>
 		ID &nbsp;&nbsp;<input type ="text" id="id" required="required"><p><p>
-		PW &nbsp;&nbsp;<input type ="password" id="password" required="required"><p>
-		<a href="home.html"><input type="button" id="loginSubmit" value="Login"> &nbsp;&nbsp
-		<a href="register.html"><input type="button" id="loginSubmit" value="회원가입"></a><p>
+		PW &nbsp;&nbsp;<input type ="password" id="password" required="required" ><p><br>
+		<input type="submit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp; &nbsp
+		<a href="register.html"><input type="button" id="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 		<p><p><p>
 		<ul style="-webkit-padding-start:0px;">
-			<li><a href="#">아이디 찾기</a></li>&nbsp; &nbsp
-			<li><a href="#">비밀번호 찾기</a></li>
+			<li>Find ID</li>&nbsp; &nbsp
+			<li>Find PW</li>
 		</ul>
 	</form>
 	</div>
