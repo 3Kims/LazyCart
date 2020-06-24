@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,19 @@
 	.bi{
 		margin:0px;
 	}
+
+	.checkbox{
+		border:1px solid #777;border-radius:50%;float:right;height:14px;margin-left:24px;padding:2px;width:14px
+	}
+	.checked{
+		border-color:#4285f4; background:#4285f4;
+	
+	article #gridtype{
+		display:grid;
+		grid-template-columns: 200px 200px 200px;
+		grid-template-rows: 200px 200px 200px;
+	}
+
 </style>
 </head>
 
@@ -132,7 +147,37 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
+
+		      <!-- 분류 조건 배열 생성 -->
+
+
+		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
+		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
+		      <c:forEach items ="${productList}" var=product>
+		      	${categoryList}.add(${product.category});
+		      	${shopList}.add(${product.shop});
+		      </c:forEach>
 		      <!-- 분류 조건영역 -->
+		      <div class = "category price">
+		      	<p>가격</p>
+		      	<!-- for each를 이용해 아래와 같은 형식으로 뿌려줘야한다. -->
+		      	<c:forEach items="${priceList}" var="price">	<!-- priceList생성 필요, productList에 있는 아이템을 가격별로 나눈 List -->
+		      		<a class="categoryClick" id="price"><span>${price}</span><span class="checkbox"></span></a>	
+		      	</c:forEach>
+		      	
+		      </div>
+		      <div class = "category product">
+		      	<p>카테고리</p>
+		      	<c:forEach items="${productList}" var="product">
+		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
+		      	
+		      </div>
+		      <hr>
+		      <div class = "category seller">
+		      	<p>쇼핑몰</p>
+		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      </div>
 		      
 		      </section>
 		    </div>
@@ -253,7 +298,24 @@
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
-	 });
+		 	
+		 	$('.categoryClick').click(function()){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		 		var category = $(this).attr("id");	//정렬 기준
+		 		var option = $(this).text();
+		 		$.ajax({
+		 			type: post,
+		 			url: 'category.do',
+		 			data: {'productList':${productList},'category':category, 'option':option},
+		 			error:function(xhr,status,message){
+						alert("error : "+message );
+					},
+					success:function(data){
+						$('#bucketList').html(data);	// 장바구니에 데이터를 출력
+					}
+		 		});	//ajax
+		 	};
+		 	
+	 });	
 	 </script>
 </body>
 </html>
