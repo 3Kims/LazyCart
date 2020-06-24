@@ -5,37 +5,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet"><!-- googlr font -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><title>Login</title>
 
 <title>Register</title>
 <script>
+//password 일치 체크하고
+
 function registerCheck(){
-	if(confirm("입력하신 정보로 회원등록합니다.")) return true;
-	else return false;
+	alert($("#password1").val()+$("#id").val()+$("#phone1").val()+$("#name").val())
+	if($("#password1").val()==$("#password2").val())
+		return confirm("입력하신 정보로 회원등록합니다.");
+	else {
+		alert("비밀번호를 확인해주세요.");
+		return false;	
+	}
 }
+
+/*
 $(function(){
 	$("#password2").keyup(function(){
 		$.ajax({
 			type:"post",
-			url:"PasswordAjax",
-			data:"password1="+$("#password1").val()&&"password2="+$(this).val(),
-			success:function(data){//callback
+			url:"PasswordAjax.do",
+			data:"password1="+$("#password1").val()+"&&password2="+$("#password2").val(),
+			//data:{"password1":$("#password1").val(),"password2":$("#password2").val()},
+			success:function(data){
 				$("#passwordCheck").html(data);
 			}//success
 		});//ajax
 	});//password2
-	
+*/
 	$("#initialize").click(function(){
 		if(confirm("초기화 하시겠습니까?")){
 			$("input[type=text]").val("");
 			$("input[type=password]").val("");
 		}
-		
 	});
-});//ready
+//ready});
 </script>
 <style type="text/css">
 	body{background:#E3F2FD;font-family: 'Iceberg', cursive;}
@@ -52,7 +60,7 @@ $(function(){
 <body align="center">
 	<div class="container">
 	<h1>Register</h1><p>
-	<form action="registerSuccess.jsp" id="registerFrm" method="post" onsubmit="return registerCheck();">	
+	<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">	
 	<table>
 		<tr>
 			<td>이름</td><td><input type ="text" id="name" required="required"></td>
