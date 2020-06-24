@@ -12,7 +12,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.config.ServerInfo;
-import servlet.model.UserVO;
+
 
 
 public class ezbasketDAOImpl implements ezbasketDAO {
@@ -29,7 +29,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			System.out.println("DataSource  Lookup 성공...");
 		}catch(NamingException e) {
 			System.out.println("DataSource  Lookup 실패...");
-		}
+		}	
 	}	
 	public static ezbasketDAOImpl getInstance() {
 		return dao;
@@ -63,6 +63,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	@Override
 	public Connection getConnection() throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.println("getConnection Success");
 		return ds.getConnection();
 	}
 
@@ -111,14 +112,16 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement ps = null;
-		try {//public customerVO(String id, String password, String name, String address, String phone)
+		System.out.println("registerCustomer 진입======");
+		try {//public customerVO(String id, String password,  String img,String name, String address, String phone)
 			conn=  getConnection();
-			String query ="INSERT INTO customer(id, password, name, address, phone)";
+			String query ="INSERT INTO customer(id, password, img,name, address, phone) values(?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			System.out.println("PreparedStatement 생성됨...registerMember");
 			
 			ps.setString(1, cvo.getId());
 			ps.setString(2, cvo.getPassword());
+			ps.setString(2, cvo.getImg());
 			ps.setString(3, cvo.getName());
 			ps.setString(4, cvo.getAddress());
 			ps.setString(5, cvo.getPhone());
@@ -208,6 +211,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		customerVO vo = null;
+		
 		try {
 			conn = getConnection();
 			String query = "SELECT * FROM customer WHERE id=?";
