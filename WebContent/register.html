@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Register</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+function registerCheck(){
+	if(confirm("입력하신 정보로 회원등록합니다.")) return true;
+	else return false;
+}
+
+$(function(){
+	$("#password2").keyup(function(){
+		$.ajax({
+			type:"post",
+			url:"PasswordAjax",
+			data:"password1="+$("#password1").val()&&"password2="+$(this).val(),
+			
+			success:function(data){//callback
+				$("#passwordCheck").html(data);
+			}//success
+		});//ajax
+	});//password2
+});//ready
+
+</script>
+<style type="text/css">
+	form{width:50%;margin:0 auto;padding-top:2%;padding-bottom:2%;border:3px double gray;}
+	#infoInput{text-align:left;margin:3%;}
+	#buttons{text-align:center;margin:3%;}
+	h1{width:50%;padding:5px;margin:0 auto;margin-top:5%;background:lightgray;text-align:center;}
+	#phone1,#phone2,#phone3{width:60px;}	
+</style>
+</head>
+<body align="center">
+<div class="container">
+	<h1>Register</h1><p>
+	<form action="registerSuccess.jsp" id="registerFrm" method="post">
+	<div id="infoInput">
+		이름 &nbsp;&nbsp;<input type ="text" id="name" required="required"><p><p>
+		휴대전화 번호 &nbsp;&nbsp;<input type ="text" id="phone1" required="required"> - <input type ="text" id="phone2" required="required"> - <input type ="text" id="phone3" required="required"><p>
+		ID &nbsp;&nbsp;<input type ="text" id="id" required="required">
+		<span id="idCheck"></span><p>
+		PW &nbsp;&nbsp;<input type ="password" id="password1" required="required"><p>
+		PW확인 &nbsp;&nbsp;<input type ="password" id="password2" required="required"><p>
+		<span id="passwordCheck"></span><p>
+		주소 &nbsp;&nbsp;<input type ="text" id="address"><p></p>
+	</div><p>
+	<div id="buttons">
+		<input type="button" id="registerSubmit" value="회원가입" text-align="center" onclick="return registerCheck()">&nbsp; &nbsp
+		<input type="button" id="Initialize" value="초기화" style="align=center;">
+	</div>
+	</form>
+</div>
+</body>
+</html>
