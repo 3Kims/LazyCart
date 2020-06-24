@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>${name}님,</h2> 
+		<h2>${vo.name}님,</h2> 
 		<h3>회원으로 등록되셨습니다.</h3> 
 		<input type="button" name="homeBtn" value="홈으로">&nbsp;&nbsp;
 		<input type="button" name="loginBtn" value="로그인">
