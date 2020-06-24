@@ -3,8 +3,6 @@ package servlet.function;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servlet.controller.Controller;
-
 public class HandlerMapping {
 	
 	private static HandlerMapping handler = new HandlerMapping();   
@@ -25,6 +23,9 @@ public class HandlerMapping {
 		}else if(command.equals("registerSubmit.do")) {
 			controller = new registerController();
 			System.out.println("registerController.....생성");
+		}else if(command.equals("addcart.do")) {
+			controller = new addcartController();
+			System.out.println("addcartController.....생성");
 		}
 		return controller;
 	}

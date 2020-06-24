@@ -6,6 +6,7 @@ public class customerVO {
 	private String name;
 	private String address;
 	private String phone;
+	
 	public customerVO(String id, String password, String name, String address, String phone) {
 		super();
 		this.id = id;
