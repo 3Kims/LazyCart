@@ -39,9 +39,11 @@ public class DispatcherServlet extends HttpServlet {
 		
 		ModelAndView mv = null;
 		try {
+			System.out.println("mv is not null");
 			mv = controller.handle(request, response);		
 			path = mv.getPath();
-		}catch(Exception e) {	
+		}catch(Exception e) {
+			System.out.println("mv is null");
 			System.out.println(e);
 		}
 		if( mv!=null) {

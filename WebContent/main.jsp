@@ -17,11 +17,19 @@
 	.bi{
 		margin:0px;
 	}
+
+	.checkbox{
+		border:1px solid #777;border-radius:50%;float:right;height:14px;margin-left:24px;padding:2px;width:14px
+	}
+	.checked{
+		border-color:#4285f4; background:#4285f4;
+	
 	article #gridtype{
 		display:grid;
 		grid-template-columns: 200px 200px 200px;
 		grid-template-rows: 200px 200px 200px;
 	}
+
 </style>
 </head>
 
@@ -56,7 +64,6 @@
 					<!-- <a href="userInfo.jsp"> -->
 					  <c:choose>
 						  <c:when test="${empty sessionScope.user.img}">
-						  	<span class="badge badge-warning">Off</span>
 						  	<div id="empty_user_thumnail">
 							  	<svg class="bi bi-person-bounding-box user_icon" width="50px" height="50px" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
 										<path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
@@ -65,7 +72,6 @@
 								</div>
 						  </c:when>
 							<c:otherwise>
-						  	<span class="badge badge-success">On</span>
 								<div id="user_thumnail">
 						  		<div class="user_icon"><img src= ${sessionScope.user.img} alt="user_icon"></div>
 								</div>
@@ -78,7 +84,7 @@
 			  <div class="collapse navbar-collapse" id="add_basket">
 			    <div class="navbar-nav">
 			      <div id="search_box" nav-item nav-link active>
-				  		<form action="addcart.do" method="post">
+				  		<form action="search_product.do" method="post">
 								<div class="input-group">
 							    <input type="text" class="form-control" placeholder="Please enter product's url...." name="url">
 							    <div class="input-group-append">
@@ -141,7 +147,37 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
+
+		      <!-- 분류 조건 배열 생성 -->
+
+
+		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
+		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
+		      <c:forEach items ="${productList}" var=product>
+		      	${categoryList}.add(${product.category});
+		      	${shopList}.add(${product.shop});
+		      </c:forEach>
 		      <!-- 분류 조건영역 -->
+		      <div class = "category price">
+		      	<p>가격</p>
+		      	<!-- for each를 이용해 아래와 같은 형식으로 뿌려줘야한다. -->
+		      	<c:forEach items="${priceList}" var="price">	<!-- priceList생성 필요, productList에 있는 아이템을 가격별로 나눈 List -->
+		      		<a class="categoryClick" id="price"><span>${price}</span><span class="checkbox"></span></a>	
+		      	</c:forEach>
+		      	
+		      </div>
+		      <div class = "category product">
+		      	<p>카테고리</p>
+		      	<c:forEach items="${productList}" var="product">
+		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
+		      	
+		      </div>
+		      <hr>
+		      <div class = "category seller">
+		      	<p>쇼핑몰</p>
+		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      </div>
 		      
 		      </section>
 		    </div>
@@ -151,27 +187,7 @@
 					</nav>
 					<hr>
 					<article>
-					
-						<div id="gridtype">
-							
-						
-						</div>
-						<!-- 장바구니 리스트 영역  list형식-->
-						<%-- <div class="list-group">
-							<c:forEach var="i" begin="0" end="20">
-								<a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
-							    <div class="d-flex w-100 justify-content-between">
-							      <h5 class="mb-1">List group item heading</h5>
-							      <small>3 days ago</small>
-							    </div>
-							    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-							    <small>Donec id elit non mi porta.</small>
-						  	</a>
-							</c:forEach>
-						</div> --%>
-						
-						
-					<!-- 장바구니 리스트 영역 -->
+						<!-- 장바구니 리스트 영역 -->
 						-<br>
 						-<br>
 						-<br>
@@ -282,7 +298,24 @@
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
-	 });
+		 	
+		 	$('.categoryClick').click(function()){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		 		var category = $(this).attr("id");	//정렬 기준
+		 		var option = $(this).text();
+		 		$.ajax({
+		 			type: post,
+		 			url: 'category.do',
+		 			data: {'productList':${productList},'category':category, 'option':option},
+		 			error:function(xhr,status,message){
+						alert("error : "+message );
+					},
+					success:function(data){
+						$('#bucketList').html(data);	// 장바구니에 데이터를 출력
+					}
+		 		});	//ajax
+		 	};
+		 	
+	 });	
 	 </script>
 </body>
 </html>

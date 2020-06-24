@@ -1,23 +1,19 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-
-import java.util.Date;
 
 import model.config.ServerInfo;
+import servlet.model.BookVO;
+
 
 
 public class ezbasketDAOImpl implements ezbasketDAO {
@@ -34,7 +30,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			System.out.println("DataSource  Lookup 성공...");
 		}catch(NamingException e) {
 			System.out.println("DataSource  Lookup 실패...");
-		}
+		}	
 	}	
 	public static ezbasketDAOImpl getInstance() {
 		return dao;
@@ -68,6 +64,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	@Override
 	public Connection getConnection() throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.println("getConnection Success");
 		return ds.getConnection();
 	}
 
@@ -116,19 +113,20 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement ps = null;
-		try {
+		System.out.println("registerCustomer 진입======");
+		try {//public customerVO(String id, String password,  String img,String name, String address, String phone)
 			conn=  getConnection();
-			String query ="INSERT INTO customer(id, password, name, address, phone)";
+			String query ="INSERT INTO customer(id, password, img,name, address, phone) values(?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			System.out.println("PreparedStatement 생성됨...registerMember");
 			
 			ps.setString(1, cvo.getId());
 			ps.setString(2, cvo.getPassword());
+			ps.setString(2, cvo.getImg());
 			ps.setString(3, cvo.getName());
 			ps.setString(4, cvo.getAddress());
 			ps.setString(5, cvo.getPhone());
 			System.out.println(ps.executeUpdate()+" customer INSERT OK!!");
-			
 		}finally {
 			closeAll(ps, conn);
 		}
@@ -141,48 +139,48 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		PreparedStatement ps = null;	
 		ResultSet rs = null;
 		ArrayList<productVO> product = new ArrayList<productVO>();
-//		try {
-//			conn = getConnection();
-//			String query = "SELECT * FROM product";
-//			ps=conn.prepareStatement(query);
-//			rs=ps.executeQuery();
-//			String[] getimg = rs.getString("img").split(" "); 
-//			while(rs.next()) {
-//				//id, name, price, shop, url, category, img, option
-//				product.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
-//							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-//							getimg,rs.getString("option")));
-//			}
-//		}finally {
-//			closeAll(rs,ps,conn);
-//		}
-//		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM product";
+			ps=conn.prepareStatement(query);
+			rs=ps.executeQuery();
+			String[] getimg = rs.getString("img").split(" "); 
+			while(rs.next()) {
+				//id, name, price, shop, url, category, img, option
+				product.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
+							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
+							getimg,rs.getString("option")));
+			}
+		}finally {
+			closeAll(rs,ps,conn);
+		}
+		
 		return product;
 	}
 
 	@Override
 	public productVO searchProduct(String url) throws SQLException {
-//		Connection conn = null;
-//		PreparedStatement ps = null;	
-//		ResultSet rs = null;
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
 		productVO product = new productVO();
-//		try {
-//			conn = getConnection();
-//			String query = "SELECT * FROM product where url=?";
-//			ps=conn.prepareStatement(query);
-//			ps.setString(1, url);
-//			rs=ps.executeQuery();
-//			String[] getimg = rs.getString("img").split(","); 
-//			if(rs.next()) {
-//				//id, name, price, shop, url, category, img, option
-//				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
-//							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-//							getimg,rs.getString("option"));
-//			}
-//		}finally {
-//			closeAll(rs,ps,conn);
-//		}
-//		
+		try {
+			conn = getConnection();
+			String query = "SELECT * FROM product where url=?";
+			ps=conn.prepareStatement(query);
+			ps.setString(1, url);
+			rs=ps.executeQuery();
+			String[] getimg = rs.getString("img").split(","); 
+			if(rs.next()) {
+				//id, name, price, shop, url, category, img, option
+				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
+							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
+							getimg,rs.getString("option"));
+			}
+		}finally {
+			closeAll(rs,ps,conn);
+		}
+		
 		return product;
 	}
 
@@ -203,53 +201,13 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 
 	@Override
-	public ArrayList<customerVO> searchALLcustomer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public productVO searchCustomer(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteCustomer(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateProduct(customerVO cvo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public int ExistProduct(String url, Connection conn) throws SQLException {
+	public ArrayList<customerVO> searchALLcustomer() throws SQLException {
+		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
-		String existQuery = "select id from product where url=?";
-		ps = conn.prepareStatement(existQuery);
-		ps.setString(1, url);
-		rs = ps.executeQuery();
-		
-		if(rs.next()) {
-			//존재하면 productid를 리턴
-			return rs.getInt("id");
-		}
-		else { //존재하지 않으면 0리턴
-			return 0;
-		}
-	}
-	@Override
-	public void addcart(productVO product, String id) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;	
-		ResultSet rs = null;
-		
+		ArrayList<customerVO> list = new ArrayList<>();
 		try {
+<<<<<<< HEAD
 			//카트 정보에 없으면
 			//
 
@@ -295,35 +253,71 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			
 			
 			
+=======
+			conn = getConnection();
+			String query = "SELECT * FROM customer";
+			ps = conn.prepareStatement(query);
+			System.out.println("PreparedStatement....showAllBook..");
+
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(new customerVO(rs.getString("id"),
+										rs.getString("password"),
+										rs.getString("img"),
+										rs.getString("name"),
+										rs.getString("address"),
+										rs.getString("phone")));
+			}
+>>>>>>> 070b25acc9b87e50d37bea2945668fe17fc7e0ae
 		}finally {
-			closeAll(rs,ps,conn);
+			closeAll(rs, ps, conn);
 		}
-		return;
+		return list;
+
 	}
-	
+
 	@Override
-	public ArrayList<productVO> getcart(String id) throws SQLException {
+	public customerVO searchCustomer(String id) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<productVO> productList = new ArrayList<>();
+		customerVO vo = null;
+		
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM cart WHERE customer_id=?";
+			String query = "SELECT * FROM customer WHERE id=?";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
-			while(rs.next()) {
-				productList.add(
-				new productVO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), 
-						rs.getString(6), rs.getString(7), rs.getString(8)));
-			}
-			return productList;
-		} catch (Exception e) {
-			closeAll(rs,ps,conn);
-			return productList;
+			if(rs.next()) vo = new customerVO(rs.getString("id"),rs.getString("password"),
+												rs.getString("img"),
+												rs.getString("name"),
+												rs.getString("address"),
+												rs.getString("phone"));
+			System.out.println("customerVO vo:"+vo);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}finally {
+			closeAll(rs, ps, conn);
 		}
+		return vo;
+
+	}
+
+	@Override
+	public void deleteCustomer(int id) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void updateProduct(customerVO cvo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addcart(productVO product) throws SQLException {
 		
 	}
 

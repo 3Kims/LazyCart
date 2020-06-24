@@ -1,13 +1,10 @@
 package servlet.function;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.ezbasketDAO;
 import model.ezbasketDAOImpl;
 import model.productVO;
 import servlet.controller.ModelAndView;
@@ -20,6 +17,7 @@ public class addcartController implements Controller {
 		
 		String path = "";
 		String url = request.getParameter("url");
+<<<<<<< HEAD
 		
 		String id = (String) request.getSession().getAttribute("id");
 		if (id==null) {
@@ -43,6 +41,17 @@ public class addcartController implements Controller {
 				return new ModelAndView(path);	
 			}
 		
+=======
+		productVO product = ParserMapping.getInstance().createParser(url);
+		try {
+			ezbasketDAOImpl.getInstance().addcart(product);
+			
+			return new ModelAndView("addcart_success.jsp");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView(path);
+>>>>>>> 070b25acc9b87e50d37bea2945668fe17fc7e0ae
 		}
-	}	
+	}
 }

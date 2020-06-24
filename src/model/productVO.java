@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class productVO {
 	private int id;
 	private String name;
@@ -12,11 +10,18 @@ public class productVO {
 	private String img;
 	private String option;
 	
+	public productVO(String name, int price, String shop, String url, String category, String img,String option) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.shop = shop;
+		this.url = url;
+		this.category = category;
+		this.img = img;
+		this.option = option;
+	}
 	
-	
-
-	public productVO(int id, String name, int price, String shop, String url, String category, String img,
-			String option) {
+	public productVO(int id,String name, int price, String shop, String url, String category, String img,String option) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,18 +33,7 @@ public class productVO {
 		this.option = option;
 	}
 	
-	public productVO(String name, int price, String shop, String url, String category, String img,
-			String option) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.shop = shop;
-		this.url = url;
-		this.category = category;
-		this.img = img;
-		this.option = option;
-	}
-	
+
 	public productVO() {
 		super();
 		// TODO Auto-generated constructor stub
