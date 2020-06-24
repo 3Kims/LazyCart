@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import servlet.function.Controller;
+import servlet.function.Controller;
 import servlet.function.HandlerMapping;
 
 @WebServlet(urlPatterns="*.do",loadOnStartup = 1)
@@ -29,16 +29,31 @@ public class DispatcherServlet extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String servletpath = request.getServletPath();
-		String subPath = (String) servletpath.subSequence(1, servletpath.length()-3);
+		//String servletpath = request.getServletPath();
+		//String subPath = (String) servletpath.subSequence(1, servletpath.length()-3);
 		
-		//componentFactory = HandlerMapping.getInstance();
-		/*Controller component = componentFactory.createController(subPath);
-		mv = component.handle(request, response);
-		if(!mv.isRedirect())
-			request.getRequestDispatcher(mv.getPath()).forward(request, response);
-		else response.sendRedirect(mv.getPath());
-		*/
+		String requestURI = request.getRequestURI();
+		System.out.println("RequestURI :: "+requestURI); 
+		String contextPath = request.getContextPath();
+		
+		String command=requestURI.substring(contextPath.length()+1);
+		System.out.println("command :: "+command); 
+		
+		Controller controller = HandlerMapping.getInstance().createController(command);
+		String path = "index.jsp";
+		ModelAndView mv =null;
+		try {
+			mv = controller.handle(request, response);
+			path = mv.getPath();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		if(mv!=null) {
+			if(mv.isRedirect()) response.sendRedirect(path);
+			else 
+				request.getRequestDispatcher(path).forward(request, response);
+		}
+		System.out.println("contextPath :: "+contextPath); 
 	}//doProcess
 }
 	
