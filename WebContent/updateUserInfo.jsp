@@ -14,14 +14,14 @@
 <script>
 window.onload=function(){
 	if(${vo}==null)
-		alert("alert onload")
+		alert("로그인 먼저 진행해주세요.")
 }
 function updateCheck(){
-	if(alert("clert update check")) return true;
+	if(alert("입력하신 정보로 회원 정보를 수정합니다.")) return true;
 	else return false;
 }
 function cancelCheck(){
-	if(alert("alert cancelcheck"))
+	if(alert("회원정보 수정을 취소합니다."))
 		locate.href="home.jsp"// 홈이나 이전 페이지로
 	else return false;
 }
