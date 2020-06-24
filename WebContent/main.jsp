@@ -151,7 +151,6 @@
 					</nav>
 					<hr>
 					<article>
-<<<<<<< HEAD
 					
 						<div id="gridtype">
 							
@@ -172,8 +171,6 @@
 						</div> --%>
 						
 						
-						
-=======
 					<!-- 장바구니 리스트 영역 -->
 						-<br>
 						-<br>
@@ -257,7 +254,6 @@
 						-<br>
 						-<br>
 						-<br>
->>>>>>> addb2e736ad2743a3614e24f8abbb7b69ec4b4d4
 					</article>
 		    </div>
 		  </div>

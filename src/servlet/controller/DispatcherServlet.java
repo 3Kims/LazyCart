@@ -16,13 +16,12 @@ public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("adsfhiawehfaowiehiof");
 
+		System.out.println("dispatcher doget...");
 		doProcess(request,response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("adsfhiawehfaowiehiof");
-
+		System.out.println("dispatcher dopost");
 		doProcess(request,response);
 	}
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

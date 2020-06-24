@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.rmi.CORBA.PortableRemoteObjectDelegate;
 import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 
@@ -227,7 +226,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		
 	}
 
-	int ExistProduct(String url, Connection conn) throws SQLException {
+	public int ExistProduct(String url, Connection conn) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
