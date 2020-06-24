@@ -17,7 +17,6 @@ public class addcartController implements Controller {
 		
 		String path = "";
 		String url = request.getParameter("url");
-<<<<<<< HEAD
 		
 		String id = (String) request.getSession().getAttribute("id");
 		if (id==null) {
@@ -40,8 +39,8 @@ public class addcartController implements Controller {
 				e1.printStackTrace();
 				return new ModelAndView(path);	
 			}
-		
-=======
+		}
+
 		productVO product = ParserMapping.getInstance().createParser(url);
 		try {
 			ezbasketDAOImpl.getInstance().addcart(product);
@@ -51,7 +50,6 @@ public class addcartController implements Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ModelAndView(path);
->>>>>>> 070b25acc9b87e50d37bea2945668fe17fc7e0ae
 		}
 	}
 }

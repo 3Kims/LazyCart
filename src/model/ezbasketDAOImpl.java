@@ -12,7 +12,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.config.ServerInfo;
-import servlet.model.BookVO;
 
 
 
@@ -149,7 +148,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 				//id, name, price, shop, url, category, img, option
 				product.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
 							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-							getimg,rs.getString("option")));
+							rs.getString("img"),rs.getString("option")));
 			}
 		}finally {
 			closeAll(rs,ps,conn);
