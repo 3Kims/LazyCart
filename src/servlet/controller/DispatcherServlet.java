@@ -1,7 +1,6 @@
 package servlet.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,52 +10,62 @@ import javax.servlet.http.HttpServletResponse;
 import servlet.function.Controller;
 import servlet.function.HandlerMapping;
 
-@WebServlet(urlPatterns="*.do",loadOnStartup = 1)
-public class DispatcherServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;     
-	//private HandlerMapping componentFactory = null;
-	ModelAndView mv = null;
-	String command = "";
-	String path = "";
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request,response);
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request,response);
-	}
-	
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//String servletpath = request.getServletPath();
-		//String subPath = (String) servletpath.subSequence(1, servletpath.length()-3);
+@WebServlet("*.do")
+public class DispatcherServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("dispatcher doget...");
+		doProcess(request,response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("dispatcher dopost");
+		doProcess(request,response);
+	}
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("adsfhiawehfaowiehiof");
+		//hidden 값으로 들어온 요청을 받지 않고..들어온 요청의 주소를 직접 인식시킨다.
+		String requestURI=request.getRequestURI();
+		System.out.println("RequestURI :: "+requestURI);//web22_CafeMember_Factory/find.do
 		
-		String requestURI = request.getRequestURI();
-		System.out.println("RequestURI :: "+requestURI); 
-		String contextPath = request.getContextPath();
+		String contextPat=request.getContextPath();
+		System.out.println("ContextPat :: "+contextPat); //web22_CafeMember_Factory
 		
-		String command=requestURI.substring(contextPath.length()+1);
-		System.out.println("command :: "+command); 
+		//find.do 만 추출하자...substring()사용...
+		String command = requestURI.substring(contextPat.length()+1);
+		System.out.println("command :: "+command); // /find.do
 		
-		Controller controller = HandlerMapping.getInstance().createController(command);
+		
+		Controller controller=HandlerMapping.getInstance().createController(command);
 		String path = "index.jsp";
-		ModelAndView mv =null;
+		ModelAndView mv = null;
 		try {
-			mv = controller.handle(request, response);
+			mv = controller.handle(request, response);		
 			path = mv.getPath();
-		} catch (Exception e) {
+		}catch(Exception e) {	
 			System.out.println(e);
 		}
-		if(mv!=null) {
+		if( mv!=null) {
 			if(mv.isRedirect()) response.sendRedirect(path);
-			else 
+			else
 				request.getRequestDispatcher(path).forward(request, response);
 		}
-		System.out.println("contextPath :: "+contextPath); 
-	}//doProcess
+	}
 }
-	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
