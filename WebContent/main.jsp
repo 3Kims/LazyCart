@@ -147,15 +147,13 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-
 		      <!-- 분류 조건 배열 생성 -->
-
-
 		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
 		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:forEach items ="${productList}" var=product>
-		      	${categoryList}.add(${product.category});
-		      	${shopList}.add(${product.shop});
+		      <c:forEach items ="${productList}" var="product">
+		      		      	<%-- {categoryList}.add({product.category});
+		      	{shopList}.add({product.shop}); --%>
+				
 		      </c:forEach>
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
@@ -299,7 +297,7 @@
 		 		alert("used thmnail");
 		 	});
 		 	
-		 	$('.categoryClick').click(function()){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		var option = $(this).text();
 		 		$.ajax({
@@ -310,10 +308,10 @@
 						alert("error : "+message );
 					},
 					success:function(data){
-						$('#bucketList').html(data);	// 장바구니에 데이터를 출력
+						$('#gridtype').html(data);	// 장바구니에 데이터를 출력
 					}
 		 		});	//ajax
-		 	};
+		 	});
 		 	
 	 });	
 	 </script>
