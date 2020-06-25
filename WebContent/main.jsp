@@ -210,7 +210,6 @@
 						</div>
 			    </div>
 			  </div>
-			  
 			</nav>
 		</div>
   	</header>
@@ -282,6 +281,7 @@
 												<div id="loginContainer">
 													<h1>Login</h1>
 														<div id="loginFrmBox">
+<<<<<<< HEAD
 															<form action="LoginController.do" id="loginFrm" method="post" onsubmit="return checkit();">
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" id="id" required="required"><p><p>
@@ -293,6 +293,15 @@
 																<p><p><p>
 																<ul style="-webkit-padding-start:0px;">
 																	<li>Find ID</li> &nbsp;&nbsp;
+															<form action="LoginController.do" id="loginFrm" method="post">
+																<br>
+																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
+																PW &nbsp;&nbsp;<input type ="password" name="password" id="password" required="required" ><p><br>
+																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
+																<a href="register.html"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
+																<p><p><p>
+																<ul style="-webkit-padding-start:0px;">
+																	<li>Find ID</li> &nbsp; &nbsp;
 																	<li>Find PW</li>
 																</ul>
 																

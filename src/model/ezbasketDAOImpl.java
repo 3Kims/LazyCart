@@ -520,6 +520,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(2,password);
 			rs=ps.executeQuery();
 			if(rs.next()) {
+				System.out.println("exist....");
 				customer=new customerVO(rs.getString("id"),
 						rs.getString("password"),
 						rs.getString("img"),
