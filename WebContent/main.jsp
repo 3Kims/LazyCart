@@ -7,30 +7,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+
 <title>Insert title here</title>
 
 <style type="text/css">
+
+	
 	.bi{
 		margin:0px;
 	}
 
 	.checkbox{
-		border:1px solid #777;border-radius:50%;float:right;height:14px;margin-left:24px;padding:2px;width:14px
+		border:1px solid #777;border-radius:50%;float:right;height:14px;margin-left:24px;padding:2px;width:14px;
 	}
 	.checked{
 		border-color:#4285f4; background:#4285f4;
-	
-	article #gridtype{
-		display:grid;
-		grid-template-columns: 200px 200px 200px;
-		grid-template-rows: 200px 200px 200px;
 	}
+	/*login box  */
+	
+	
+	/* #loginBody{background:#E3F2FD;} */
+	
+	#loginContainer{width:90%;height:90%;margin:0 auto;background:#fff;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:20px; }
+	
+	#loginFrmBox{margin:0 auto;text-align:center;}
+	#password,#id{border: 1px solid #E6E6E6; border-radius:2px; width:250px;height:30px;}
+	ul li{list-style-type:none;display:inline;}
+	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
+	#loginSubmit,#registerSubmit{
+	border:1.3px solid #03a9f4ad;
+	background:#fff;
+	border-radius:2px;
+	font-size:14px;
+	text-align:center;
+	height:30px;
+	width:90px;}
 
+
+	/* register box  */
+	
+	#registerBody{
+		align:center;
+		background:#fff;
+	}
+	#registerContainer{
+		width:100%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #E3F2FD;border-radius:10px;
+	}
+	
+	#registerForm form{margin:0 auto;text-align:center;padding:3px;}
+	#registerForm #buttons div{}
+	#registerForm table{margin:0 auto;}
+	#registerForm table td{text-align:left;}
+	#registerForm table td span{color:orange;}
+	#registerForm table input, #registerForm #initialize{border: 1px solid #e6e6e6; border-radius:2px; width:200px;height:25px;}
+	#buttons{text-align:center;margin:3%;}
+	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
+	#phone1,#phone2,#phone3{width:60px;}	
+	
+	
+	/* file box  */
+	.fileBox input[type="file"]{
+		position:absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip:rect(0,0,0,0);
+		border: 0;
+	}
+	.form-control{
+		height: 1.9em;
+		width: 10%;
+	}
 </style>
+
 </head>
 
 <body>
@@ -63,7 +119,7 @@
 					<div class="navbar_icon">
 					<!-- <a href="userInfo.jsp"> -->
 					  <c:choose>
-						  <c:when test="${empty sessionScope.user.img}">
+						  <c:when test="${empty sessionScope.customer.img}">
 						  	<span class="badge badge-warning">Off</span>
 						  	<div id="empty_user_thumnail">
 							  	<svg class="bi bi-person-bounding-box user_icon" width="50px" height="50px" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +189,21 @@
 			    <div class="navbar-nav">
 			      <div id="search_box" nav-item nav-link active>
 				  		<!-- 여기부터 시작해야함. -->
-				  		
+					  		<form action="post" id="customerImg">
+					  			<div class="fileBox">
+					  				<div class="input-group-append">
+						  				<label for="customFile"> 
+							  				<svg class="bi bi-image" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z"/>
+												  <path d="M10.648 7.646a.5.5 0 0 1 .577-.093L15.002 9.5V14h-14v-2l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71z"/>
+												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+												</svg>
+						  				</label>
+						  				<input type="text" class="form-control" value="Choose file" name="imgName" disabled="disabled">
+										  <input type="file" id="customFile">
+									  </div>
+									</div>
+					  		</form>
 						  <span class="sr-only">(current)</span>
 						</div>
 			    </div>
@@ -189,126 +259,188 @@
 					<article>
 						<!-- 장바구니 리스트 영역 -->
 						
-						<div class="list-group">
-						
-							<c:forEach var="i" begin="0" end="20">
-								<a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
-						    <div class="d-flex w-100 justify-content-between">
-						      <h5 class="mb-1">List group item heading</h5>
-						      <small>3 days ago</small>
-						    </div>
-						    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-						    <small>Donec id elit non mi porta.</small>
-						  </a>
-							</c:forEach>
-						</div>
+						<c:choose>
+							<c:when test="${!empty sessionScope.customer }" >
+								<div class="list-group">
+									<c:forEach var="i" begin="0" end="20">
+										<a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+								    <div class="d-flex w-100 justify-content-between">
+								      <h5 class="mb-1">List group item heading</h5>
+								      <small>3 days ago</small>
+								    </div>
+								    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+								    <small>Donec id elit non mi porta.</small>
+								  </a>
+									</c:forEach>
+								</div>
+							</c:when>
+							<c:otherwise>
+							
+							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+							  <div class="carousel-inner">
+							  
+							    <div class="carousel-item active" data-interval="false">
 
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
-						-<br>
+							    	<div id="loginBody">
+											<div class="container" >
+												<div id="loginContainer">
+													<h1>Login</h1>
+														<div id="loginFrmBox">
+															<form action="home.html" id="loginFrm" method="post" onsubmit="return checkit();">
+																<br>
+																ID &nbsp;&nbsp;<input type ="text" id="id" required="required"><p><p>
+																PW &nbsp;&nbsp;<input type ="password" id="password" required="required" ><p><br>
+																
+																<input type="submit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;&nbsp;
+																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
+																<span class="sr-only">Next</span>
+																<p><p><p>
+																<ul style="-webkit-padding-start:0px;">
+																	<li>Find ID</li> &nbsp;&nbsp;
+																	<li>Find PW</li>
+																</ul>
+																
+															</form>
+														</div>
+												</div>
+											</div>
+										</div>
+							    </div>
+							    
+								  <div class="carousel-item" data-interval="false">
+								  	<div id="registerBody">
+								   		<div class="container">
+								    		<div id="registerContainer">
+													<h1>Register</h1><p>
+														<div id="registerForm">
+															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
+															<table>
+																<tr>
+																	<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																</tr>
+																<tr>
+																	<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
+																	- <input type ="text" id="phone2" required="required" maxlength=4> 
+																	- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																</tr>
+																<tr>
+																	<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																</tr>
+																<tr>
+																	<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																</tr>
+																<tr>
+																	<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																</tr>
+																<tr>
+																	<td>주소</td>
+																	<td>
+																	<input type="text" id="postcode" placeholder="우편번호">
+																	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																	<input type="text" id="roadAddress" placeholder="도로명주소">
+																	<input type="text" id="jibunAddress" placeholder="지번주소">
+																	</td>			
+																</tr>
+															</table>
+														</div><p>
+													<div id="buttons">
+														<div><a href="#carouselExampleControls" role="button" data-slide="prev" style></div>
+														<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a><p>
+														<span class="sr-only">Prev</span>
+														<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
+														<input type="button" id="initialize" value="초기화">
+													</div>
+													</form>
+												</div>
+											</div>
+																					<!-- 주소 찾기 API script -->
+												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+												<script>
+												    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+												    function execDaumPostcode() {
+												        new daum.Postcode({
+												            oncomplete: function(data) {
+												                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+												
+												                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+												                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+												                var roadAddr = data.roadAddress; // 도로명 주소 변수
+												                var extraRoadAddr = ''; // 참고 항목 변수
+												
+												                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+												                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+												                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+												                    extraRoadAddr += data.bname;
+												                }
+												                // 건물명이 있고, 공동주택일 경우 추가한다.
+												                if(data.buildingName !== '' && data.apartment === 'Y'){
+												                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+												                }
+												                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+												                if(extraRoadAddr !== ''){
+												                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+												                }
+												
+												                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+												                document.getElementById('postcode').value = data.zonecode;
+												                document.getElementById("roadAddress").value = roadAddr;
+												                document.getElementById("jibunAddress").value = data.jibunAddress;
+												                
+												                var guideTextBox = document.getElementById("guide");
+												                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+												                if(data.autoRoadAddress) {
+												                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+												                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+												                    guideTextBox.style.display = 'block';
+												
+												                } else if(data.autoJibunAddress) {
+												                    var expJibunAddr = data.autoJibunAddress;
+												                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+												                    guideTextBox.style.display = 'block';
+												                } else {
+												                    guideTextBox.innerHTML = '';
+												                    guideTextBox.style.display = 'none';
+												                }
+												            }
+												        }).open();
+												    }
+												</script>
+								    </div>
+							    </div>
+							  </div>
+							</div>
+							</c:otherwise>
+						</c:choose>
 					</article>
 		    </div>
 		  </div>
 	</div>
    <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   
+   
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	 
 	 <script>
 	 $(function(){
-		 	$('#empty_user_thumnail').click(function(){
-		 		alert("empty thumnail");
-		 		var user = ${sessionScope.user};
-		 		if(user == null){
-		 			alert("empty session");
-		 			return;
-		 		}
-		 		else{
-		 			alert("사진을 넣어주세요.");
-		 			
-		 		}
-		 	});
-		 	
+		 
+			$(document).ready(function(){ 
+			 	var fileTarget = $('.filebox .upload-hidden'); 
+			 	fileTarget.on('change', function(){ // 값이 변경되면 
+					if(window.FileReader){ // modern browser 
+						 var filename = $(this)[0].files[0].name; 
+					}
+					else { // old IE 
+						 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+					} // 추출한 파일명 삽입 
+					$(this).siblings('.upload-name').val(filename); 
+				}); 
+			});
+			
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});

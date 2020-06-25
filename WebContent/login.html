@@ -12,22 +12,6 @@
   <title>Login</title>
   
 <script>
-function checkit(){
-	var id = $("#id").val();
-	var password = $("#password").val();
-	if(id== ""){
-		alert("아이디를 입력해주세요.");
-		return false;
-	}
-	else if(password==""){
-		alert("비밀번호를 입력해 주세요.");
-		return false;
-	}else if(id!=${id} || password!=${password}){
-		alert("아이디와 비밀번호를 확인 후 다시 입력해 주세요.");
-		return false;
-	return true;}
-}
-
 $( function() {
     $( ".widget input[type=submit], .widget a, .widget button" ).button();
     $( "button, input, a" ).hover( function( event ) {
