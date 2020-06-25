@@ -192,6 +192,7 @@
 					  		<form action="post" id="customerImg">
 					  			<div class="fileBox">
 					  				<div class="input-group-append">
+					  				
 						  				<label for="customFile"> 
 							  				<svg class="bi bi-image" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 												  <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z"/>
@@ -199,7 +200,7 @@
 												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
 												</svg>
 						  				</label>
-						  				<input type="text" class="form-control" value="Choose file" name="imgName" disabled="disabled">
+						  				<input type="text" class="form-control upload-hidden" value="Choose file" name="imgName" disabled="disabled">
 										  <input type="file" id="customFile">
 									  </div>
 									</div>
@@ -422,7 +423,7 @@
 	 $(function(){
 		 
 			$(document).ready(function(){ 
-			 	var fileTarget = $('.filebox .upload-hidden'); 
+			 	var fileTarget = $('.fileBox .upload-hidden'); 
 			 	fileTarget.on('change', function(){ // 값이 변경되면 
 					if(window.FileReader){ // modern browser 
 						 var filename = $(this)[0].files[0].name; 
