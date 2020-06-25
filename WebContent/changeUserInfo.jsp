@@ -5,15 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
-  <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet"><!-- googlr font font-family: 'Iceberg', cursive;-->
+  <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet"><!-- googlr font -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <title>Register</title>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>Register</title>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><title>Login</title>
 
+<title>Update User Infomation</title>
 <script>
-//password 일치 체크하고
+window.onload=function(){
+	if("${sessionScope.vo}"==null)
+		alert("로그인 먼저 진행해주세요.")
+}
+
 function registerCheck(){
 	if($("#idCheck").text()=="이미 등록된 ID 입니다."){
 		alert("ID 중복 확인 해주세요.");
@@ -31,84 +33,95 @@ function registerCheck(){
 	
 }
 
-$(function(){
-	$("#id").keyup(function(){
-	$.ajax({
-		type:"post",
-		url:"IdCheckController.do?",
-		data:{"id":$("#id").val()},
-		success:function(data){
-			if($("#id").val()!=""){
-				if(data){
-					$("#idCheck").html("이미 등록된 ID 입니다.");
-				}else $("#idCheck").html("사용가능한 ID 입니다.");
-			}else $("#idCheck").html("ID를 입력해주세요.");
-		}//success
-		});//ajax
-	});//password2
-	
-	$("#initialize").click(function(){
-		if(confirm("초기화 하시겠습니까?")){
-			$("input[type=text]").val("");
-			$("input[type=password]").val("");
-		}
-	});
-});
-//ready});
+function updateCheck(){
+	if(alert("입력하신 정보로 회원 정보를 수정합니다.")) return true;
+	else return false;
+}
+function cancelCheck(){
+	if(alert("회원정보 수정을 취소합니다."))
+		locate.href="main.jsp"// 홈이나 이전 페이지로
+	else return false;
+}
 </script>
 <style type="text/css">
-	body{background:#E3F2FD;}
-	.container{width:60%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:20px;}
-	form{margin:0 auto;text-align:center;padding:3px;}
+	body{
+		background:#E3F2FD;
+		font-family: 'Iceberg', cursive;
+		}
+	.container{
+		width:60%;
+		height:40%;
+		margin:0 auto;
+		background:#fff;
+		align:center;
+		padding:2%;
+		margin-top:5%;
+		border:2px solid #fff;
+		border-radius:20px;
+		}
+	form{
+		margin:0 auto;
+		text-align:center;
+		padding:3px;
+		}
 	table{margin:0 auto;}
 	table td{text-align:left;}
-	table input{border: 1px solid #e6e6e6; border-radius:2px; width:230px;height:25px;}
+	table input{
+		border: 1px solid #e6e6e6; 
+		border-radius:2px; 
+		width:230px;
+		height:25px;
+		}
 	#buttons{text-align:center;margin:3%;}
-	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
-	#phone1,#phone2,#phone3{width:60px;}	
+	h1{
+		margin:0 auto;
+		padding:1%;
+		text-align:center;
+		font-size:40px;
+		}
+	#phone1,#phone2,#phone3{width:60px;}
 </style>
 </head>
-
 <body align="center">
 	<div class="container">
-	<h1>Register</h1><p>
-	<form action="RegisterSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">	
+	<h1>Update User Infomation</h1><p>
+	<form action="ChangeUserInfoController.do" id="registerFrm" method="post" onsubmit="return registerCheck();">	
 	<table>
 		<tr>
-			<td>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
+			<td>이름</td><td><input type ="text" name="name" id="name" readonly="readonly"></td>
 		</tr>
 		<tr>
-			<td>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3> 
-			- <input type ="text" id="phone2" name="phone2" required="required" maxlength=4> 
-			- <input type ="text" id="phone3" name="phone3" required="required" maxlength=4></td>
+			<td>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3 value=${vo.phone1}> 
+			- <input type ="text" id="phone2" name="phone2" required="required" maxlength=4 value=${vo.phone2}> 
+			- <input type ="text" id="phone3" name="phone3" required="required" maxlength=4 value=${vo.phone3}></td>
 		</tr>
 		<tr>
-			<td>ID</td><td><input type ="text" id="id" name="id" required="required"><span id="idCheck"></span><p></td>
+			<td>ID</td><td><input type ="text" name="id" id="id" readonly="readonly" value=${vo.id}><span id="idCheck"></span><p></td>
 		</tr>
 		<tr>
-			<td>PW</td><td><input type ="password" id="password1" name="password1" required="required"></td>
+			<td>PW</td><td><input type ="password" id="password1" name="password1" value="" required="required"></td>
 		</tr>
 		<tr>
-			<td>PW확인</td><td><input type ="password" id="password2" name="password2" required="required"><span id="pwCheck"></span></td>
+			<td>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
 		</tr>
 		<tr>
 			<td>주소</td>
 			<td>
-			<input type="text" name="postcode" id="postcode" placeholder="우편번호">
+			<input type="text" id="postcode" name="postcode" value=${vo.postcode}>
 			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소">
-			<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소">
-			<span id="guide" style="color:#999;display:none"></span>
+			<input type="text" id="roadAddress" name="roadAddress" value=${vo.address}>
+			<input type="text" id="jibunAddress" name="jibunAddress" value=${vo.jibunAddress}>
+
 			</td>			
 		</tr>
 	</table><p>
 	<div id="buttons">
-		<input type="submit" id="registerSubmit" name="registerSubmit" value="회원가입">&nbsp; &nbsp
-		<input type="button" id="initialize" name="initialize" value="초기화">
+		<input type="submit" id="updateBtn" value="수정 완료">&nbsp;&nbsp;
+		<input type="button" id="cancelBtn" value="수정 취소">
 	</div>
 	</form>
 </div>
-									<!-- 주소 찾기 API script -->
+										<!-- 주소 찾기 API script -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -159,6 +172,6 @@ $(function(){
 	            }
 	        }).open();
 	    }
-	</script>	
+	</script>
 </body>
 </html>

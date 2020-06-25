@@ -7,7 +7,18 @@ public class customerVO {
 	private String name;
 	private String address;
 	private String phone;
+	private cartVO cart;
 	
+	public customerVO(String id, String password,String img, String name, String address, String phone, cartVO cart) {
+		this.id = id;
+		this.password = password;
+		this.img = img;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.cart = cart;
+	}
+
 	public customerVO(String id, String password,String img, String name, String address, String phone) {
 		super();
 		this.id = id;

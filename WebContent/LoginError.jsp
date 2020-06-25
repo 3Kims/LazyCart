@@ -20,10 +20,9 @@
 </head>
 <body>
 	<div class="container">
-		<h2>${vo.name}님,</h2> 
-		<h3>회원으로 등록되셨습니다.</h3> 
-		<a href="main.jsp"><input type="button" name="homeBtn" value="홈으로"></a>&nbsp;&nbsp;
-		<a href="login.jsp"><input type="button" name="loginBtn" value="로그인"></a>
+		<h2>로그인에 실패하셨습니다.</h2> 
+		<h4>로그인 화면으로 돌아가 다시 시도해주세요.</h4> 
+		
 	</div>
 </body>
 </html>

@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -32,13 +33,16 @@
 	
 	
 	/* #loginBody{background:#E3F2FD;} */
-	
-	#loginContainer{width:90%;height:90%;margin:0 auto;background:#fff;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:20px; }
+	#loginContainer{
+	font-family: 'Balsamiq Sans', cursive;
+	width:90%;height:90%;
+	margin:0 auto;
+	background:#fff;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:15px;font-size:0.8em;}
 	
 	#loginFrmBox{margin:0 auto;text-align:center;}
 	#password,#id{border: 1px solid #E6E6E6; border-radius:2px; width:250px;height:30px;}
 	ul li{list-style-type:none;display:inline;}
-	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
+	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;color:#6c757d;}
 	#loginSubmit,#registerSubmit{
 	border:1.3px solid #03a9f4ad;
 	background:#fff;
@@ -48,7 +52,6 @@
 	height:30px;
 	width:90px;}
 
-
 	/* register box  */
 	
 	#registerBody{
@@ -56,17 +59,17 @@
 		background:#fff;
 	}
 	#registerContainer{
-		width:100%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #E3F2FD;border-radius:10px;
-	}
+		width:100%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #E3F2FD;border-radius:15px;font-size:0.8em;}
 	
 	#registerForm form{margin:0 auto;text-align:center;padding:3px;}
-	#registerForm #buttons div{}
+	#registerForm #buttons div{display:inline;}
 	#registerForm table{margin:0 auto;}
 	#registerForm table td{text-align:left;}
 	#registerForm table td span{color:orange;}
 	#registerForm table input, #registerForm #initialize{border: 1px solid #e6e6e6; border-radius:2px; width:200px;height:25px;}
 	#buttons{text-align:center;margin:3%;}
-	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
+
+	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;color:#6c757d;}
 	#phone1,#phone2,#phone3{width:60px;}	
 	
 	
@@ -232,8 +235,8 @@
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
-		      	<c:forEach items="${categoryList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${category}</span><span class="checkbox"></span></a>
+		      	<c:forEach items="${productList}" var="product">
+		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
 		      	</c:forEach>
 		      	
 		      </div>
@@ -256,18 +259,18 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer }" >
 								<div class="list-group">
-									<c:forEach var="i" begin="0" end="20">
+									<c:forEach var="i" begin="0" end="20" items="">
 										<a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
 								    <div class="d-flex w-100 justify-content-between">
 								      <h5 class="mb-1">List group item heading</h5>
-								      <small>3 days ago</small>
+								      <small></small>
 								    </div>
-								    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-								    <small>Donec id elit non mi porta.</small>
+								    <p class="mb-1"></p>
+								    <small></small>
 								  </a>
 									</c:forEach>
 								</div>
-							</c:when>
+							</c:when><!-- 장바구니 상품 가져오기 --> 
 							<c:otherwise>
 							
 							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -299,9 +302,8 @@
 												</div>
 											</div>
 										</div>
-							    </div>
-							    
-								  <div class="carousel-item" data-interval="false">
+							    </div>							 
+								  <div class="carousel-item">
 								  	<div id="registerBody">
 								   		<div class="container">
 								    		<div id="registerContainer">
@@ -346,7 +348,8 @@
 													</div>
 													</form>
 												</div>
-											</div>
+											</div><p><p><p><p><p><p><p><p>
+
 																					<!-- 주소 찾기 API script -->
 												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 												<script>
