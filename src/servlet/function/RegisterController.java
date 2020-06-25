@@ -1,19 +1,15 @@
 package servlet.function;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.sun.net.httpserver.HttpServer;
-
 import model.customerVO;
 import model.ezbasketDAOImpl;
 import servlet.controller.ModelAndView;
 
-public class registerController implements Controller {
+public class RegisterController implements Controller {
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {

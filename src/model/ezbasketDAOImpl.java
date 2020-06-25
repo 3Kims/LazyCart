@@ -299,7 +299,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(1, url);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"), rs.getString("options"));
+				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"));
 			}
 			System.out.println("getProductByUrl success...");
 		}finally {
@@ -321,7 +321,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setInt(1, productId);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"), rs.getString("options"));
+				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"));
 			}
 			System.out.println("getProductById success...");
 		}finally {

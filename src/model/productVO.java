@@ -8,9 +8,8 @@ public class productVO {
 	private String url;
 	private String category;
 	private String img;
-	private String option;
 	
-	public productVO(String name, int price, String shop, String url, String category, String img,String option) {
+	public productVO(String name, int price, String shop, String url, String category, String img) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -18,10 +17,9 @@ public class productVO {
 		this.url = url;
 		this.category = category;
 		this.img = img;
-		this.option = option;
 	}
 	
-	public productVO(int id,String name, int price, String shop, String url, String category, String img,String option) {
+	public productVO(int id,String name, int price, String shop, String url, String category, String img) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,8 +27,7 @@ public class productVO {
 		this.shop = shop;
 		this.url = url;
 		this.category = category;
-		this.img = img;
-		this.option = option;
+		this.img = img;	
 	}
 	
 
@@ -80,17 +77,11 @@ public class productVO {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	public String getOption() {
-		return option;
-	}
-	public void setOption(String option) {
-		this.option = option;
-	}
 	
 	@Override
 	public String toString() {
 		return "productVO [id=" + id + ", name=" + name + ", price=" + price + ", shop=" + shop + ", url=" + url
-				+ ", category=" + category + ", img=" + img + ", option=" + option + "]";
+				+ ", category=" + category + ", img=" + img + "]";
 	}
 	
 	

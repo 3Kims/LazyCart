@@ -21,7 +21,7 @@ public class HandlerMapping {
 			controller = new LoginController();
 			System.out.println("loginfrmController.....생성");
 		}else if(command.equals("registerSubmit.do")) {
-			controller = new registerController();
+			controller = new RegisterController();
 			System.out.println("registerController.....생성");
 		}else if(command.equals("addcart.do")) {
 			controller = new addcartController();
