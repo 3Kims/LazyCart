@@ -18,21 +18,18 @@
 
 <style type="text/css">
 
-	
 	.bi{
 		margin:0px;
 	}
-
 	.checkbox{
 		border:1px solid #777;border-radius:50%;float:right;height:14px;margin-left:24px;padding:2px;width:14px;
 	}
 	.checked{
 		border-color:#4285f4; background:#4285f4;
 	}
+	
 	/*login box  */
-	
-	
-	/* #loginBody{background:#E3F2FD;} */
+
 	#loginContainer{
 	font-family: 'Balsamiq Sans', cursive;
 	width:90%;height:90%;
@@ -59,7 +56,8 @@
 		background:#fff;
 	}
 	#registerContainer{
-		width:100%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #E3F2FD;border-radius:15px;font-size:0.8em;}
+		width:100%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #E3F2FD;border-radius:15px;font-size:0.8em;
+		}
 	
 	#registerForm form{margin:0 auto;text-align:center;padding:3px;}
 	#registerForm #buttons div{display:inline;}
@@ -257,27 +255,19 @@
 						<!-- 장바구니 리스트 영역 -->
 						
 						<c:choose>
-							<c:when test="${!empty sessionScope.customer }" >
+							<c:when test="${!empty sessionScope.customer}">
 								<div class="list-group">
 									<c:forEach var="i" begin="0" end="20" items="">
-										<a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
-								    <div class="d-flex w-100 justify-content-between">
-								      <h5 class="mb-1">List group item heading</h5>
-								      <small></small>
-								    </div>
-								    <p class="mb-1"></p>
-								    <small></small>
-								  </a>
+									
+									
 									</c:forEach>
 								</div>
-							</c:when><!-- 장바구니 상품 가져오기 --> 
+							</c:when>
 							<c:otherwise>
 							
 							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 							  <div class="carousel-inner">
-							  
 							    <div class="carousel-item active" data-interval="false">
-
 							    	<div id="loginBody">
 											<div class="container" >
 												<div id="loginContainer">
@@ -291,18 +281,18 @@
 																<input type="submit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;&nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 																<span class="sr-only">Next</span>
-																<p><p><p>
+																<p></p><p></p><p></p>
 																<ul style="-webkit-padding-start:0px;">
-																	<li>Find ID</li> &nbsp;&nbsp;
+																	<li>Find ID</li>
 																	<li>Find PW</li>
 																</ul>
-																
 															</form>
 														</div>
 												</div>
 											</div>
 										</div>
-							    </div>							 
+							    </div>			
+							    				 
 								  <div class="carousel-item">
 								  	<div id="registerBody">
 								   		<div class="container">
@@ -310,62 +300,53 @@
 													<h1>Register</h1><p>
 														<div id="registerForm">
 															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
-															<table>
-																<tr>
-																	<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
-																	- <input type ="text" id="phone2" required="required" maxlength=4> 
-																	- <input type ="text" id="phone3" required="required" maxlength=4></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
-																</tr>
-																<tr>
-																	<td>주소</td>
-																	<td>
-																	<input type="text" id="postcode" placeholder="우편번호">
-																	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																	<input type="text" id="roadAddress" placeholder="도로명주소">
-																	<input type="text" id="jibunAddress" placeholder="지번주소">
-																	</td>			
-																</tr>
-															</table>
-														</div><p>
-													<div id="buttons">
-														<div><a href="#carouselExampleControls" role="button" data-slide="prev" style></div>
-														<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a><p>
-														<span class="sr-only">Prev</span>
-														<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
-														<input type="button" id="initialize" value="초기화">
-													</div>
-													</form>
+																<table>
+																	<tr>
+																		<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
+																		- <input type ="text" id="phone2" required="required" maxlength=4> 
+																		- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																	</tr>
+																	<tr>
+																		<td>주소</td>
+																		<td>
+																		<input type="text" id="postcode" placeholder="우편번호">
+																		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																		<input type="text" id="roadAddress" placeholder="도로명주소">
+																		<input type="text" id="jibunAddress" placeholder="지번주소">
+																		</td>			
+																	</tr>
+																</table>
+																<div id="buttons">
+																	<div><a href="#carouselExampleControls" role="button" data-slide="prev">
+																	<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a></div><p>
+																	<span class="sr-only">Prev</span>
+																	<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" id="initialize" value="초기화">
+																</div>
+															</form>
+														</div>
 												</div>
-											</div><p><p><p><p><p><p><p><p>
 
 																					<!-- 주소 찾기 API script -->
 												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 												<script>
-												    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 												    function execDaumPostcode() {
 												        new daum.Postcode({
 												            oncomplete: function(data) {
-												                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-												
-												                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-												                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 												                var roadAddr = data.roadAddress; // 도로명 주소 변수
 												                var extraRoadAddr = ''; // 참고 항목 변수
-												
-												                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-												                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
 												                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
 												                    extraRoadAddr += data.bname;
 												                }
@@ -402,6 +383,7 @@
 												        }).open();
 												    }
 												</script>
+											</div>
 								    </div>
 							    </div>
 							  </div>
@@ -424,7 +406,6 @@
 	 
 	 <script>
 	 $(function(){
-		 
 			$(document).ready(function(){ 
 			 	var fileTarget = $('.fileBox .upload-hidden'); 
 			 	fileTarget.on('change', function(){ // 값이 변경되면 
@@ -447,8 +428,8 @@
 		 		var option = $(this).text();
 		 		$.ajax({
 		 			type: post,
-		 			url: 'category.do',
-		 			data: {'productList':${productList},'category':category, 'option':option},
+		 			url: "category.do",
+		 			data: {'productList':${"productList"},'category':category, 'option':option},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
@@ -457,7 +438,6 @@
 					}
 		 		});	//ajax
 		 	});
-		 	
 	 });	
 	 </script>
 </body>
