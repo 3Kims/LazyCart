@@ -12,58 +12,54 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import model.config.ServerInfo;
-import servlet.model.BookVO;
 
 
 
 public class ezbasketDAOImpl implements ezbasketDAO {
-	//private DataSource ds;
+
 	private DataSource ds;
-	
-	//싱글톤...
 	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
 	private ezbasketDAOImpl() {
 		try {
 			//Naming Service(JNDI API)...javax.naming.Context
 			InitialContext ic = new InitialContext();			
 			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
-			System.out.println("DataSource  Lookup 성공...");
+			System.out.println("DataSource  Lookup Success...");
 		}catch(NamingException e) {
-			System.out.println("DataSource  Lookup 실패...");
+			System.out.println("DataSource  Lookup Fail...");
 		}	
 	}	
 	public static ezbasketDAOImpl getInstance() {
 		return dao;
 	}
 
-//	@Override
-//	public Connection getConnection() throws SQLException {
-//		// TODO Auto-generated method stub
-//		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
-//		System.out.println("디비연결 성공....");
-//		return conn;
-//	}
+/*	@Override
+	public Connection getConnection() throws SQLException {
+		 TODO Auto-generated method stub
+		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
+		System.out.println("디비연결 성공....");
+		return conn;
+	}
 	
-//
-//  	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
-// 
-//  	private ezbasketDAOImpl() {
-//		try {
-//			InitialContext ic = new InitialContext();
-//			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
-//			System.out.println("DataSource  Lookup 성공...");
-//		}catch(NamingException e) {
-//			System.out.println("DataSource  Lookup 실패...");
-//		}
-//	}
-//	
-//	public static ezbasketDAOImpl getInstance() {
-//		return dao;
-//	}
+
+  	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
+ 
+  	private ezbasketDAOImpl() {
+		try {
+			InitialContext ic = new InitialContext();
+			ds = (DataSource)ic.lookup("java:comp/env/jdbc/mysql");
+			System.out.println("DataSource  Lookup 성공...");
+		}catch(NamingException e) {
+			System.out.println("DataSource  Lookup 실패...");
+		}
+	}
+	
+	public static ezbasketDAOImpl getInstance() {
+		return dao;
+	}*/
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		// TODO Auto-generated method stub
 		System.out.println("getConnection Success");
 		return ds.getConnection();
 	}
@@ -78,212 +74,445 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	public void closeAll(ResultSet rs, PreparedStatement ps, Connection conn) throws SQLException {
 		if(rs != null)	rs.close();
 		closeAll(ps, conn);	
-		
 	}
 
 	@Override
-	public void registerProduct(productVO vo) throws SQLException {
-		// TODO Auto-generated method stub
+	public int registerProduct(productVO product) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int newProductId = 0;
 		
 		try {
+			System.out.println("registerProduct start..");
 			conn=  getConnection();
 			String query = "INSERT INTO product (name, price, shop, url, category, img, options) VALUES(?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
-			System.out.println("PreparedStatement 생성됨...registerMember");
 			
+			ps.setString(1, product.getName());
+			ps.setInt(2, product.getPrice());
+			ps.setString(3, product.getShop());
+			ps.setString(4, product.getUrl());
+			ps.setString(5, product.getCategory());
+			ps.setString(6, product.getImg());
+			ps.setString(7, product.getOption());
 			
-			ps.setString(1, vo.getName());
-			ps.setInt(2, vo.getPrice());
-			ps.setString(3, vo.getShop());
-			ps.setString(4, vo.getUrl());
-			ps.setString(5, vo.getCategory());
-			ps.setString(6, "dskdjwk");
-			ps.setString(7, vo.getOption());
-			System.out.println(ps.executeUpdate()+" product INSERT OK!!");
+			System.out.println(ps.executeUpdate()+" registerProduct success..");
+			
+			String getproductIdQuery="select id from product where url=?";
+			ps = conn.prepareStatement(getproductIdQuery);
+			ps.setString(1,product.getUrl());
+			rs = ps.executeQuery();
+			rs.next();
+			newProductId = rs.getInt("id");
+			System.out.println("registerProduct success..");
+			return newProductId;
 		}finally {
-			closeAll(ps, conn);
+			closeAll(rs, ps, conn);
 		}
 		
 	}
 
 	@Override
-	public void registerCustomer(customerVO cvo) throws SQLException {
-		// TODO Auto-generated method stub
+	public void registerCustomer(customerVO customer) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		System.out.println("registerCustomer 진입======");
-		try {//public customerVO(String id, String password,  String img,String name, String address, String phone)
+
+		try {
+			System.out.println("registerCustomer start..");
 			conn=  getConnection();
-			String query ="INSERT INTO customer(id, password, img,name, address, phone) values(?,?,?,?,?,?)";
+			String query ="INSERT INTO customer(id, password, img, name, address, phone) values(?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
-			System.out.println("PreparedStatement 생성됨...registerMember");
+
+			ps.setString(1, customer.getId());
+			ps.setString(2, customer.getPassword());
+			ps.setString(3, customer.getImg());
+			ps.setString(4, customer.getName());
+			ps.setString(5, customer.getAddress());
+			ps.setString(6, customer.getPhone());
 			
-			ps.setString(1, cvo.getId());
-			ps.setString(2, cvo.getPassword());
-			ps.setString(2, cvo.getImg());
-			ps.setString(3, cvo.getName());
-			ps.setString(4, cvo.getAddress());
-			ps.setString(5, cvo.getPhone());
-			System.out.println(ps.executeUpdate()+" customer INSERT OK!!");
+			System.out.println(ps.executeUpdate()+" registerCustomer success..");
 		}finally {
 			closeAll(ps, conn);
 		}
 	}
-
+	
 	@Override
-	public ArrayList<productVO> searchALLProduct() throws SQLException {
-		// TODO Auto-generated method stub
+	public void addcart(productVO product, String customerId) throws SQLException {
 		Connection conn = null;
-		PreparedStatement ps = null;	
-		ResultSet rs = null;
-		ArrayList<productVO> product = new ArrayList<productVO>();
+		PreparedStatement ps = null;
+		System.out.println("addcart start..");
+		
+		int productId = getProductIdByUrl(product.getUrl());
+		if(productId == 0){ //product에 없으면 
+			productId = registerProduct(product);	//product테이블에 추가
+		}
+		else {							//product테이블에 있으면
+			int productQuantity = getQuantityById(customerId, productId);
+			if(productQuantity != 0) { //카트에 이미 사용자가 담은 상품이라면
+				changeQuantity(customerId, productId); //카트의 수량만 업데이트   기본 +1이네..
+				return;
+			}
+		}
+		//카트에 담는 로직
 		try {
 			conn = getConnection();
-			String query = "SELECT * FROM product";
-			ps=conn.prepareStatement(query);
-			rs=ps.executeQuery();
-			String[] getimg = rs.getString("img").split(" "); 
-			while(rs.next()) {
-				//id, name, price, shop, url, category, img, option
-				product.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
-							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-							getimg,rs.getString("option")));
-			}
+			String addProductInCartQuery = "insert into cart(customer_id, product_id, quantity, date) values(?, ?, ?, ?)";
+			ps = conn.prepareStatement(addProductInCartQuery);
+			ps.setString(1, customerId);
+			ps.setInt(2, productId);
+			ps.setInt(3, 1);
+			String date = java.time.LocalDate.now().toString();
+			ps.setString(4, date);
+			
+			ps.executeUpdate();
+			System.out.println("addcart success..");
 		}finally {
-			closeAll(rs,ps,conn);
+			closeAll(ps,  conn);
 		}
 		
-		return product;
 	}
-
+	
 	@Override
-	public productVO searchProduct(String url) throws SQLException {
-		Connection conn = null;
-		PreparedStatement ps = null;	
-		ResultSet rs = null;
-		productVO product = new productVO();
-		try {
-			conn = getConnection();
-			String query = "SELECT * FROM product where url=?";
-			ps=conn.prepareStatement(query);
-			ps.setString(1, url);
-			rs=ps.executeQuery();
-			String[] getimg = rs.getString("img").split(","); 
-			if(rs.next()) {
-				//id, name, price, shop, url, category, img, option
-				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
-							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-							getimg,rs.getString("option"));
-			}
-		}finally {
-			closeAll(rs,ps,conn);
-		}
-		
-		return product;
-	}
-
-
-	@Override
-	public void deleteProduct(String url) {
-		Connection conn = null;
-		PreparedStatement ps = null;	
-		productVO product = new productVO();
-		
-		
-	}
-
-	@Override
-	public void updateProduct(productVO pvo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<customerVO> searchALLcustomer() throws SQLException {
+	public ArrayList<customerVO> searchAllCustomers() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<customerVO> list = new ArrayList<>();
+		ArrayList<customerVO> customers = new ArrayList<>();
 		try {
+			System.out.println("searchAllCustomer start...");
+			
 			conn = getConnection();
 			String query = "SELECT * FROM customer";
 			ps = conn.prepareStatement(query);
-			System.out.println("PreparedStatement....showAllBook..");
-
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				list.add(new customerVO(rs.getString("id"),
+				customers.add(new customerVO(rs.getString("id"),
 										rs.getString("password"),
 										rs.getString("img"),
 										rs.getString("name"),
 										rs.getString("address"),
 										rs.getString("phone")));
 			}
+			System.out.println("searchAllCustomer success...");
 		}finally {
 			closeAll(rs, ps, conn);
 		}
-		return list;
-
+		return customers;
 	}
-
+	
 	@Override
 	public customerVO searchCustomer(String id) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		customerVO vo = null;
+		customerVO customer = null;
 		
 		try {
+			System.out.println("searchCustomer start...");
 			conn = getConnection();
 			String query = "SELECT * FROM customer WHERE id=?";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
-			if(rs.next()) vo = new customerVO(rs.getString("id"),rs.getString("password"),
-												rs.getString("img"),
-												rs.getString("name"),
-												rs.getString("address"),
-												rs.getString("phone"));
-			System.out.println("customerVO vo:"+vo);
+			if(rs.next()){
+				customer = new customerVO(rs.getString("id"),
+						rs.getString("password"),
+						rs.getString("img"),
+						rs.getString("name"),
+						rs.getString("address"),
+						rs.getString("phone"));
+			//System.out.println("customerVO vo:"+vo);
+			System.out.println("searchCustomer success...");
+			}
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}finally {
 			closeAll(rs, ps, conn);
 		}
-		return vo;
+		return customer;
+	}
+	
+	@Override
+	public ArrayList<productVO> searchAllProducts() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
+		
+		ArrayList<productVO> products = new ArrayList<productVO>();
+		try {
+			System.out.println("searchAllProducts start...");
+			conn = getConnection();
+			String query = "SELECT * FROM product";
+			ps=conn.prepareStatement(query);
+			rs=ps.executeQuery();
 
+			while(rs.next()) {
+				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
+							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
+							rs.getString("img"),rs.getString("options")));
+			}
+			System.out.println("searchAllProducts success...");
+		}finally {
+			closeAll(rs,ps,conn);
+		}
+		return products;
+	}
+
+	public ArrayList<productVO> getUsersProducts(String customerId) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
+		
+		ArrayList<productVO> products = new ArrayList<productVO>();
+		try {
+			System.out.println("getUsersProducts start...");
+			conn = getConnection();
+			String query = "select p.id, p.name, p.price, p.shop, p.url, p.category, p.img, p.options from cart c, product p where customer_id='?' and c.product_id=p.id;";
+			ps=conn.prepareStatement(query);
+			ps.setString(1, customerId);
+			rs=ps.executeQuery();
+
+			while(rs.next()) {
+				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
+							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
+							rs.getString("img"),rs.getString("options")));
+			}
+			System.out.println("getUsersProducts success...");
+		}finally {
+			closeAll(rs,ps,conn);
+		}
+		return products;
+	}
+	
+	@Override
+	public productVO getProductByUrl(String url) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
+		productVO product = new productVO();
+		try {
+			System.out.println("getProductByUrl start...");
+			conn = getConnection();
+			String query = "SELECT * FROM product where url=?";
+			ps=conn.prepareStatement(query);
+			ps.setString(1, url);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"), rs.getString("options"));
+			}
+			System.out.println("getProductByUrl success...");
+		}finally {
+			closeAll(rs,ps,conn);
+		}
+		return product;
+	}
+
+	public productVO getProductById(int productId) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
+		productVO product = new productVO();
+		try {
+			System.out.println("getProductById start...");
+			conn = getConnection();
+			String query = "SELECT * FROM product where id=?";
+			ps=conn.prepareStatement(query);
+			ps.setInt(1, productId);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"), rs.getString("options"));
+			}
+			System.out.println("getProductById success...");
+		}finally {
+			closeAll(rs,ps,conn);
+		}
+		return product;
+	}
+	
+	@Override
+	public int getQuantityById(String customerId, int productId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
+		
+		try {
+			System.out.println("getQuantityById start...");
+			conn = getConnection();
+			String query = "select quantity from cart where customer_id=? and product_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, customerId);
+			ps.setInt(2, productId);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println("getQuantityById success...");
+				return rs.getInt("quantity");
+			}else {
+				System.out.println("no prouduct in cart...");
+				return 0;
+			}
+			
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+	}
+	
+	@Override
+	public int getProductIdByUrl(String url) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;	
+		ResultSet rs = null;
+		
+		try {
+			System.out.println("getProductIdByUrl start...");
+			conn = getConnection();
+			String query = "select id from product where url=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, url);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println("getProductIdByUrl success...");
+				return rs.getInt("id");
+			}else {
+				System.out.println("there is no product...");
+				return 0;
+			}
+		}finally {
+			closeAll(rs, ps, conn);
+		}
+	}
+	
+	@Override
+	public void changeQuantity(String customerId, int productId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			System.out.println("changeQuantity start..");
+			conn = getConnection();
+			String query = "update cart set quantity = quantity+1 where customer_id=? and product_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, customerId);
+			ps.setInt(2, productId);
+			ps.executeUpdate();
+			System.out.println("changeQuantity success..");
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	@Override
+	public void changeUserInfo(customerVO customer) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			System.out.println("changeUserInfo start..");
+			conn = getConnection();
+			String query = "update customer set password=?, name=?, address=?, phone=? where id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, customer.getPassword());
+			ps.setString(2, customer.getName());
+			ps.setString(3, customer.getAddress());
+			ps.setString(4, customer.getPhone());
+			ps.setString(5, customer.getId());
+			
+			ps.executeUpdate();
+			System.out.println("changeUserInfo success..");
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	@Override
+	public void changeUsersImg(String customerId, String imgSrc) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			System.out.println("changeUsersImg start..");
+			conn = getConnection();
+			String query = "update customer set img=? where id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, imgSrc);
+			ps.setString(2, customerId);
+			
+			ps.executeUpdate();
+			System.out.println("changeUsersImg success..");
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	@Override
+	public void deleteUsersAllProduct(String customerId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			System.out.println("deleteUsersAllProduct start..");
+			conn = getConnection();
+			String query = "delete from cart where customer_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, customerId);
+			
+			ps.executeUpdate();
+			System.out.println("deleteUsersAllProduct success..");
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	
+	@Override
+	public void deleteCustomer(String customerId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			System.out.println("deleteCustomer start..");
+			conn = getConnection();
+			String query = "delete from customer where id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, customerId);
+			
+			ps.executeUpdate();
+			System.out.println("deleteCustomer success..");
+		}finally {
+			closeAll(ps, conn);
+		}
 	}
 
 	@Override
-	public void deleteCustomer(int id) {
-		// TODO Auto-generated method stub
+	public void deleteCustomerImg(String customerId) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
 		
+		try {
+			System.out.println("deleteCustomerImg start..");
+			conn = getConnection();
+			String query = "update customer set img=? where id=?";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, "");
+			ps.setString(2, customerId);
+			
+			ps.executeUpdate();
+			System.out.println("deleteCustomerImg success..");
+		}finally {
+			closeAll(ps, conn);
+		}
 	}
-
-	@Override
-	public void updateProduct(customerVO cvo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addcart(productVO product) throws SQLException {
-		
-	}
-
-//	
-//	public static void main(String[] args) throws ClassNotFoundException {
-//		ezbasketDAOImpl dao= new ezbasketDAOImpl("URL");
-//		String[] imglist = {"first","second", "third", "tutorial"};
-//		productVO vo = new productVO(1, "lee", 100, "homeplus", "www.dert.com", "category", imglist, "options");
-//		try {
-//			dao.registerProduct(vo);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	/*public static void main(String[] args) throws ClassNotFoundException {
+		ezbasketDAOImpl dao= new ezbasketDAOImpl("URL");
+		String[] imglist = {"first","second", "third", "tutorial"};
+		productVO vo = new productVO(1, "lee", 100, "homeplus", "www.dert.com", "category", imglist, "options");
+		try {
+			dao.registerProduct(vo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}*/
 }
 

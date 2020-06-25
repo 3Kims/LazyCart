@@ -11,31 +11,35 @@ import model.productVO;
 public class CoupangParser implements Parser {
 	public productVO handle(String url) {
 
-		ArrayList<String> images = new ArrayList<String>();
-		ArrayList<String> options = new ArrayList<String>();
 		productVO product = null;
 		Document doc;
 		try {
 			doc = Jsoup.connect(url).get();
-			String shop = "coupang";
-			String category = "";
 			// 이름
 			String name = doc.selectFirst(".prod-buy-header__title").text();
+			System.out.println("name: "+name);
 			// 가격
 			int price = Integer.parseInt(doc.selectFirst(".total-price").text().replaceAll("[^0-9]", ""));
-			System.out.println(price);
+			System.out.println("price: "+price);
+			String shop = "coupang";
+			System.out.println("shop: "+shop);
 			// 카테고리
+			String category = "";
+			System.out.println("category: "+category);
 			// 이미지
-			Elements Images = doc.select(".prod-image__item > img");
-			for (Element image : Images) {
-				images.add(image.toString());
-			}
+			String images= doc.select(".prod-image__item > img").get(0).toString();
+			System.out.println("images: "+images);
 			// 옵션
-			Elements sizes = doc.getElementsByClass("Dropdown-Select__Dropdown__Item");
-			for (Element size : sizes) {
-				options.add(size.toString());
-			}
+			String options = doc.getElementsByClass("Dropdown-Select__Dropdown__Item").get(0).toString();
+			System.out.println("options: "+options);
 			product = new productVO(name, price, shop, url, category, images, options);
+			if(product==null) {
+				System.out.println("coupang product is null");
+				return null;
+			}else {
+				System.out.println(product.toString());
+			}
+			
 			return product;
 		} catch (IOException e) {
 			e.printStackTrace();

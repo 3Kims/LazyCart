@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <!DOCTYPE html>
 <html>
@@ -64,6 +64,7 @@
 					<!-- <a href="userInfo.jsp"> -->
 					  <c:choose>
 						  <c:when test="${empty sessionScope.user.img}">
+						  	<span class="badge badge-warning">Off</span>
 						  	<div id="empty_user_thumnail">
 							  	<svg class="bi bi-person-bounding-box user_icon" width="50px" height="50px" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
 										<path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
@@ -72,6 +73,7 @@
 								</div>
 						  </c:when>
 							<c:otherwise>
+								<span class="badge badge-success">On</span>
 								<div id="user_thumnail">
 						  		<div class="user_icon"><img src= ${sessionScope.user.img} alt="user_icon"></div>
 								</div>
@@ -84,7 +86,7 @@
 			  <div class="collapse navbar-collapse" id="add_basket">
 			    <div class="navbar-nav">
 			      <div id="search_box" nav-item nav-link active>
-				  		<form action="search_product.do" method="post">
+				  		<form action="addcart.do" method="post">
 								<div class="input-group">
 							    <input type="text" class="form-control" placeholder="Please enter product's url...." name="url">
 							    <div class="input-group-append">
@@ -186,7 +188,21 @@
 					<hr>
 					<article>
 						<!-- 장바구니 리스트 영역 -->
-						-<br>
+						
+						<div class="list-group">
+						
+							<c:forEach var="i" begin="0" end="20">
+								<a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+						    <div class="d-flex w-100 justify-content-between">
+						      <h5 class="mb-1">List group item heading</h5>
+						      <small>3 days ago</small>
+						    </div>
+						    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+						    <small>Donec id elit non mi porta.</small>
+						  </a>
+							</c:forEach>
+						</div>
+
 						-<br>
 						-<br>
 						-<br>

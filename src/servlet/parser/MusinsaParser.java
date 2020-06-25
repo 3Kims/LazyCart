@@ -23,55 +23,46 @@ public class MusinsaParser implements Parser {
 	public productVO handle(String URL) {
 		productVO product = null;
 		try {
+			System.out.println("start musinsa parser..");
 			String shop ="Musinsa";
 			//url
-			System.out.println("url-------------------------");
 			String url = URL;
 			Document document = null;
 			document = Jsoup.connect(url).get();
+			
 			//이름
-			System.out.println("name-------------------------");
 			Element nameParentNode = document.select("span[class=product_title]").get(0);
-			Element nameChild = nameParentNode.child(0);
+			//Element nameChild = nameParentNode.child(0);
 			String name = nameParentNode.text();
-			System.out.println(name);
-//			String name = nameChild.text();
-
+			name="testName";
+			System.out.println("name: "+name);
+			
 			//가격
-			System.out.println("price-------------------------");
 			String priceTag = document.select("span[id=goods_price]").text();
 			int price = Integer.parseInt(priceTag.replaceAll(",", ""));
-			System.out.println(price);
+			System.out.println("price: "+price);
 
 			//카테고리
-			System.out.println("category-------------------------");
 			String category = document.select("p[class=item_categories]").text();
-			System.out.println(category);
+			System.out.println("category: "+category);
 			
 			//이미지
-			System.out.println("image-------------------------");
-			ArrayList<String> imglist = new ArrayList<String>();
+			String imagelist = "";
 			Elements imageParentNode = document.select("ul[class=product_thumb]");
 			for (Element imageChild : imageParentNode) {
-				imglist.add(imageChild.select("img").toString());
+				imagelist = imageChild.select("img").toString();
 			}
-			System.out.println(imglist);
+			imagelist = "testImageList";
+			System.out.println("imageList: "+imagelist);
+			
 			//옵션
-//			System.out.println("option-------------------------");
-//			Elements optionElementlist = document.select("div[class=opt]");
-//			for (Element optionElement : optionElementlist) {
-//				System.out.println(optionElement.text());
-//			}
-			System.out.println("option-------------------------");
-			ArrayList<String> optionlist = new ArrayList<String>();
 			Element selectTag = document.getElementsByClass("option1").get(0);
-			Elements options = selectTag.children();
-			for (Element optionChild : options) {
-				optionlist.add(optionChild.text());
-			}
-			System.out.println(optionlist);
+			String options = selectTag.children().get(0).toString();
+			System.out.println("options: "+options);
 	//	
-			product = new productVO(name, price, shop, url, category, imglist, optionlist);
+
+			
+			product = new productVO(name, price, shop, url, category, imagelist, options);
 			System.out.println("product-------------------------");
 			System.out.println(product);
 
