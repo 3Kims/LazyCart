@@ -219,14 +219,7 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-		      <!-- 분류 조건 배열 생성 -->
-		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:forEach items ="${productList}" var="product">
-		      		      	<%-- {categoryList}.add({product.category});
-		      	{shopList}.add({product.shop}); --%>
-				
-		      </c:forEach>
+
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
 		      	<p>가격</p>
@@ -238,8 +231,8 @@
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
-		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
+		      	<c:forEach items="${categoryList}" var="product">
+		      		<a href="categoryClick" id="cl"><span>${category}</span><span class="checkbox"></span></a>
 		      	</c:forEach>
 		      	
 		      </div>
