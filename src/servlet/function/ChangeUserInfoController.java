@@ -1,26 +1,24 @@
 package servlet.function;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.sun.net.httpserver.HttpServer;
 
 import model.customerVO;
 import model.ezbasketDAOImpl;
 import servlet.controller.ModelAndView;
 
-public class RegisterController implements Controller {
+public class ChangeUserInfoController implements Controller{
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		// TODO Auto-generated method stub
-		String path = "registerSuccess.jsp";
+		String path = "main.jsp";
 		
-		System.out.println("1. 폼값을 받아옵니다..");//추후 삭제
+		System.out.println("1. 폼값을 받아옵니다..");
+		
 		String id = request.getParameter("id");
 		String password= request.getParameter("password1");
 		String name = request.getParameter("name");
@@ -30,9 +28,11 @@ public class RegisterController implements Controller {
 
 		//2.VO 객체 생성
 		System.out.println("2. customerVO 생성..");
-		customerVO customer= new customerVO(id,password,name,address,phone);
-		ezbasketDAOImpl.getInstance().registerCustomer(customer);
-		if(customer!=null) request.setAttribute("customer",customer);		
+		customerVO vo = new customerVO(id,password,name,address,phone);
+		ezbasketDAOImpl.getInstance().registerCustomer(vo);
+		HttpSession session=request.getSession();
+		if(vo!=null) session.setAttribute("vo",vo);		
 		return new ModelAndView(path);
 	}
+
 }

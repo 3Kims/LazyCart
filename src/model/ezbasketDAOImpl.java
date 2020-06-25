@@ -330,6 +330,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		return product;
 	}
 	
+	
 	@Override
 	public int getQuantityById(String customerId, int productId) throws SQLException {
 		Connection conn = null;
@@ -357,6 +358,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			closeAll(rs, ps, conn);
 		}
 	}
+	
 	
 	@Override
 	public int getProductIdByUrl(String url) throws SQLException {
@@ -503,6 +505,39 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			closeAll(ps, conn);
 		}
 	}
+
+	@Override
+	public customerVO login(String id,String password) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		customerVO customer=null;
+		try {
+			conn=  getConnection();
+			String query ="SELECT customer.id,customer.password,customer.img,customer.name, customer.address,customer.phone, cart.product_id,cart.quantity,cart.date FROM (select * from customer where id=? and password=?)AS customer JOIN cart AS cart ON customer.id = cart.customer_id";
+			ps = conn.prepareStatement(query);
+			ps.setString(1,id);
+			ps.setString(2,password);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				customer=new customerVO(rs.getString("id"),
+						rs.getString("password"),
+						rs.getString("img"),
+						rs.getString("name"),
+						rs.getString("address"),
+						rs.getString("phone"),
+						new cartVO(rs.getInt("product_id"),rs.getInt("quantity"),rs.getDate("date")));
+			}
+		}finally {
+			closeAll(ps, conn);
+		}
+		return customer;
+	
+	}
+
+
+	
+	
 	/*public static void main(String[] args) throws ClassNotFoundException {
 		ezbasketDAOImpl dao= new ezbasketDAOImpl("URL");
 		String[] imglist = {"first","second", "third", "tutorial"};
