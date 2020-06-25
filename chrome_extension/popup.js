@@ -1,8 +1,5 @@
-
-	document.getElementById("login").addEventListener("click",goLogin);
-	document.getElementById("bucket").addEventListener("click",goBucket);
-	document.getElementById("addcart").addEventListener("click",addCart);
-
+document.getElementById("login").addEventListener("click", goLogin);
+document.getElementById("bucket").addEventListener("click", goBucket);
 
 function goLogin() {
 	location.href = "login.html";
@@ -11,17 +8,28 @@ function goBucket() {
 	location.href = "bucket.html";
 }
 
-function addCart() {
-	var currentURL;
+function getCurrentTabUrl(callback) {
 
-	chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}, 
-	function(tabs){
-		addCurrentURL(tabs[0].url);
+	chrome.tabs.query({
+		'active' : true,
+		'windowId' : chrome.windows.WINDOW_ID_CURRENT
+	}, function(tabs) {
+		var url = tabs[0].url;
+		callback(url);
 	});
-
-	function addCurrentURL(tab){
-		currentURL = tab;
-		
-	}
-	alert(currentURL);
 }
+
+function renderURL(statusText){
+	
+	location.href="test.html?url="+statusText;
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+	var addCart=document.getElementById("addcart");
+	
+	addCart.addEventListener('click',function(){
+		getCurrentTabUrl(function(url){
+			renderURL(url);
+		});
+	});
+});
