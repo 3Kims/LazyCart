@@ -15,7 +15,9 @@ public class LoginController implements Controller {
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
+		
 		String path="main.jsp";
+		
 		// 2. dao 리턴 받고 biz로직 호출
 		customerVO customer=ezbasketDAOImpl.getInstance().login(id, password);
 		System.out.println("로그인 서블릿 vo:"+customer);

@@ -30,6 +30,22 @@ public class HandlerMapping {
 			controller = new categoryController();
 			System.out.println("categoryController.....생성");
 		}
+		else if(command.equals("IdCheckController.do")) {
+			controller = new IdCheckController();
+			System.out.println("IdCheckController.....생성");
+		}
+		else if(command.equals("LoginController.do")) {
+			controller = new LoginController();
+			System.out.println("LoginController.....생성");
+		}
+		else if(command.equals("ChangeUserInfoController.do")) {
+			controller = new ChangeUserInfoController();
+			System.out.println("ChangeUserInfoController.....생성");
+		}
+		else if(command.equals("ChangeUserInfoController.do")) {
+			controller = new ChangeUserInfoController();
+			System.out.println("ChangeUserInfoController.....생성");
+		}
 		return controller;
 	}
 	
