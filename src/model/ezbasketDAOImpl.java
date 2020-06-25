@@ -250,7 +250,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			while(rs.next()) {
 				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
 							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-							rs.getString("img"),rs.getString("options")));
+							rs.getString("img")));
 			}
 			System.out.println("searchAllProducts success...");
 		}finally {
@@ -276,7 +276,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			while(rs.next()) {
 				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
 							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
-							rs.getString("img"),rs.getString("options")));
+							rs.getString("img")));
 			}
 			System.out.println("getUsersProducts success...");
 		}finally {

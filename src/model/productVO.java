@@ -8,6 +8,18 @@ public class productVO {
 	private String url;
 	private String category;
 	private String img;
+	private String option;
+	
+	public productVO(String name, int price, String shop, String url, String category, String img, String option) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.shop = shop;
+		this.url = url;
+		this.category = category;
+		this.img = img;
+		this.setOption(option);
+	}
 	
 	public productVO(String name, int price, String shop, String url, String category, String img) {
 		super();
@@ -82,6 +94,14 @@ public class productVO {
 	public String toString() {
 		return "productVO [id=" + id + ", name=" + name + ", price=" + price + ", shop=" + shop + ", url=" + url
 				+ ", category=" + category + ", img=" + img + "]";
+	}
+
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
 	}
 	
 	
