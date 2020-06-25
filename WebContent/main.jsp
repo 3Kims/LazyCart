@@ -166,8 +166,8 @@
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
-		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
+		      	<c:forEach items="${categoryList}" var="product">
+		      		<a href="categoryClick" id="cl"><span>${category}</span><span class="checkbox"></span></a>
 		      	</c:forEach>
 		      	
 		      </div>
