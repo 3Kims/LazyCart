@@ -6,8 +6,7 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function(){
 	var url = getParameterByName("url");
+	console.log(url);
 	var iframe = document.getElementById("addCartResult");
-	iframe.src=("main.jsp?url"+url);
-}
+	iframe.src=("http://localhost:8888/EZbasket/addcart.do?url="+url);

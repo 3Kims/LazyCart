@@ -5,101 +5,57 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Iceberg&display=swap" rel="stylesheet"><!-- googlr font -->
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><title>Login</title>
+  <script src="https://code.jquery.scom/ui/1.12.1/jquery-ui.js"></script><title>Login</title>
 
 <title>Update User Infomation</title>
 <script>
 window.onload=function(){
-	if("${sessionScope.vo}"==null)
+	if(${vo}==null)
 		alert("로그인 먼저 진행해주세요.")
 }
-
-function registerCheck(){
-	if($("#idCheck").text()=="이미 등록된 ID 입니다."){
-		alert("ID 중복 확인 해주세요.");
-		return false;	
-	}else if($("#idCheck").text()=="사용가능한 ID 입니다."){
-		if($("#password1").val()==$("#password2").val()){
-			return confirm("입력하신 정보로 회원등록합니다.");
-		}else {
-			alert("비밀번호를 다시 확인해 주세요");
-			$("#password1").val("");
-			$("#password2").val("");
-			return false;
-		}
-	}
-	
-}
-
 function updateCheck(){
 	if(alert("입력하신 정보로 회원 정보를 수정합니다.")) return true;
 	else return false;
 }
 function cancelCheck(){
 	if(alert("회원정보 수정을 취소합니다."))
-		locate.href="main.jsp"// 홈이나 이전 페이지로
+		locate.href="home.jsp"// 홈이나 이전 페이지로
 	else return false;
 }
 </script>
 <style type="text/css">
-	body{
-		background:#E3F2FD;
-		font-family: 'Iceberg', cursive;
-		}
-	.container{
-		width:60%;
-		height:40%;
-		margin:0 auto;
-		background:#fff;
-		align:center;
-		padding:2%;
-		margin-top:5%;
-		border:2px solid #fff;
-		border-radius:20px;
-		}
-	form{
-		margin:0 auto;
-		text-align:center;
-		padding:3px;
-		}
+	body{background:#E3F2FD;font-family: 'Iceberg', cursive;}
+	.container{width:60%;height:40%;margin:0 auto;background:#fff;align:center;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:20px;}
+	form{margin:0 auto;text-align:center;padding:3px;}
 	table{margin:0 auto;}
 	table td{text-align:left;}
-	table input{
-		border: 1px solid #e6e6e6; 
-		border-radius:2px; 
-		width:230px;
-		height:25px;
-		}
+	table input{border: 1px solid #e6e6e6; border-radius:2px; width:230px;height:25px;}
 	#buttons{text-align:center;margin:3%;}
-	h1{
-		margin:0 auto;
-		padding:1%;
-		text-align:center;
-		font-size:40px;
-		}
-	#phone1,#phone2,#phone3{width:60px;}
+	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;}
+	#phone1,#phone2,#phone3{width:60px;}	
 </style>
 </head>
 <body align="center">
 	<div class="container">
 	<h1>Update User Infomation</h1><p>
-	<form action="ChangeUserInfoController.do" id="registerFrm" method="post" onsubmit="return registerCheck();">	
+	<form action="registerSuccess.jsp" id="registerFrm" method="post" onsubmit="return registerCheck();">	
 	<table>
 		<tr>
-			<td>이름</td><td><input type ="text" name="name" id="name" readonly="readonly"></td>
+			<td>이름</td><td><input type ="text" id="name" readonly="readonly"></td>
 		</tr>
 		<tr>
-			<td>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3 value=${vo.phone1}> 
-			- <input type ="text" id="phone2" name="phone2" required="required" maxlength=4 value=${vo.phone2}> 
-			- <input type ="text" id="phone3" name="phone3" required="required" maxlength=4 value=${vo.phone3}></td>
+			<td>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3 value="${phone1}" > 
+			- <input type ="text" id="phone2" required="required" maxlength=4 value="${phone2}"> 
+			- <input type ="text" id="phone3" required="required" maxlength=4 value="${phone3}"></td>
 		</tr>
 		<tr>
-			<td>ID</td><td><input type ="text" name="id" id="id" readonly="readonly" value=${vo.id}><span id="idCheck"></span><p></td>
+			<td>ID</td><td><input type ="text" id="id" readonly="readonly" value="${id}"><span id="idCheck"></span><p></td>
 		</tr>
 		<tr>
-			<td>PW</td><td><input type ="password" id="password1" name="password1" value="" required="required"></td>
+			<td>PW</td><td><input type ="password" id="password1" required="required"></td>
 		</tr>
 		<tr>
 			<td>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
@@ -107,11 +63,11 @@ function cancelCheck(){
 		<tr>
 			<td>주소</td>
 			<td>
-			<input type="text" id="postcode" name="postcode" value=${vo.postcode}>
+			<input type="text" id="postcode" value="${postcode}">
 			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="roadAddress" name="roadAddress" value=${vo.address}>
-			<input type="text" id="jibunAddress" name="jibunAddress" value=${vo.jibunAddress}>
-
+			<input type="text" id="roadAddress" value="${roadAddress}">
+			<input type="text" id="jibunAddress" value="${jibunAddress}">
+			<span id="guide" style="color:#999;display:none"></span>
 			</td>			
 		</tr>
 	</table><p>

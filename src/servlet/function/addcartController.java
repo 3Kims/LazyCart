@@ -15,7 +15,7 @@ public class addcartController implements Controller {
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) {
 		
-		String path = "main.jps";
+		String path = "main.jsp";
 		String url = request.getParameter("url");
 		
 		String id = "";
