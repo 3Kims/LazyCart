@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
@@ -267,12 +265,21 @@
 								<div class="list-group">
 									<table>
 									<c:forEach items="${productList}" var="product">
-										<tr>
-											<td>${product.img}</td>
-											<td>${product.name}</td>
-											<td>${product.price}</td>
-											<td>${product.category}</td>
-										</tr>
+										<c:choose>
+											<c:when test="${empty product.img}">
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${product.img}</td>
+													<td>${product.name}</td>
+													<td>${product.price}</td>
+													<td>${product.category}</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+										<c:if test="">
+										</c:if>
+										
 									</c:forEach>
 									</table>
 								</div>
@@ -291,7 +298,7 @@
 																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
 																PW &nbsp;&nbsp;<input type ="password" name="password" id="password" required="required" ><p><br>
 																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
-																<a href="register.html"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
+																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 																<p><p><p>
 																<ul style="-webkit-padding-start:0px;">
 																	<li>Find ID</li> &nbsp; &nbsp;
@@ -313,29 +320,29 @@
 															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
 																<table>
 																	<tr>
-																		<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
-																		- <input type ="text" id="phone2" required="required" maxlength=4> 
-																		- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3>
+																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4>
+																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																		<td><span>*</span>ID</td><td><input type ="text" id="id" name="id" required="required"><span id="idCheck"></span><p></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																		<td><span>*</span>PW</td><td><input type ="password" id="password1" name="password1" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" name="password2" required="required"><span id="passwordCheck"></span></td>
 																	</tr>
 																	<tr>
 																		<td>주소</td>
 																		<td>
-																		<input type="text" id="postcode" placeholder="우편번호">
+																		<input type="text" id="postcode" name="postcode" placeholder="우편번호">
 																		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																		<input type="text" id="roadAddress" placeholder="도로명주소">
-																		<input type="text" id="jibunAddress" placeholder="지번주소">
+																		<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																		<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
 																</table>
@@ -433,6 +440,8 @@
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
+
+			 $("button#registerSubmit").click(()=>$(".carousel").carousel("next"));
 		 	
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
