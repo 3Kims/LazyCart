@@ -85,6 +85,14 @@
 		height: 1.9em;
 		width: 10%;
 	}
+	
+	/* list box*/
+	#productList table tr td{
+		border: 1px, solid, black;
+	}
+	#productList table tr td img{
+		width: 100%;
+	}
 </style>
 
 </head>
@@ -242,14 +250,31 @@
 		      <div class = "category product">
 		      	<p>카테고리</p>
 		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      		<script>
+		      		$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+				 		var category = $(this).attr("id");	//정렬 기준
+				 		
+				 		$.ajax({
+				 			type: post,
+				 			url: "category.do",
+				 			data: {'productList':${"productList"},'category':category},
+				 			error:function(xhr,status,message){
+								alert("error : "+message );
+							},
+							success:function(data){
+								$('#gridtype').html(data);	// 장바구니에 데이터를 출력
+							}
+				 		});	//ajax
+				 	});
+		      		</script>
 		      	</c:forEach>
 		      	
 		      </div>
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<a class="categoryClick"><span>11번가</span><span class="checkbox checked"></span></a>
 		      </div>
 		      
 		      </section>
@@ -264,7 +289,7 @@
 						
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-								<div class="list-group">
+								<div class="list-group" id="productList">
 									<table>
 									<c:forEach items="${productList}" var="product">
 										<tr>
@@ -291,7 +316,7 @@
 																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
 																PW &nbsp;&nbsp;<input type ="password" name="password" id="password" required="required" ><p><br>
 																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
-																<a href="register.html"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
+																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 																<p><p><p>
 																<ul style="-webkit-padding-start:0px;">
 																	<li>Find ID</li> &nbsp; &nbsp;

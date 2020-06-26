@@ -16,10 +16,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-import com.sun.org.apache.xerces.internal.parsers.CachingParserPool.ShadowedGrammarPool;
-
 import model.productVO;
-import sun.java2d.pipe.SpanClipRenderer;
 
 public class AuctionParser implements Parser {
 
