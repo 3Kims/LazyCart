@@ -78,19 +78,18 @@
 	
 	
 	/* file box  */
-	.fileBox input[type="file"]{
-		position:absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip:rect(0,0,0,0);
-		border: 0;
+	.filebox input[type="file"] { 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
 	}
-	.form-control{
-		height: 1.9em;
-		width: 10%;
+	.upload-name{
+		width: 100px;
 	}
 	.user_icon{
 		object-fiti:contain;
@@ -203,20 +202,15 @@
 			      <div id="search_box" nav-item nav-link active>
 				  		<!-- 여기부터 시작해야함. -->
 					  		<form action="post" id="customerImg">
-					  			<div class="fileBox">
-					  				<div class="input-group-append">
-					  				
-						  				<label for="customFile"> 
-							  				<svg class="bi bi-image" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z"/>
-												  <path d="M10.648 7.646a.5.5 0 0 1 .577-.093L15.002 9.5V14h-14v-2l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71z"/>
-												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-												</svg>
-						  				</label>
-						  				<input type="text" class="form-control upload-hidden visuallyhidden" value="Choose file" name="imgName" disabled="disabled">
-										  <input type="file" id="customFile">
-									  </div>
-									</div>
+					  			<div class="filebox"> 
+						  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
+						  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+										  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+										  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+										</svg>
+						  			<label for="ex_filename">프로필사진추가</label> 
+						  			<input type="file" id="ex_filename" class="upload-hidden"> 
+					  			</div>
 					  		</form>
 						  <span class="sr-only">(current)</span>
 						</div>
@@ -256,30 +250,13 @@
 		      	<p>카테고리</p>
 		      	<c:forEach items="${productList}" var="product">
 		      		<a class="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
-		      		<script>
-		      		$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-				 		var category = $(this).attr("id");	//정렬 기준
-				 		
-				 		$.ajax({
-				 			type: post,
-				 			url: "category.do",
-				 			data: {'productList':${"productList"},'category':category},
-				 			error:function(xhr,status,message){
-								alert("error : "+message );
-							},
-							success:function(data){
-								$('#gridtype').html(data);	// 장바구니에 데이터를 출력
-							}
-				 		});	//ajax
-				 	});
-		      		</script>
 		      	</c:forEach>
 		      	
 		      </div>
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a class="categoryClick"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
 		      </div>
 		      
 		      </section>
@@ -456,22 +433,16 @@
 	 
 	 <script>
 	 $(function(){
-			$(document).ready(function(){ 
-			 	var fileTarget = $('.fileBox .upload-hidden'); 
-			 	fileTarget.on('change', function(){ // 값이 변경되면 
-					if(window.FileReader){ // modern browser 
-						 var filename = $(this)[0].files[0].name; 
-					}
-					else { // old IE 
-						 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
-					} // 추출한 파일명 삽입 
-					$(this).siblings('.upload-name').val(filename); 
-				}); 
+		 	var fileTarget = $('.filebox .upload-hidden'); 
+		 	fileTarget.on('change', function(){ // 값이 변경되면 
+			 	if(window.FileReader){ // modern browser 
+				 	var filename = $(this)[0].files[0].name; 
+			 	} else { // old IE 
+				 	var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+				} // 추출한 파일명 삽입 
+				$(this).siblings('.upload-name').val(filename); 
+				$(this).siblings('.bi .bi-person-square').attr('fill', '#229954');
 			});
-			
-		 	$('#user_thumnail').click(function(){
-		 		alert("used thmnail");
-		 	});
 
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준

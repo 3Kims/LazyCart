@@ -542,7 +542,6 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 						rs.getString("address"),
 						rs.getString("phone"));
 			}
-			System.out.println("customer : imple에서 출력"+customer);
 		}finally {
 			closeAll(ps, conn);
 		}
