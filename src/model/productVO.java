@@ -9,6 +9,27 @@ public class productVO {
 	private String category;
 	private String img;
 	
+	public productVO(String name, int price, String shop, String url, String category, String img) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.shop = shop;
+		this.url = url;
+		this.category = category;
+		this.img = img;
+	}
+	
+	public productVO(int id, String name, int price, String shop, String url, String category, String img) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.shop = shop;
+		this.url = url;
+		this.category = category;
+		this.img = img;
+	}
+	
 	
 	public int getId() {
 		return id;
@@ -76,18 +97,6 @@ public class productVO {
 
 
 	public void setImg(String img) {
-		this.img = img;
-	}
-
-
-	public productVO(int id, String name, int price, String shop, String url, String category, String img) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.price = price;
-		this.shop = shop;
-		this.url = url;
-		this.category = category;
 		this.img = img;
 	}
 	

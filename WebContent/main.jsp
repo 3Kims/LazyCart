@@ -51,7 +51,16 @@
 	width:90px;}
 
 	/* register box  */
-	
+	.visuallyhidden {
+	    border: 0;
+	    clip: rect(0 0 0 0);
+	    height: 1px;
+	    margin: -1px;
+	    overflow: hidden;
+	    padding: 0;
+	    position: absolute;
+	    width: 1px;
+	}	
 	#registerBody{
 		align:center;
 		background:#fff;
@@ -73,19 +82,24 @@
 	
 	
 	/* file box  */
-	.fileBox input[type="file"]{
-		position:absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip:rect(0,0,0,0);
-		border: 0;
+	.filebox input[type="file"] { 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
 	}
-	.form-control{
-		height: 1.9em;
-		width: 10%;
+	.upload-name{
+		width: 100px;
+	}
+	.user_icon{
+		object-fiti:contain;
+  }
+	#productList table tr td img{
+		width: 100%;
 	}
 </style>
 
@@ -133,7 +147,7 @@
 							<c:otherwise>
 								<span class="badge badge-success">On</span>
 								<div id="user_thumnail">
-						  		<div class="user_icon"><img src= ${sessionScope.user.img} alt="user_icon"></div>
+						  		<div class="user_icon"><img src="${sessionScope.customer.img}" alt="user_icon" width="50px" height="50px"></div>
 								</div>
 							</c:otherwise>
 					  </c:choose>
@@ -192,20 +206,15 @@
 			      <div id="search_box" nav-item nav-link active>
 				  		<!-- 여기부터 시작해야함. -->
 					  		<form action="post" id="customerImg">
-					  			<div class="fileBox">
-					  				<div class="input-group-append">
-					  				
-						  				<label for="customFile"> 
-							  				<svg class="bi bi-image" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z"/>
-												  <path d="M10.648 7.646a.5.5 0 0 1 .577-.093L15.002 9.5V14h-14v-2l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71z"/>
-												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-												</svg>
-						  				</label>
-						  				<input type="text" class="form-control upload-hidden" value="Choose file" name="imgName" disabled="disabled">
-										  <input type="file" id="customFile">
-									  </div>
-									</div>
+					  			<div class="filebox"> 
+						  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
+						  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+										  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+										  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+										</svg>
+						  			<label for="ex_filename">프로필사진추가</label> 
+						  			<input type="file" id="ex_filename" class="upload-hidden"> 
+					  			</div>
 					  		</form>
 						  <span class="sr-only">(current)</span>
 						</div>
@@ -235,7 +244,6 @@
 		      		<c:forEach items="${category.value}" var="secondCartegory">
 		      			<a href="categoryClick" id="category"><span>${secondCartegory}</span><span class="checkbox"></span></a>
 		      		</c:forEach>
-		      		
 		      	</c:forEach>
 		      	
 		      </div>
@@ -259,15 +267,24 @@
 						
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-								<div class="list-group">
+								<div class="list-group" id="productList">
 									<table>
 									<c:forEach items="${productList}" var="product">
-										<tr>
-											<td>${product.img}</td>
-											<td>${product.name}</td>
-											<td>${product.price}</td>
-											<td>${product.category}</td>
-										</tr>
+										<c:choose>
+											<c:when test="${empty product.img}">
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${product.img}</td>
+													<td>${product.name}</td>
+													<td>${product.price}</td>
+													<td>${product.category}</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+										<c:if test="">
+										</c:if>
+										
 									</c:forEach>
 									</table>
 								</div>
@@ -286,7 +303,7 @@
 																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
 																PW &nbsp;&nbsp;<input type ="password" name="password" id="password" required="required" ><p><br>
 																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
-																<a href="register.html"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
+																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 																<p><p><p>
 																<ul style="-webkit-padding-start:0px;">
 																	<li>Find ID</li> &nbsp; &nbsp;
@@ -308,29 +325,29 @@
 															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
 																<table>
 																	<tr>
-																		<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
-																		- <input type ="text" id="phone2" required="required" maxlength=4> 
-																		- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3>
+																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4>
+																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																		<td><span>*</span>ID</td><td><input type ="text" id="id" name="id" required="required"><span id="idCheck"></span><p></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																		<td><span>*</span>PW</td><td><input type ="password" id="password1" name="password1" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" name="password2" required="required"><span id="passwordCheck"></span></td>
 																	</tr>
 																	<tr>
 																		<td>주소</td>
 																		<td>
-																		<input type="text" id="postcode" placeholder="우편번호">
+																		<input type="text" id="postcode" name="postcode" placeholder="우편번호">
 																		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																		<input type="text" id="roadAddress" placeholder="도로명주소">
-																		<input type="text" id="jibunAddress" placeholder="지번주소">
+																		<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																		<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
 																</table>
@@ -412,25 +429,24 @@
 	 
 	 <script>
 	 $(function(){
-			$(document).ready(function(){ 
-			 	var fileTarget = $('.fileBox .upload-hidden'); 
-			 	fileTarget.on('change', function(){ // 값이 변경되면 
-					if(window.FileReader){ // modern browser 
-						 var filename = $(this)[0].files[0].name; 
-					}
-					else { // old IE 
-						 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
-					} // 추출한 파일명 삽입 
-					$(this).siblings('.upload-name').val(filename); 
-				}); 
+		 	var fileTarget = $('.filebox .upload-hidden'); 
+		 	fileTarget.on('change', function(){ // 값이 변경되면 
+			 	if(window.FileReader){ // modern browser 
+				 	var filename = $(this)[0].files[0].name; 
+			 	} else { // old IE 
+				 	var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+				} // 추출한 파일명 삽입 
+				$(this).siblings('.upload-name').val(filename); 
+				$(this).siblings('.bi-person-square').attr('fill', '#229954');
+				console.log("test");
 			});
-			
+     
 			$("#ex2").slider({});
 			
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
-		 	
+
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
