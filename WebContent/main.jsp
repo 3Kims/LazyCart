@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
 <!-- Bootstrap CSS -->
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
@@ -220,36 +222,29 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-
-					<!-- 분류 조건 배열 생성 -->
-		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:forEach items ="${productList}" var="product">
-		      		      	<%-- {categoryList}.add({product.category});
-		      	{shopList}.add({product.shop}); --%>
-
-		      </c:forEach>
 		      
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
-		      	<p>가격</p>
-		      	<!-- for each를 이용해 아래와 같은 형식으로 뿌려줘야한다. -->
-		      	<c:forEach items="${priceList}" var="price">	<!-- priceList생성 필요, productList에 있는 아이템을 가격별로 나눈 List -->
-		      		<a class="categoryClick" id="price"><span>${price}</span><span class="checkbox"></span></a>	
-		      	</c:forEach>
+				가격검색 조건: <b>0 원</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>€ 1000</b>		      	
 		      	
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
-		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      	<c:forEach items="${categoryList}" var="category">
+		      		<a href="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a>
+		      		<c:forEach items="${category.value}" var="secondCartegory">
+		      			<a href="categoryClick" id="category"><span>${secondCartegory}</span><span class="checkbox"></span></a>
+		      		</c:forEach>
+		      		
 		      	</c:forEach>
 		      	
 		      </div>
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<c:forEach items="${shopList}" var="shop">
+		      		<a href="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
 		      </div>
 		      
 		      </section>
@@ -430,6 +425,8 @@
 				}); 
 			});
 			
+			$("#ex2").slider({});
+			
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
@@ -440,16 +437,19 @@
 		 		$.ajax({
 		 			type: post,
 		 			url: "category.do",
-		 			data: {'productList':${"productList"},'category':category},
+		 			data: {'productList': ${productList},'category':category},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
 					success:function(data){
-						$('#gridtype').html(data);	// 장바구니에 데이터를 출력
+						$('.list-group').html("성공");	// 장바구니에 데이터를 출력
 					}
 		 		});	//ajax
 		 	});
-	 });	
+		 	
+		 	
+	 });
+	 
 	 </script>
 </body>
 </html>

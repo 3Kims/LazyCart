@@ -25,7 +25,7 @@ public class DispatcherServlet extends HttpServlet {
 		doProcess(request,response);
 	}
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("dispatcher doprocess..");
+		System.out.println("dispatcher doprocess.");
 
 		String requestURI=request.getRequestURI();		
 		String contextPath=request.getContextPath();
