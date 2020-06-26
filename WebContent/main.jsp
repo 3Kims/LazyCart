@@ -6,8 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+
+<!-- Bootstrap CSS -->
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
@@ -101,6 +105,14 @@
 	.user_icon{
 		object-fiti:contain;
   }
+	#productList table tr td img{
+		width: 100%;
+	}
+	
+	/* list box*/
+	#productList table tr td{
+		border: 1px, solid, black;
+	}
 	#productList table tr td img{
 		width: 100%;
 	}
@@ -236,36 +248,27 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-
-					<!-- 분류 조건 배열 생성 -->
-		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:forEach items ="${productList}" var="product">
-		      		      	<%-- {categoryList}.add({product.category});
-		      	{shopList}.add({product.shop}); --%>
-
-		      </c:forEach>
 		      
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
-		      	<p>가격</p>
-		      	<!-- for each를 이용해 아래와 같은 형식으로 뿌려줘야한다. -->
-		      	<c:forEach items="${priceList}" var="price">	<!-- priceList생성 필요, productList에 있는 아이템을 가격별로 나눈 List -->
-		      		<a class="categoryClick" id="price"><span>${price}</span><span class="checkbox"></span></a>	
-		      	</c:forEach>
-		      	
+            <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+            <div id="slider-range"></div><hr>
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
-		      	<c:forEach items="${productList}" var="product">
-		      		<a class="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
-		      	</c:forEach>
-		      	
+		      	<c:forEach items="${categoryList}" var="category">
+		      		<a class="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a><br>
+		      		<c:forEach items="${category.value}" var="secondCategory">
+		      			<a class="categoryClick" id="category"><span>${secondCategory}</span><span class="checkbox"></span></a>
+		      	  </c:forEach>
+            </c:forEach>
 		      </div>
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<c:forEach items="${shopList}" var="shop">
+		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
 		      </div>
 		      
 		      </section>
@@ -276,11 +279,12 @@
 					</nav>
 					<hr>
 					<article>
+					
 						<!-- 장바구니 리스트 영역 -->
-						
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div class="list-group" id="productList">
+
 									<table>
 									<c:forEach items="${productList}" var="product">
 										<c:choose>
@@ -299,7 +303,7 @@
 										</c:if>
 										
 									</c:forEach>
-									</table>
+									 </table>
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -341,8 +345,8 @@
 																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3>
-																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3> 
+																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4> 
 																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
@@ -368,12 +372,13 @@
 																	<div><a href="#carouselExampleControls" role="button" data-slide="prev">
 																	<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a></div><p>
 																	<span class="sr-only">Prev</span>
-																	<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
-																	<input type="button" id="initialize" value="초기화">
+																	<input type="submit" id="registerSubmit" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" id="initialize" name="initialize"  value="초기화">
 																</div>
 															</form>
 														</div>
 												</div>
+
 
 																					<!-- 주소 찾기 API script -->
 												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -468,23 +473,53 @@
 					}
 		 		});	//ajax
 			});
+     
+			$("#ex2").slider({});
+			
+		 	$('#user_thumnail').click(function(){
+		 		alert("used thmnail");
+		 	});
 
-		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
 		 		$.ajax({
 		 			type: "post",
 		 			url: "category.do",
-		 			data: {'productList':${"productList"},'category':category},
+		 			data: {'productList':"${productList}",'category':category},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
 					success:function(data){
-						$('#gridtype').html(data);	// 장바구니에 데이터를 출력
+						$('.list-group').html("성공");	// 장바구니에 데이터를 출력
 					}
 		 		});	//ajax
 		 	});
-	 });	
+		 	
+		 	
+	 });
+	 
 	 </script>
+	 <!-- JQUERY 슬라이더 시작 -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <link rel="stylesheet" href="/resources/demos/style.css">
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script>
+	  $( function() {
+	    $( "#slider-range" ).slider({
+	      range: true,
+	      min: 0,
+	      max: 500,
+	      values: [ 75, 300 ],
+	      slide: function( event, ui ) {
+	        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+	      }
+	    });
+	    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+	      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	  } );
+	  </script>
+	 <!-- JQUERY 슬라이더 끝 -->
 </body>
 </html>

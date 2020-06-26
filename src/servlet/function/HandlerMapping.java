@@ -57,9 +57,13 @@ public class HandlerMapping {
 			controller = new ChangeUserInfoController();
 			System.out.println("ChangeUserInfoController.....생성");
 		}
-		else if(command.equals("ChangeUserInfoController.do")) {
-			controller = new ChangeUserInfoController();
-			System.out.println("ChangeUserInfoController.....생성");
+		else if(command.equals("UserProductController.do")) {
+			controller = new UserProductController();
+			System.out.println("UserProductController.....생성");
+		}
+		else if(command.equals("LogoutController.do")) {
+			controller = new LogoutController();
+			System.out.println("LogoutController.....생성");
 		}
 		else if(command.equals("profileImg.do")) {
 			controller = new ChangeProfileController();;
