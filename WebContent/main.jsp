@@ -441,7 +441,8 @@
 				 	var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
 				} // 추출한 파일명 삽입 
 				$(this).siblings('.upload-name').val(filename); 
-				$(this).siblings('.bi .bi-person-square').attr('fill', '#229954');
+				$(this).siblings('.bi-person-square').attr('fill', '#229954');
+				console.log("test");
 			});
 
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
