@@ -536,7 +536,6 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 						rs.getString("phone"),
 						new cartVO(rs.getInt("product_id"),rs.getInt("quantity"),rs.getDate("date")));
 			}
-			System.out.println("customer : imple에서 출력"+customer);
 		}finally {
 			closeAll(ps, conn);
 		}
