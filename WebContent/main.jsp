@@ -234,15 +234,16 @@
 		      
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
-				가격검색 조건: <b>0 원</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>€ 1000</b>		      	
+		      <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+				<div id="slider-range"></div><hr>
 		      	
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
 		      	<c:forEach items="${categoryList}" var="category">
-		      		<a href="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a>
-		      		<c:forEach items="${category.value}" var="secondCartegory">
-		      			<a href="categoryClick" id="category"><span>${secondCartegory}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a><br>
+		      		<c:forEach items="${category.value}" var="secondCategory">
+		      			<a class="categoryClick" id="category"><span>${secondCategory}</span><span class="checkbox"></span></a>
 		      		</c:forEach>
 		      	</c:forEach>
 		      	
@@ -251,7 +252,7 @@
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
 		      	<c:forEach items="${shopList}" var="shop">
-		      		<a href="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
 		      	</c:forEach>
 		      </div>
 		      
@@ -447,7 +448,7 @@
 		 		alert("used thmnail");
 		 	});
 
-		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
 		 		$.ajax({
@@ -467,5 +468,26 @@
 	 });
 	 
 	 </script>
+	 <!-- JQUERY 슬라이더 시작 -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <link rel="stylesheet" href="/resources/demos/style.css">
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script>
+	  $( function() {
+	    $( "#slider-range" ).slider({
+	      range: true,
+	      min: 0,
+	      max: 500,
+	      values: [ 75, 300 ],
+	      slide: function( event, ui ) {
+	        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+	      }
+	    });
+	    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+	      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	  } );
+	  </script>
+	 <!-- JQUERY 슬라이더 끝 -->
 </body>
 </html>

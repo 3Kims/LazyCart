@@ -21,7 +21,7 @@ function getCurrentTabUrl(callback) {
 
 function renderURL(statusText){
 	
-	location.href="test.html?url="+statusText;
+	location.href="addresult.html?url="+statusText;
 }
 
 document.addEventListener("DOMContentLoaded",function(){
