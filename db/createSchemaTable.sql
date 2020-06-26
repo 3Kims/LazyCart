@@ -32,7 +32,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ezbasket`.`product` ;
 CREATE TABLE IF NOT EXISTS `ezbasket`.`product` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45),
+  `name` VARCHAR(200),
   `price` INT NULL,
   `shop` VARCHAR(100) NULL,
   `url` VARCHAR(300) NULL,
