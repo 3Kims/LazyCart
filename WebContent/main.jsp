@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
@@ -49,7 +47,16 @@
 	width:90px;}
 
 	/* register box  */
-	
+	.visuallyhidden {
+	    border: 0;
+	    clip: rect(0 0 0 0);
+	    height: 1px;
+	    margin: -1px;
+	    overflow: hidden;
+	    padding: 0;
+	    position: absolute;
+	    width: 1px;
+	}	
 	#registerBody{
 		align:center;
 		background:#fff;
@@ -85,11 +92,9 @@
 		height: 1.9em;
 		width: 10%;
 	}
-	
-	/* list box*/
-	#productList table tr td{
-		border: 1px, solid, black;
-	}
+	.user_icon{
+		object-fiti:contain;
+  }
 	#productList table tr td img{
 		width: 100%;
 	}
@@ -139,7 +144,7 @@
 							<c:otherwise>
 								<span class="badge badge-success">On</span>
 								<div id="user_thumnail">
-						  		<div class="user_icon"><img src= ${sessionScope.user.img} alt="user_icon"></div>
+						  		<div class="user_icon"><img src="${sessionScope.customer.img}" alt="user_icon" width="50px" height="50px"></div>
 								</div>
 							</c:otherwise>
 					  </c:choose>
@@ -208,7 +213,7 @@
 												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
 												</svg>
 						  				</label>
-						  				<input type="text" class="form-control upload-hidden" value="Choose file" name="imgName" disabled="disabled">
+						  				<input type="text" class="form-control upload-hidden visuallyhidden" value="Choose file" name="imgName" disabled="disabled">
 										  <input type="file" id="customFile">
 									  </div>
 									</div>
@@ -292,12 +297,21 @@
 								<div class="list-group" id="productList">
 									<table>
 									<c:forEach items="${productList}" var="product">
-										<tr>
-											<td>${product.img}</td>
-											<td>${product.name}</td>
-											<td>${product.price}</td>
-											<td>${product.category}</td>
-										</tr>
+										<c:choose>
+											<c:when test="${empty product.img}">
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${product.img}</td>
+													<td>${product.name}</td>
+													<td>${product.price}</td>
+													<td>${product.category}</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+										<c:if test="">
+										</c:if>
+										
 									</c:forEach>
 									</table>
 								</div>
@@ -338,29 +352,29 @@
 															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
 																<table>
 																	<tr>
-																		<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
-																		- <input type ="text" id="phone2" required="required" maxlength=4> 
-																		- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3>
+																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4>
+																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																		<td><span>*</span>ID</td><td><input type ="text" id="id" name="id" required="required"><span id="idCheck"></span><p></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																		<td><span>*</span>PW</td><td><input type ="password" id="password1" name="password1" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" name="password2" required="required"><span id="passwordCheck"></span></td>
 																	</tr>
 																	<tr>
 																		<td>주소</td>
 																		<td>
-																		<input type="text" id="postcode" placeholder="우편번호">
+																		<input type="text" id="postcode" name="postcode" placeholder="우편번호">
 																		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																		<input type="text" id="roadAddress" placeholder="도로명주소">
-																		<input type="text" id="jibunAddress" placeholder="지번주소">
+																		<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																		<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
 																</table>
@@ -458,7 +472,7 @@
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
-		 	
+
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
