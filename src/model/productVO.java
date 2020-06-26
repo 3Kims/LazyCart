@@ -103,6 +103,17 @@ public class productVO {
 
 	
 	
+	public productVO(String name, int price, String shop, String url, String category, String img) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.shop = shop;
+		this.url = url;
+		this.category = category;
+		this.img = img;
+	}
+	
 	public productVO() {
 		// TODO Auto-generated constructor stub
 	}
