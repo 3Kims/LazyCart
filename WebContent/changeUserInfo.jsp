@@ -10,7 +10,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.scom/ui/1.12.1/jquery-ui.js"></script><title>Login</title>
 
-<title>Update User Infomation</title>
+<title>Update User Information</title>
 <script>
 window.onload=function(){
 	if(${vo}==null)
@@ -41,7 +41,7 @@ function cancelCheck(){
 <body align="center">
 	<div class="container">
 	<h1>Update User Infomation</h1><p>
-	<form action="registerSuccess.jsp" id="registerFrm" method="post" onsubmit="return registerCheck();">	
+	<form action="ChangeUserInfoController.do" id="registerFrm" method="post" onsubmit="return registerCheck();">	
 	<table>
 		<tr>
 			<td>이름</td><td><input type ="text" id="name" readonly="readonly"></td>

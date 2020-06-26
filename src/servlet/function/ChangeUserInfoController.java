@@ -28,11 +28,10 @@ public class ChangeUserInfoController implements Controller{
 
 		//2.VO 객체 생성
 		System.out.println("2. customerVO 생성..");
-		customerVO vo = new customerVO(id,password,name,address,phone);
-		ezbasketDAOImpl.getInstance().registerCustomer(vo);
+		customerVO customer = new customerVO(id,password,name,address,phone);
+		ezbasketDAOImpl.getInstance().changeUserInfo(customer);
 		HttpSession session=request.getSession();
-		if(vo!=null) session.setAttribute("vo",vo);		
+		session.setAttribute("customer",customer);		
 		return new ModelAndView(path);
 	}
-
 }

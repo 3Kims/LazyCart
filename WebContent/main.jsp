@@ -101,6 +101,14 @@
 	#productList table tr td img{
 		width: 100%;
 	}
+	
+	/* list box*/
+	#productList table tr td{
+		border: 1px, solid, black;
+	}
+	#productList table tr td img{
+		width: 100%;
+	}
 </style>
 
 </head>
@@ -234,9 +242,8 @@
 		      
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
-		      <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
-				<div id="slider-range"></div><hr>
-		      	
+            <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+            <div id="slider-range"></div><hr>
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
@@ -244,9 +251,8 @@
 		      		<a class="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a><br>
 		      		<c:forEach items="${category.value}" var="secondCategory">
 		      			<a class="categoryClick" id="category"><span>${secondCategory}</span><span class="checkbox"></span></a>
-		      		</c:forEach>
-		      	</c:forEach>
-		      	
+		      	  </c:forEach>
+            </c:forEach>
 		      </div>
 		      <hr>
 		      <div class = "category seller">
@@ -264,11 +270,12 @@
 					</nav>
 					<hr>
 					<article>
+					
 						<!-- 장바구니 리스트 영역 -->
-						
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div class="list-group" id="productList">
+
 									<table>
 									<c:forEach items="${productList}" var="product">
 										<c:choose>
@@ -287,7 +294,7 @@
 										</c:if>
 										
 									</c:forEach>
-									</table>
+									 </table>
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -329,8 +336,8 @@
 																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3>
-																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3> 
+																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4> 
 																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
@@ -356,12 +363,13 @@
 																	<div><a href="#carouselExampleControls" role="button" data-slide="prev">
 																	<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a></div><p>
 																	<span class="sr-only">Prev</span>
-																	<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
-																	<input type="button" id="initialize" value="초기화">
+																	<input type="submit" id="registerSubmit" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" id="initialize" name="initialize"  value="초기화">
 																</div>
 															</form>
 														</div>
 												</div>
+
 
 																					<!-- 주소 찾기 API script -->
 												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -454,7 +462,7 @@
 		 		$.ajax({
 		 			type: post,
 		 			url: "category.do",
-		 			data: {'productList': ${productList},'category':category},
+		 			data: {'productList':"${productList}",'category':category},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
