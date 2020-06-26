@@ -251,6 +251,7 @@
 		      
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
+		        <p>가격</p>
             <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
             <div id="slider-range"></div><hr>
 		      </div>
@@ -482,11 +483,11 @@
 
 		 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
-		 		
+		 		var option = $(this).text();
 		 		$.ajax({
 		 			type: "post",
 		 			url: "category.do",
-		 			data: {'productList':"${productList}",'category':category},
+		 			data: {'category':category,'option':option},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
@@ -507,10 +508,16 @@
 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	  <script>
 	  $( function() {
+		  var priceList = new Array();
+		  <c:forEach items="${priceList}" var="price">
+		  	priceList.push("${price}");
+		  	console.log("${price}");
+		  	console.log("어레이 값 :"+priceList[0]);
+		  </c:forEach>
 	    $( "#slider-range" ).slider({
 	      range: true,
-	      min: 0,
-	      max: 500,
+	      min: parseInt(priceList[0]),
+	      max: parseInt(priceList[1]),
 	      values: [ 75, 300 ],
 	      slide: function( event, ui ) {
 	        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
