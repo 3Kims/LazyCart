@@ -61,6 +61,10 @@ public class HandlerMapping {
 			controller = new ChangeUserInfoController();
 			System.out.println("ChangeUserInfoController.....생성");
 		}
+		else if(command.equals("profileImg.do")) {
+			controller = new ChangeProfileController();;
+			System.out.println("ChangProfileController start...");
+		}
 		return controller;
 	}
 	
