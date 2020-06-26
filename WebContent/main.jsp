@@ -38,7 +38,7 @@
 	background:#fff;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:15px;font-size:0.8em;}
 	
 	#loginFrmBox{margin:0 auto;text-align:center;}
-	#password,#id{border: 1px solid #E6E6E6; border-radius:2px; width:250px;height:30px;}
+	.lg_pw_textbox{border: 1px solid #E6E6E6; border-radius:2px; width:250px;height:30px;}
 	ul li{list-style-type:none;display:inline;}
 	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;color:#6c757d;}
 	#loginSubmit,#registerSubmit{
@@ -93,7 +93,14 @@
 		border: 0; 
 	}
 	.upload-name{
-		width: 100px;
+		position: absolute; 
+		width: 0px; 
+		height: 0px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
 	}
 	.user_icon{
 		object-fiti:contain;
@@ -213,17 +220,19 @@
 			    <div class="navbar-nav">
 			      <div id="search_box" nav-item nav-link active>
 				  		<!-- 여기부터 시작해야함. -->
-					  		<form action="post" id="customerImg">
 					  			<div class="filebox"> 
 						  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
 						  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
 										  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 										  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 										</svg>
-						  			<label for="ex_filename">프로필사진추가</label> 
+						  			<label for="ex_filename" id="profileButton">Upload</label> 
 						  			<input type="file" id="ex_filename" class="upload-hidden"> 
+						  			<span id="fileResult"></span>
 					  			</div>
-					  		</form>
+					  		<script>
+					  		
+					  		</script>
 						  <span class="sr-only">(current)</span>
 						</div>
 			    </div>
@@ -308,8 +317,8 @@
 														<div id="loginFrmBox">
 															<form action="LoginController.do" id="loginFrm" method="post">
 																<br>
-																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
-																PW &nbsp;&nbsp;<input type ="password" name="password" id="password" required="required" ><p><br>
+																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p><p>
+																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p><br>
 																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 																<p><p><p>
@@ -341,7 +350,7 @@
 																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>ID</td><td><input type ="text" id="id" name="id" required="required"><span id="idCheck"></span><p></td>
+																		<td><span>*</span>ID</td><td><input type ="text" id="register_id" name="id" required="required"><span id="idCheck"></span><p></td>
 																	</tr>
 																	<tr>
 																		<td><span>*</span>PW</td><td><input type ="password" id="password1" name="password1" required="required"></td>
@@ -440,6 +449,7 @@
 	 $(function(){
 		 	var fileTarget = $('.filebox .upload-hidden'); 
 		 	fileTarget.on('change', function(){ // 값이 변경되면 
+		 		
 			 	if(window.FileReader){ // modern browser 
 				 	var filename = $(this)[0].files[0].name; 
 			 	} else { // old IE 
@@ -447,7 +457,21 @@
 				} // 추출한 파일명 삽입 
 				$(this).siblings('.upload-name').val(filename); 
 				$(this).siblings('.bi-person-square').attr('fill', '#229954');
-				console.log("test");
+				
+				var fileSource = $(this).siblings('.upload-name').val(filename);
+				
+				$.ajax({
+		 			type: "post",
+		 			url: "profileImg.do",
+		 			data: "fileSource="+fileSource,
+		 			error:function(xhr,status,message){
+						alert("error : "+message );
+					},
+					success:function(data){
+						console.log("success");
+						$('#fileResult').html(data);	// 장바구니에 데이터를 출력
+					}
+		 		});	//ajax
 			});
      
 			$("#ex2").slider({});
@@ -460,7 +484,7 @@
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
 		 		$.ajax({
-		 			type: post,
+		 			type: "post",
 		 			url: "category.do",
 		 			data: {'productList':"${productList}",'category':category},
 		 			error:function(xhr,status,message){

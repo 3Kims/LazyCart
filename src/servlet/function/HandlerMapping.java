@@ -65,6 +65,10 @@ public class HandlerMapping {
 			controller = new LogoutController();
 			System.out.println("LogoutController.....생성");
 		}
+		else if(command.equals("profileImg.do")) {
+			controller = new ChangeProfileController();;
+			System.out.println("ChangProfileController start...");
+		}
 		return controller;
 	}
 	
