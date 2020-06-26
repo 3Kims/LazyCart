@@ -85,6 +85,14 @@
 		height: 1.9em;
 		width: 10%;
 	}
+	
+	/* list box*/
+	#productList table tr td{
+		border: 1px, solid, black;
+	}
+	#productList table tr td img{
+		width: 100%;
+	}
 </style>
 
 </head>
@@ -242,14 +250,31 @@
 		      <div class = "category product">
 		      	<p>카테고리</p>
 		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      		<script>
+		      		$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+				 		var category = $(this).attr("id");	//정렬 기준
+				 		
+				 		$.ajax({
+				 			type: post,
+				 			url: "category.do",
+				 			data: {'productList':"${productList}",'category':category},
+				 			error:function(xhr,status,message){
+								alert("error : "+message );
+							},
+							success:function(data){
+								$('#gridtype').html(data);	// 장바구니에 데이터를 출력
+							}
+				 		});	//ajax
+				 	});
+		      		</script>
 		      	</c:forEach>
 		      	
 		      </div>
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<a class="categoryClick"><span>11번가</span><span class="checkbox checked"></span></a>
 		      </div>
 		      
 		      </section>
@@ -260,10 +285,10 @@
 					</nav>
 					<hr>
 					<article>
+					
 						<!-- 장바구니 리스트 영역 -->
-						
 						<c:choose>
-							<c:when test="${!empty sessionScope.customer}">
+							<c:when test="${!empty sessionScope.getItem(customer)}">
 								<div class="list-group">
 									<table>
 									<c:forEach items="${productList}" var="product">
@@ -274,7 +299,7 @@
 											<td>${product.category}</td>
 										</tr>
 									</c:forEach>
-									</table>
+									 </table>
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -313,29 +338,29 @@
 															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
 																<table>
 																	<tr>
-																		<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
-																		- <input type ="text" id="phone2" required="required" maxlength=4> 
-																		- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" name="phone1" required="required" maxlength=3> 
+																		- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4> 
+																		- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																		<td><span>*</span>ID</td><td><input type ="text" id="id" name="id" required="required"><span id="idCheck"></span><p></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																		<td><span>*</span>PW</td><td><input type ="password" id="password1" name="password1" required="required"></td>
 																	</tr>
 																	<tr>
-																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" name="password2" required="required"><span id="passwordCheck"></span></td>
 																	</tr>
 																	<tr>
 																		<td>주소</td>
 																		<td>
-																		<input type="text" id="postcode" placeholder="우편번호">
+																		<input type="text" id="postcode" name="postcode" placeholder="우편번호">
 																		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																		<input type="text" id="roadAddress" placeholder="도로명주소">
-																		<input type="text" id="jibunAddress" placeholder="지번주소">
+																		<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																		<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
 																</table>
@@ -343,12 +368,13 @@
 																	<div><a href="#carouselExampleControls" role="button" data-slide="prev">
 																	<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a></div><p>
 																	<span class="sr-only">Prev</span>
-																	<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
-																	<input type="button" id="initialize" value="초기화">
+																	<input type="submit" id="registerSubmit" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" id="initialize" name="initialize"  value="초기화">
 																</div>
 															</form>
 														</div>
 												</div>
+
 
 																					<!-- 주소 찾기 API script -->
 												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -440,7 +466,7 @@
 		 		$.ajax({
 		 			type: post,
 		 			url: "category.do",
-		 			data: {'productList':${"productList"},'category':category},
+		 			data: {'productList':"${productList}",'category':category},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
