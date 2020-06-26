@@ -132,6 +132,13 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(6, customer.getPhone());
 			
 			System.out.println(ps.executeUpdate()+" registerCustomer success..");
+			
+			String insertDefaultCart = "insert into cart(customer_id, product_id, quantity, date) values(?,?,null,null)";
+			ps = conn.prepareStatement(insertDefaultCart);
+			ps.setString(1, customer.getId());
+			ps.setInt(2, 1);
+			ps.executeUpdate();
+			
 		}finally {
 			closeAll(ps, conn);
 		}
@@ -521,7 +528,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		cartVO cart=new cartVO();
 		try {
 			conn=  getConnection();
-			String query ="SELECT customer.id,customer.password,customer.img,customer.name,customer.address,customer.phone,cart.product_id,cart.quantity,cart.date FROM (select * from customer where id=? and password=?) AS customer JOIN cart AS cart ON customer.id=cart.customer_id";
+			String query ="SELECT id,password,img,name,address,phone FROM customer where id=? and password=?";
 			ps = conn.prepareStatement(query);
 			ps.setString(1,id);
 			ps.setString(2,password);
@@ -533,8 +540,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 						rs.getString("img"),
 						rs.getString("name"),
 						rs.getString("address"),
-						rs.getString("phone"),
-						new cartVO(rs.getInt("product_id"),rs.getInt("quantity"),rs.getDate("date")));
+						rs.getString("phone"));
 			}
 		}finally {
 			closeAll(ps, conn);

@@ -23,7 +23,7 @@ public class RegisterController implements Controller {
 
 		//2.VO 객체 생성
 		System.out.println("2. customerVO 생성..");
-		customerVO customer= new customerVO(id,password,name,address,phone);
+		customerVO customer= new customerVO(id,password,"img/default.png",name,address,phone);
 		ezbasketDAOImpl.getInstance().registerCustomer(customer);
 		if(customer!=null) request.setAttribute("customer",customer);		
 		return new ModelAndView(path);
