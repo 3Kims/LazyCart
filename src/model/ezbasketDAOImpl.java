@@ -86,7 +86,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		try {
 			System.out.println("registerProduct start..");
 			conn=  getConnection();
-			String query = "INSERT INTO product (name, price, shop, url, category, img, options) VALUES(?,?,?,?,?,?,?)";
+			String query = "INSERT INTO product (name, price, shop, url, category, img) VALUES(?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			
 			ps.setString(1, product.getName());
@@ -95,7 +95,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(4, product.getUrl());
 			ps.setString(5, product.getCategory());
 			ps.setString(6, product.getImg());
-			ps.setString(7, product.getOption());
+			
 			
 			System.out.println(ps.executeUpdate()+" registerProduct success..");
 			
@@ -268,11 +268,10 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		try {
 			System.out.println("getUsersProducts start...");
 			conn = getConnection();
-			String query = "select p.id, p.name, p.price, p.shop, p.url, p.category, p.img, p.options from cart c, product p where customer_id='?' and c.product_id=p.id;";
+			String query = "select p.id, p.name, p.price, p.shop, p.url, p.category, p.img from cart c, product p where customer_id=? and c.product_id=p.id";
 			ps=conn.prepareStatement(query);
 			ps.setString(1, customerId);
 			rs=ps.executeQuery();
-
 			while(rs.next()) {
 				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
 							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
@@ -299,7 +298,14 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(1, url);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"));
+				product = new productVO(rs.getInt("id"),
+										rs.getString("name"),
+										rs.getInt("price"), 
+										rs.getString("shop"),
+										rs.getString("url"),
+										rs.getString("category"), 
+										rs.getString("img") 
+										);
 			}
 			System.out.println("getProductByUrl success...");
 		}finally {
@@ -512,15 +518,16 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		PreparedStatement ps = null;
 		ResultSet rs=null;
 		customerVO customer=null;
+		cartVO cart=new cartVO();
 		try {
 			conn=  getConnection();
-			String query ="SELECT customer.id,customer.password,customer.img,customer.name, customer.address,customer.phone, cart.product_id,cart.quantity,cart.date FROM (select * from customer where id=? and password=?)AS customer JOIN cart AS cart ON customer.id = cart.customer_id";
+			String query ="SELECT customer.id,customer.password,customer.img,customer.name,customer.address,customer.phone,cart.product_id,cart.quantity,cart.date FROM (select * from customer where id=? and password=?) AS customer JOIN cart AS cart ON customer.id=cart.customer_id";
 			ps = conn.prepareStatement(query);
 			ps.setString(1,id);
 			ps.setString(2,password);
 			rs=ps.executeQuery();
+			
 			if(rs.next()) {
-				System.out.println("exist....");
 				customer=new customerVO(rs.getString("id"),
 						rs.getString("password"),
 						rs.getString("img"),
@@ -529,6 +536,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 						rs.getString("phone"),
 						new cartVO(rs.getInt("product_id"),rs.getInt("quantity"),rs.getDate("date")));
 			}
+			System.out.println("customer : imple에서 출력"+customer);
 		}finally {
 			closeAll(ps, conn);
 		}
@@ -542,7 +550,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	/*public static void main(String[] args) throws ClassNotFoundException {
 		ezbasketDAOImpl dao= new ezbasketDAOImpl("URL");
 		String[] imglist = {"first","second", "third", "tutorial"};
-		productVO vo = new productVO(1, "lee", 100, "homeplus", "www.dert.com", "category", imglist, "options");
+		productVO vo = new productVO(1, "lee", 100, "homeplus", "www.dert.com", "category", imglist);
 		try {
 			dao.registerProduct(vo);
 		} catch (SQLException e) {

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
@@ -210,6 +209,7 @@
 						</div>
 			    </div>
 			  </div>
+			  
 			</nav>
 		</div>
   	</header>
@@ -242,7 +242,7 @@
 		      <div class = "category product">
 		      	<p>카테고리</p>
 		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${productList.category}</span><span class="checkbox"></span></a>
+		      		<a href="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
 		      	</c:forEach>
 		      	
 		      </div>
@@ -265,34 +265,27 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div class="list-group">
-									<c:forEach var="i" begin="0" end="20" items="">
-									
-									
+									<table>
+									<c:forEach items="${productList}" var="product">
+										<tr>
+											<td>${product.img}</td>
+											<td>${product.name}</td>
+											<td>${product.price}</td>
+											<td>${product.category}</td>
+										</tr>
 									</c:forEach>
+									</table>
 								</div>
 							</c:when>
 							<c:otherwise>
-							
 							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 							  <div class="carousel-inner">
 							    <div class="carousel-item active" data-interval="false">
-						    	<div id="loginBody">
+							    	<div id="loginBody">
 											<div class="container" >
 												<div id="loginContainer">
 													<h1>Login</h1>
 														<div id="loginFrmBox">
-<<<<<<< HEAD
-															<form action="LoginController.do" id="loginFrm" method="post" onsubmit="return checkit();">
-																<br>
-																ID &nbsp;&nbsp;<input type ="text" id="id" required="required"><p><p>
-																PW &nbsp;&nbsp;<input type ="password" id="password" required="required" ><p><br>
-																
-																<input type="submit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;&nbsp;
-																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
-																<span class="sr-only">Next</span>
-																<p><p><p>
-																<ul style="-webkit-padding-start:0px;">
-																	<li>Find ID</li> &nbsp;&nbsp;
 															<form action="LoginController.do" id="loginFrm" method="post">
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
@@ -304,14 +297,13 @@
 																	<li>Find ID</li> &nbsp; &nbsp;
 																	<li>Find PW</li>
 																</ul>
-																
 															</form>
 														</div>
 												</div>
 											</div>
 										</div>
-							    </div>
-							    
+							    </div>			
+							    				 
 								  <div class="carousel-item">
 								  	<div id="registerBody">
 								   		<div class="container">
@@ -319,46 +311,45 @@
 													<h1>Register</h1><p>
 														<div id="registerForm">
 															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
-															<table>
-																<tr>
-																	<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
-																	- <input type ="text" id="phone2" required="required" maxlength=4> 
-																	- <input type ="text" id="phone3" required="required" maxlength=4></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
-																</tr>
-																<tr>
-																	<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
-																</tr>
-																<tr>
-																	<td>주소</td>
-																	<td>
-																	<input type="text" id="postcode" placeholder="우편번호">
-																	<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																	<input type="text" id="roadAddress" placeholder="도로명주소">
-																	<input type="text" id="jibunAddress" placeholder="지번주소">
-																	</td>			
-																</tr>
-															</table>
-														</div><p>
-													<div id="buttons">
-														<div><a href="#carouselExampleControls" role="button" data-slide="prev" style></div>
-														<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a><p>
-														<span class="sr-only">Prev</span>
-														<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
-														<input type="button" id="initialize" value="초기화">
-													</div>
-													</form>
+																<table>
+																	<tr>
+																		<td><span>*</span>이름</td><td><input type ="text" id="name" required="required"></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>휴대전화 번호</td><td><input type ="text" id="phone1" required="required" maxlength=3> 
+																		- <input type ="text" id="phone2" required="required" maxlength=4> 
+																		- <input type ="text" id="phone3" required="required" maxlength=4></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>ID</td><td><input type ="text" id="id" required="required"><span id="idCheck"></span><p></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>PW</td><td><input type ="password" id="password1" required="required"></td>
+																	</tr>
+																	<tr>
+																		<td><span>*</span>PW확인</td><td><input type ="password" id="password2" required="required"><span id="passwordCheck"></span></td>
+																	</tr>
+																	<tr>
+																		<td>주소</td>
+																		<td>
+																		<input type="text" id="postcode" placeholder="우편번호">
+																		<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																		<input type="text" id="roadAddress" placeholder="도로명주소">
+																		<input type="text" id="jibunAddress" placeholder="지번주소">
+																		</td>			
+																	</tr>
+																</table>
+																<div id="buttons">
+																	<div><a href="#carouselExampleControls" role="button" data-slide="prev">
+																	<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a></div><p>
+																	<span class="sr-only">Prev</span>
+																	<input type="submit" id="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" id="initialize" value="초기화">
+																</div>
+															</form>
+														</div>
 												</div>
-											</div><p><p><p><p><p><p><p><p>
-											
+
 																					<!-- 주소 찾기 API script -->
 												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 												<script>
@@ -445,11 +436,11 @@
 		 	
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
-		 		var option = $(this).text();
+		 		
 		 		$.ajax({
 		 			type: post,
 		 			url: "category.do",
-		 			data: {'productList':${"productList"},'category':category, 'option':option},
+		 			data: {'productList':${"productList"},'category':category},
 		 			error:function(xhr,status,message){
 						alert("error : "+message );
 					},
