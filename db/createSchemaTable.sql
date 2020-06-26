@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `ezbasket`.`product` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45),
   `price` INT NULL,
-  `shop` VARCHAR(45) NULL,
+  `shop` VARCHAR(100) NULL,
   `url` VARCHAR(300) NULL,
-  `category` VARCHAR(45) NULL,
+  `category` VARCHAR(100) NULL,
   `img` VARCHAR(300) NULL,
   `option` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))

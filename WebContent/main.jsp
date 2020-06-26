@@ -92,9 +92,11 @@
 		height: 1.9em;
 		width: 10%;
 	}
-	
 	.user_icon{
 		object-fiti:contain;
+  }
+	#productList table tr td img{
+		width: 100%;
 	}
 </style>
 
@@ -253,14 +255,31 @@
 		      <div class = "category product">
 		      	<p>카테고리</p>
 		      	<c:forEach items="${productList}" var="product">
-		      		<a href="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
+		      		<script>
+		      		$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+				 		var category = $(this).attr("id");	//정렬 기준
+				 		
+				 		$.ajax({
+				 			type: post,
+				 			url: "category.do",
+				 			data: {'productList':${"productList"},'category':category},
+				 			error:function(xhr,status,message){
+								alert("error : "+message );
+							},
+							success:function(data){
+								$('#gridtype').html(data);	// 장바구니에 데이터를 출력
+							}
+				 		});	//ajax
+				 	});
+		      		</script>
 		      	</c:forEach>
 		      	
 		      </div>
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a href="#"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<a class="categoryClick"><span>11번가</span><span class="checkbox checked"></span></a>
 		      </div>
 		      
 		      </section>
@@ -275,7 +294,7 @@
 						
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-								<div class="list-group">
+								<div class="list-group" id="productList">
 									<table>
 									<c:forEach items="${productList}" var="product">
 										<c:choose>

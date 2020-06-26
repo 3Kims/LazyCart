@@ -3,8 +3,6 @@ package servlet.function;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import com.sun.net.httpserver.HttpServer;
 import model.customerVO;
 import model.ezbasketDAOImpl;
 import servlet.controller.ModelAndView;
