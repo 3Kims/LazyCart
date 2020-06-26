@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
 <!-- Bootstrap CSS -->
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
@@ -49,7 +51,16 @@
 	width:90px;}
 
 	/* register box  */
-	
+	.visuallyhidden {
+	    border: 0;
+	    clip: rect(0 0 0 0);
+	    height: 1px;
+	    margin: -1px;
+	    overflow: hidden;
+	    padding: 0;
+	    position: absolute;
+	    width: 1px;
+	}	
 	#registerBody{
 		align:center;
 		background:#fff;
@@ -71,19 +82,24 @@
 	
 	
 	/* file box  */
-	.fileBox input[type="file"]{
-		position:absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip:rect(0,0,0,0);
-		border: 0;
+	.filebox input[type="file"] { 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
 	}
-	.form-control{
-		height: 1.9em;
-		width: 10%;
+	.upload-name{
+		width: 100px;
+	}
+	.user_icon{
+		object-fiti:contain;
+  }
+	#productList table tr td img{
+		width: 100%;
 	}
 	
 	/* list box*/
@@ -139,7 +155,7 @@
 							<c:otherwise>
 								<span class="badge badge-success">On</span>
 								<div id="user_thumnail">
-						  		<div class="user_icon"><img src= ${sessionScope.user.img} alt="user_icon"></div>
+						  		<div class="user_icon"><img src="${sessionScope.customer.img}" alt="user_icon" width="50px" height="50px"></div>
 								</div>
 							</c:otherwise>
 					  </c:choose>
@@ -198,20 +214,15 @@
 			      <div id="search_box" nav-item nav-link active>
 				  		<!-- 여기부터 시작해야함. -->
 					  		<form action="post" id="customerImg">
-					  			<div class="fileBox">
-					  				<div class="input-group-append">
-					  				
-						  				<label for="customFile"> 
-							  				<svg class="bi bi-image" width="30px" height="30px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12z"/>
-												  <path d="M10.648 7.646a.5.5 0 0 1 .577-.093L15.002 9.5V14h-14v-2l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71z"/>
-												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-												</svg>
-						  				</label>
-						  				<input type="text" class="form-control upload-hidden" value="Choose file" name="imgName" disabled="disabled">
-										  <input type="file" id="customFile">
-									  </div>
-									</div>
+					  			<div class="filebox"> 
+						  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
+						  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+										  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+										  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+										</svg>
+						  			<label for="ex_filename">프로필사진추가</label> 
+						  			<input type="file" id="ex_filename" class="upload-hidden"> 
+					  			</div>
 					  		</form>
 						  <span class="sr-only">(current)</span>
 						</div>
@@ -228,45 +239,33 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-
-					<!-- 분류 조건 배열 생성 -->
-		      <c:set var="categoryList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:set var="shopList" value="<%= new java.util.HashSet<String>() %>" />
-		      <c:forEach items ="${productList}" var="product">
-		      		      	<%-- {categoryList}.add({product.category});
-		      	{shopList}.add({product.shop}); --%>
-
-		      </c:forEach>
 		      
 		      <!-- 분류 조건영역 -->
 		      <div class = "category price">
-		      	<p>가격</p>
-		      	<!-- for each를 이용해 아래와 같은 형식으로 뿌려줘야한다. -->
-		      	<c:forEach items="${priceList}" var="price">	<!-- priceList생성 필요, productList에 있는 아이템을 가격별로 나눈 List -->
-		      		<a class="categoryClick" id="price"><span>${price}</span><span class="checkbox"></span></a>	
-		      	</c:forEach>
+				가격검색 조건: <b>0 원</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>€ 1000</b>		      	
 		      	
 		      </div>
 		      <div class = "category product">
 		      	<p>카테고리</p>
+
 		      	<c:forEach items="${productList}" var="product">
 		      		<a class="categoryClick" id="cl"><span>${product.category}</span><span class="checkbox"></span></a>
 		      		<script>
-		      		$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-				 		var category = $(this).attr("id");	//정렬 기준
-				 		
-				 		$.ajax({
-				 			type: post,
-				 			url: "category.do",
-				 			data: {'productList':"${productList}",'category':category},
-				 			error:function(xhr,status,message){
-								alert("error : "+message );
-							},
-							success:function(data){
-								$('#gridtype').html(data);	// 장바구니에 데이터를 출력
-							}
-				 		});	//ajax
-				 	});
+                $('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+                  var category = $(this).attr("id");	//정렬 기준
+
+                  $.ajax({
+                    type: post,
+                    url: "category.do",
+                    data: {'productList':"${productList}",'category':category},
+                    error:function(xhr,status,message){
+                      alert("error : "+message );
+                    },
+                    success:function(data){
+                      $('#gridtype').html(data);	// 장바구니에 데이터를 출력
+                    }
+                  });	//ajax
+                });
 		      		</script>
 		      	</c:forEach>
 		      	
@@ -274,7 +273,9 @@
 		      <hr>
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
-		      	<a class="categoryClick"><span>11번가</span><span class="checkbox checked"></span></a>
+		      	<c:forEach items="${shopList}" var="shop">
+		      		<a href="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      	</c:forEach>
 		      </div>
 		      
 		      </section>
@@ -288,16 +289,26 @@
 					
 						<!-- 장바구니 리스트 영역 -->
 						<c:choose>
-							<c:when test="${!empty sessionScope.getItem(customer)}">
-								<div class="list-group">
+							<c:when test="${!empty sessionScope.customer}">
+								<div class="list-group" id="productList">
+
 									<table>
 									<c:forEach items="${productList}" var="product">
-										<tr>
-											<td>${product.img}</td>
-											<td>${product.name}</td>
-											<td>${product.price}</td>
-											<td>${product.category}</td>
-										</tr>
+										<c:choose>
+											<c:when test="${empty product.img}">
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${product.img}</td>
+													<td>${product.name}</td>
+													<td>${product.price}</td>
+													<td>${product.category}</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+										<c:if test="">
+										</c:if>
+										
 									</c:forEach>
 									 </table>
 								</div>
@@ -316,7 +327,7 @@
 																ID &nbsp;&nbsp;<input type ="text" name="id" id="id" required="required"><p><p>
 																PW &nbsp;&nbsp;<input type ="password" name="password" id="password" required="required" ><p><br>
 																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
-																<a href="register.html"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
+																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p>
 																<p><p><p>
 																<ul style="-webkit-padding-start:0px;">
 																	<li>Find ID</li> &nbsp; &nbsp;
@@ -443,23 +454,24 @@
 	 
 	 <script>
 	 $(function(){
-			$(document).ready(function(){ 
-			 	var fileTarget = $('.fileBox .upload-hidden'); 
-			 	fileTarget.on('change', function(){ // 값이 변경되면 
-					if(window.FileReader){ // modern browser 
-						 var filename = $(this)[0].files[0].name; 
-					}
-					else { // old IE 
-						 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
-					} // 추출한 파일명 삽입 
-					$(this).siblings('.upload-name').val(filename); 
-				}); 
+		 	var fileTarget = $('.filebox .upload-hidden'); 
+		 	fileTarget.on('change', function(){ // 값이 변경되면 
+			 	if(window.FileReader){ // modern browser 
+				 	var filename = $(this)[0].files[0].name; 
+			 	} else { // old IE 
+				 	var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+				} // 추출한 파일명 삽입 
+				$(this).siblings('.upload-name').val(filename); 
+				$(this).siblings('.bi-person-square').attr('fill', '#229954');
+				console.log("test");
 			});
+     
+			$("#ex2").slider({});
 			
 		 	$('#user_thumnail').click(function(){
 		 		alert("used thmnail");
 		 	});
-		 	
+
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
@@ -471,11 +483,14 @@
 						alert("error : "+message );
 					},
 					success:function(data){
-						$('#gridtype').html(data);	// 장바구니에 데이터를 출력
+						$('.list-group').html("성공");	// 장바구니에 데이터를 출력
 					}
 		 		});	//ajax
 		 	});
-	 });	
+		 	
+		 	
+	 });
+	 
 	 </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class MusinsaParser implements Parser {
 			System.out.println("start musinsa parser..");
 			String shop ="Musinsa";
 			//url
-			String url = "https://store.musinsa.com/app/product/detail/994733/0";
+			String url = URL;	
 			Document document = null;
 			document = Jsoup.connect(url).get();
 			
