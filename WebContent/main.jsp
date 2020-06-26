@@ -47,7 +47,16 @@
 	width:90px;}
 
 	/* register box  */
-	
+	.visuallyhidden {
+	    border: 0;
+	    clip: rect(0 0 0 0);
+	    height: 1px;
+	    margin: -1px;
+	    overflow: hidden;
+	    padding: 0;
+	    position: absolute;
+	    width: 1px;
+	}	
 	#registerBody{
 		align:center;
 		background:#fff;
@@ -82,6 +91,10 @@
 	.form-control{
 		height: 1.9em;
 		width: 10%;
+	}
+	
+	.user_icon{
+		object-fiti:contain;
 	}
 </style>
 
@@ -129,7 +142,7 @@
 							<c:otherwise>
 								<span class="badge badge-success">On</span>
 								<div id="user_thumnail">
-						  		<div class="user_icon"><img src= ${sessionScope.user.img} alt="user_icon"></div>
+						  		<div class="user_icon"><img src="${sessionScope.customer.img}" alt="user_icon" width="50px" height="50px"></div>
 								</div>
 							</c:otherwise>
 					  </c:choose>
@@ -198,7 +211,7 @@
 												  <path fill-rule="evenodd" d="M4.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
 												</svg>
 						  				</label>
-						  				<input type="text" class="form-control upload-hidden" value="Choose file" name="imgName" disabled="disabled">
+						  				<input type="text" class="form-control upload-hidden visuallyhidden" value="Choose file" name="imgName" disabled="disabled">
 										  <input type="file" id="customFile">
 									  </div>
 									</div>
@@ -441,8 +454,6 @@
 		 		alert("used thmnail");
 		 	});
 
-			 $("button#registerSubmit").click(()=>$(".carousel").carousel("next"));
-		 	
 		 	$('.categoryClick').click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		 		var category = $(this).attr("id");	//정렬 기준
 		 		
