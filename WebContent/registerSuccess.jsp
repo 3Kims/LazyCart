@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>${vo.name}님,</h2> 
+		<h2>${customer.name}님,</h2> 
 		<h3>회원으로 등록되셨습니다.</h3> 
 		<a href="main.jsp"><input type="button" name="homeBtn" value="홈으로"></a>&nbsp;&nbsp;
 		<a href="login.jsp"><input type="button" name="loginBtn" value="로그인"></a>

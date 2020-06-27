@@ -7,31 +7,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.customerVO;
-import model.ezbasketDAOImpl;
+import model.CustomerVO;
+import model.EzbasketDAOImpl;
 import servlet.controller.ModelAndView;
 
 public class ChangeUserInfoController implements Controller{
 
 	@Override
-	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("ChangeUserInfoController start...");
 		String path = "main.jsp";
-		
-		System.out.println("1. 폼값을 받아옵니다..");
 		
 		String id = request.getParameter("id");
 		String password= request.getParameter("password1");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
 		String address = request.getParameter("roadAddress");
-		System.out.println(id+password+name+phone+address);
+		System.out.println("Get user info success...controller");
 
-		//2.VO 객체 생성
-		System.out.println("2. customerVO 생성..");
-		customerVO customer = new customerVO(id,password,name,address,phone);
-		ezbasketDAOImpl.getInstance().changeUserInfo(customer);
-		HttpSession session=request.getSession();
-		session.setAttribute("customer",customer);		
+		//2.Create CustomerVO object
+		CustomerVO customer = new CustomerVO(id,password,name,address,phone);
+		try {
+			EzbasketDAOImpl.getInstance().changeUserInfo(customer);
+			System.out.println("ChangeUserInfoController success...");
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("ChangeUserInfoController sql errer...");
+		}
+		request.getSession().setAttribute("customer",customer);		
 		return new ModelAndView(path);
 	}
 }

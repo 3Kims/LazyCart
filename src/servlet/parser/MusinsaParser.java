@@ -11,11 +11,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
-import model.productVO;
+import model.ProductVO;
 public class MusinsaParser implements Parser {
 	@Override
-	public productVO handle(String URL) {
-		productVO product = null;
+	public ProductVO handle(String URL) {
+		ProductVO product = null;
 		try {
 			System.out.println("start musinsa parser..");
 			String shop ="Musinsa";
@@ -41,7 +41,7 @@ public class MusinsaParser implements Parser {
 			//이미지
 			String image = document.select("img#bigimg").get(0).toString();
 
-			product = new productVO(name, price, shop, url, category, image);
+			product = new ProductVO(name, price, shop, url, category, image);
 			System.out.println("product-------------------------");
 			System.out.println(product);
 		} catch (IOException e) {

@@ -17,8 +17,8 @@
 $(function(){
 	$("input[name=withdrawBtn]").click(function(){
 		if($("#password").val()=="") alert("비밀번호를 입력해주세요.")
-		else if($("#password").val()!="${sessionScope.vo.password}") alert("비밀번호를 잘못 입력하셨습니다.");
-		else if($("#password").val()=="${sessionScope.vo.password}"){
+		else if($("#password").val()!="${sessionScope.customer.password}") alert("비밀번호를 잘못 입력하셨습니다.");
+		else if($("#password").val()=="${sessionScope.customer.password}"){
 			alert("정말 탈퇴하시겠습니까?");
 			alert("탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
 			var url = "#";//홈으로

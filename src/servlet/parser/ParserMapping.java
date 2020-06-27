@@ -1,5 +1,5 @@
 package servlet.parser;
-import model.productVO;
+import model.ProductVO;
 
 public class ParserMapping {
 	
@@ -12,8 +12,8 @@ public class ParserMapping {
 	}
 	
 	//create controller...
-	public productVO createParser(String url) {
-		productVO product = null;
+	public ProductVO createParser(String url) {
+		ProductVO product = null;
 		if(url.toLowerCase().contains("musinsa")) {
 			product = new MusinsaParser().handle(url);
 			System.out.println("MusinsaParser.....생성");

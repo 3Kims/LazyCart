@@ -8,7 +8,7 @@ import java.util.Iterator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servlet.function.categoryController;
+import servlet.function.CategoryController;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,13 +16,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-import model.productVO;
+import model.ProductVO;
 
 public class AuctionParser implements Parser {
 
 	@Override
-	public productVO handle(String url) {
-		productVO product = null;
+	public ProductVO handle(String url) {
+		ProductVO product = null;
 		String shop ="Auction";
 		//url
 		System.out.println("url-------------------------");
@@ -55,7 +55,7 @@ public class AuctionParser implements Parser {
 			String image = liNodes.get(0).getElementsByTag("img").toString();
 			System.out.println(image);
 
-			product = new productVO(name, price, shop, url, category, image);
+			product = new ProductVO(name, price, shop, url, category, image);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

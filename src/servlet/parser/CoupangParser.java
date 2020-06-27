@@ -4,10 +4,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import model.productVO;
+import model.ProductVO;
 public class CoupangParser implements Parser {
-	public productVO handle(String url) {
-		productVO product = null;
+	public ProductVO handle(String url) {
+		ProductVO product = null;
 		Document doc;
 		try {
 			doc = Jsoup.connect(url).get();
@@ -41,7 +41,7 @@ public class CoupangParser implements Parser {
 			String imageSrc = thumbnailSrc.replace(thumbnail, detailImage);
 			String image =  "<img src="+ imageSrc +">";
 			
-			product = new productVO(name, price, shop, url, category, image);
+			product = new ProductVO(name, price, shop, url, category, image);
 			System.out.println("product------------------------------");
 			System.out.println(product);
 			return product;

@@ -2,29 +2,28 @@ package model;
 
 import java.sql.Date;
 
-public class cartVO {
+public class CartVO {
 	private String customer_id;
 	private int product_id;
 	private int quantity;
 	private Date date;
 
-	public cartVO(int product_id, int quantity, Date date) {
+	public CartVO() {
+		super();	
+	}
+	
+	public CartVO(int product_id, int quantity, Date date) {
 		this.product_id = product_id;
 		this.quantity = quantity;
 		this.date = date;
 	}
 	
-	public cartVO(String customer_id, int product_id, int quantity, Date date) {
+	public CartVO(String customer_id, int product_id, int quantity, Date date) {
 		super();
 		this.customer_id = customer_id;
 		this.product_id = product_id;
 		this.quantity = quantity;
 		this.date = date;
-	}
-
-	public cartVO() {
-		super();	
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getCustomer_id() {
@@ -61,10 +60,6 @@ public class cartVO {
 
 	@Override
 	public String toString() {
-		return "cart [customer_id=" + customer_id + ", product_id=" + product_id + ", quantity=" + quantity + ", date="
-				+ date + "]";
+		return "cart [customer_id=" + customer_id + ", product_id=" + product_id + ", quantity=" + quantity + ", date=" + date + "]";
 	}
-	
-	
-	
 }

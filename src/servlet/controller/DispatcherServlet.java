@@ -14,9 +14,9 @@ import servlet.function.HandlerMapping;
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private ModelAndView mv = null;
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		System.out.println("dispatcher doget...");
 		doProcess(request,response);
 	}
@@ -30,23 +30,21 @@ public class DispatcherServlet extends HttpServlet {
 		String requestURI=request.getRequestURI();		
 		String contextPath=request.getContextPath();
 		String command = requestURI.substring(contextPath.length()+1);	
-		System.out.println("extract command success..");
+		System.out.println("command: "+command+" extract success..");
 		
 		Controller controller=HandlerMapping.getInstance().createController(command);
 		String path = "index.jsp";
 		
-		request.getSession().setAttribute("id", "id01");  //세션임의
-		
-		ModelAndView mv = null;
 		try {
 			mv = controller.handle(request, response);		
 			path = mv.getPath();
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		if( mv!=null) {
-			if(mv.isRedirect()) response.sendRedirect(path);
-			else
+		if(mv != null) {
+			if(mv.isRedirect()) 
+				response.sendRedirect(path);
+			else 
 				request.getRequestDispatcher(path).forward(request, response);
 		}
 	}

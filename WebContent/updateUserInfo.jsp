@@ -13,7 +13,7 @@
 <title>Update User Infomation</title>
 <script>
 window.onload=function(){
-	if(${vo}==null)
+	if(${customer}==null)
 		alert("로그인 먼저 진행해주세요.")
 }
 function updateCheck(){

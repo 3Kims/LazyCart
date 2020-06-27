@@ -1,8 +1,8 @@
-insert into customer values('id01', '1234', 'img/person.png', 'Lee', 'Seoul', '010-0000-0001');
-insert into customer values('id02', '1234', 'img/person.png', 'Kim', 'Busan', '010-0000-0002');
-insert into customer values('id03', '1234', 'img/person.png', 'Song', 'Jeju', '010-0000-0003');
-insert into customer values('id04', '1234', 'img/person.png', 'Park', 'Kangwon', '010-0000-0004');
-insert into customer values('id05', '1234', 'img/person.png', 'Kwon', 'River', '010-0000-0005');
+insert into customer values('id01', '1234', 'img/default.png', 'Lee', 'Seoul', '010-0000-0001');
+insert into customer values('id02', '1234', 'img/default.png', 'Kim', 'Busan', '010-0000-0002');
+insert into customer values('id03', '1234', 'img/default.png', 'Song', 'Jeju', '010-0000-0003');
+insert into customer values('id04', '1234', 'img/default.png', 'Park', 'Kangwon', '010-0000-0004');
+insert into customer values('id05', '1234', 'img/default.png', 'Kwon', 'River', '010-0000-0005');
 
 insert into product(id, name, price, shop, url, category, img) values(1, null,null,null,null,null,null);
 insert into product(name, price, shop, url, category, img) values("Desk", 23440, "Coupang", "url1", "furniture", "img01");

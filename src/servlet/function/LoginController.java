@@ -6,40 +6,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.mysql.cj.Session;
-import model.customerVO;
-import model.ezbasketDAOImpl;
-import model.productVO;
+import model.CustomerVO;
+import model.EzbasketDAOImpl;
+import model.ProductVO;
 import servlet.controller.ModelAndView;
 public class LoginController implements Controller {
 	@Override
-	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("LoginController start...");
+		
+		CustomerVO customer = null;
+		ArrayList<ProductVO> productList = null;
+		String path="main.jsp";
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		String path="main.jsp";
-		// 2. dao 리턴 받고 biz로직 호출
-		System.out.println(id+password);
-		customerVO customer=ezbasketDAOImpl.getInstance().login(id, password);
-		System.out.println(customer);
-		System.out.println("로그인 서블릿 vo:"+customer);
-		ArrayList<productVO> productList = ezbasketDAOImpl.getInstance().getUsersProducts(id);
 		
-		if(customer == null) path="LoginError.jsp";
+		try {
+			customer=EzbasketDAOImpl.getInstance().login(id, password);
+			productList = EzbasketDAOImpl.getInstance().getUsersProducts(id);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("LoginController sql error...");
+		}
+		if(customer == null) 
+			path="LoginError.jsp";
 		else {
 			request.getSession().setAttribute("customer", customer);
-			System.out.println("customer 세션에 저장");
 			request.setAttribute("productList", productList);
-			System.out.println(productList);
-			for (productVO pro : productList) {
-				System.out.println(pro.toString());
-			}
-			Cookie cookie = new Cookie("id", "ilovejoohyuk");
-//			response.addCookie(cookie);
-//			System.out.println(session.toString());
-//			System.out.println("세션에 저장");
+			System.out.println("LoginController success..");
 		}
-		
-		//3. 값 바인딩	
-		return new ModelAndView(path);
-		
+		return new ModelAndView(path);	
 	}
 }

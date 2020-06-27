@@ -6,35 +6,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.customerVO;
-import model.ezbasketDAO;
-import model.ezbasketDAOImpl;
+import model.CustomerVO;
+import model.EzbasketDAO;
+import model.EzbasketDAOImpl;
 import servlet.controller.ModelAndView;
 
 public class ChangeProfileController implements Controller {
 
 	@Override
-	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("ChangeProfileController start...");
-		ezbasketDAO dao = null;
+		EzbasketDAO dao = null;
 		String path = "fileResult.jsp";
 		
-		String fileSource = (String) request.getAttribute("fileSource");
-		customerVO customer = (customerVO) request.getSession().getAttribute("customer");
-		System.out.println("get file, customer success...");
-		dao = ezbasketDAOImpl.getInstance();
-		dao.changeUsersImg(customer.getId(), fileSource);
+		String fileSource = "img/"+(String) request.getAttribute("fileSource"); 
 		
-		System.out.println("change user img success..");
+		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
+		System.out.println("Get file, customer success...controller");
 		
-		customer = dao.searchCustomer(customer.getId());
-		
-		System.out.println("search customer success....");
-		HttpSession session=request.getSession();
-		if(customer!=null) {
-			session.setAttribute("customer",customer);	
-			return new ModelAndView(path);
+		try {
+			dao = EzbasketDAOImpl.getInstance();
+			
+			dao.changeUsersImg(customer.getId(), fileSource);
+			System.out.println("Change user's img success...controller");
+			
+			customer = dao.searchCustomer(customer.getId());
+			System.out.println("Get customer success...controller");
 		}
-		else return null;
+		catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("ChangeProfileController sql error...");
+		}
+		request.getSession().setAttribute("customer",customer);	
+		return new ModelAndView(path);
 	}
 }

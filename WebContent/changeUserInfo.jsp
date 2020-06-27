@@ -22,7 +22,7 @@ function updateCheck(){
 }
 function cancelCheck(){
 	if(alert("회원정보 수정을 취소합니다."))
-		locate.href="home.jsp"// 홈이나 이전 페이지로
+		locate.href="main.jsp"// 홈이나 이전 페이지로
 	else return false;
 }
 </script>

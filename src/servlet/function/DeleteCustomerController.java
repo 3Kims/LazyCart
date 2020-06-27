@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.ezbasketDAOImpl;
-import model.productVO;
+import model.EzbasketDAOImpl;
+import model.ProductVO;
 import servlet.controller.ModelAndView;
 import servlet.parser.ParserMapping;
 
@@ -16,7 +16,7 @@ public class DeleteCustomerController implements Controller {
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) {
-
+		System.out.println("DeleteCustomerController start...");
 		String path = "main.jsp";
 		String id = "";
 		HttpSession session = request.getSession();
@@ -24,15 +24,14 @@ public class DeleteCustomerController implements Controller {
 		if (id!="") {
 			try {
 				id = (String) session.getAttribute("id");
-				ezbasketDAOImpl.getInstance().deleteCustomer(id);
-				session.removeAttribute("id");
+				EzbasketDAOImpl.getInstance().deleteCustomer(id);
+				session.removeAttribute("id");//????
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
 		} else {
-			System.out.println(
-		"DeleteCustomerController 오류.... 세션에 아이디가 등록되어있지 않습니다.");
+			System.out.println("DeleteCustomerController 오류.... 세션에 아이디가 등록되어있지 않습니다.");
 		}
 		return new ModelAndView(path);	
 	}

@@ -11,22 +11,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.customerVO;
-import model.ezbasketDAOImpl;
-import model.productVO;
+import model.CustomerVO;
+import model.EzbasketDAOImpl;
+import model.ProductVO;
 import servlet.controller.ModelAndView;
 
 public class UserProductController implements Controller {
-	ArrayList<productVO> productList =new ArrayList<productVO>();
+	
 	@Override
-	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("UserProductController start...");
+		ArrayList<ProductVO> productList = null;
 		String path="main.jsp";
 		HttpSession session=request.getSession();
 		String cutomer =session.getAttribute("customer").toString();
-		System.out.println(cutomer);
-		productList = ezbasketDAOImpl.getInstance().getUsersProducts(cutomer);
-		System.out.println("세션에 저장");
+		
+		try {
+			productList = EzbasketDAOImpl.getInstance().getUsersProducts(cutomer);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("UserProductController sql error...");
+		}
+		request.getSession().setAttribute("productList", productList);
+		System.out.println("UserProductController success...");
 		return new ModelAndView(path);
 	}
-
 }

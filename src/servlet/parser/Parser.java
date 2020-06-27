@@ -1,10 +1,7 @@
 package servlet.parser;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import model.productVO;
+import model.ProductVO;
 
 
 public interface Parser {
-	public productVO handle(String url);
+	public ProductVO handle(String url);
 }

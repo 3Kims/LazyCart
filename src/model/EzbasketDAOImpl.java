@@ -1,25 +1,19 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import model.config.ServerInfo;
-
-
-
-public class ezbasketDAOImpl implements ezbasketDAO {
+public class EzbasketDAOImpl implements EzbasketDAO {
 
 	private DataSource ds;
-	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
-	private ezbasketDAOImpl() {
+	private static EzbasketDAOImpl dao = new EzbasketDAOImpl();
+	private EzbasketDAOImpl() {
 		try {
 			//Naming Service(JNDI API)...javax.naming.Context
 			InitialContext ic = new InitialContext();			
@@ -29,7 +23,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			System.out.println("DataSource  Lookup Fail...");
 		}	
 	}	
-	public static ezbasketDAOImpl getInstance() {
+	public static EzbasketDAOImpl getInstance() {
 		return dao;
 	}
 
@@ -40,7 +34,6 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		System.out.println("디비연결 성공....");
 		return conn;
 	}
-	
 
   	private static ezbasketDAOImpl dao = new ezbasketDAOImpl();
  
@@ -77,7 +70,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 
 	@Override
-	public int registerProduct(productVO product) throws SQLException {
+	public int registerProduct(ProductVO product) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -114,7 +107,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 
 	@Override
-	public void registerCustomer(customerVO customer) throws SQLException {
+	public void registerCustomer(CustomerVO customer) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -145,7 +138,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 	
 	@Override
-	public void addcart(productVO product, String customerId) throws SQLException {
+	public void addcart(ProductVO product, String customerId) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		System.out.println("addcart start..");
@@ -181,11 +174,11 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 	
 	@Override
-	public ArrayList<customerVO> searchAllCustomers() throws SQLException {
+	public ArrayList<CustomerVO> searchAllCustomers() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<customerVO> customers = new ArrayList<>();
+		ArrayList<CustomerVO> customers = new ArrayList<>();
 		try {
 			System.out.println("searchAllCustomer start...");
 			
@@ -194,7 +187,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				customers.add(new customerVO(rs.getString("id"),
+				customers.add(new CustomerVO(rs.getString("id"),
 										rs.getString("password"),
 										rs.getString("img"),
 										rs.getString("name"),
@@ -209,11 +202,11 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 	
 	@Override
-	public customerVO searchCustomer(String id) throws SQLException {
+	public CustomerVO searchCustomer(String id) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		customerVO customer = null;
+		CustomerVO customer = null;
 		
 		try {
 			System.out.println("searchCustomer start...");
@@ -223,7 +216,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			if(rs.next()){
-				customer = new customerVO(rs.getString("id"),
+				customer = new CustomerVO(rs.getString("id"),
 						rs.getString("password"),
 						rs.getString("img"),
 						rs.getString("name"),
@@ -241,12 +234,12 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 	
 	@Override
-	public ArrayList<productVO> searchAllProducts() throws SQLException {
+	public ArrayList<ProductVO> searchAllProducts() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;	
 		ResultSet rs = null;
 		
-		ArrayList<productVO> products = new ArrayList<productVO>();
+		ArrayList<ProductVO> products = new ArrayList<ProductVO>();
 		try {
 			System.out.println("searchAllProducts start...");
 			conn = getConnection();
@@ -255,7 +248,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			rs=ps.executeQuery();
 
 			while(rs.next()) {
-				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
+				products.add(new ProductVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
 							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
 							rs.getString("img")));
 			}
@@ -266,12 +259,12 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		return products;
 	}
 
-	public ArrayList<productVO> getUsersProducts(String customerId) throws SQLException{
+	public ArrayList<ProductVO> getUsersProducts(String customerId) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;	
 		ResultSet rs = null;
 		
-		ArrayList<productVO> products = new ArrayList<productVO>();
+		ArrayList<ProductVO> products = new ArrayList<ProductVO>();
 		try {
 			System.out.println("getUsersProducts start...");
 			conn = getConnection();
@@ -280,7 +273,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(1, customerId);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				products.add(new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
+				products.add(new ProductVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"),
 							rs.getString("shop"),rs.getString("url"),rs.getString("category"),
 							rs.getString("img")));
 			}
@@ -292,11 +285,11 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 	
 	@Override
-	public productVO getProductByUrl(String url) throws SQLException {
+	public ProductVO getProductByUrl(String url) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;	
 		ResultSet rs = null;
-		productVO product = new productVO();
+		ProductVO product = new ProductVO();
 		try {
 			System.out.println("getProductByUrl start...");
 			conn = getConnection();
@@ -305,7 +298,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setString(1, url);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				product = new productVO(rs.getInt("id"),
+				product = new ProductVO(rs.getInt("id"),
 										rs.getString("name"),
 										rs.getInt("price"), 
 										rs.getString("shop"),
@@ -321,11 +314,11 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 		return product;
 	}
 
-	public productVO getProductById(int productId) throws SQLException{
+	public ProductVO getProductById(int productId) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;	
 		ResultSet rs = null;
-		productVO product = new productVO();
+		ProductVO product = new ProductVO();
 		try {
 			System.out.println("getProductById start...");
 			conn = getConnection();
@@ -334,7 +327,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			ps.setInt(1, productId);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				product = new productVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"));
+				product = new ProductVO(rs.getInt("id"),rs.getString("name"),rs.getInt("price"), rs.getString("shop"),rs.getString("url"),rs.getString("category"), rs.getString("img"));
 			}
 			System.out.println("getProductById success...");
 		}finally {
@@ -419,7 +412,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 	
 	@Override
-	public void changeUserInfo(customerVO customer) throws SQLException {
+	public void changeUserInfo(CustomerVO customer) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -520,12 +513,12 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 	}
 
 	@Override
-	public customerVO login(String id,String password) throws SQLException {
+	public CustomerVO login(String id,String password) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs=null;
-		customerVO customer=null;
-		cartVO cart=new cartVO();
+		CustomerVO customer=null;
+		CartVO cart=new CartVO();
 		try {
 			conn=  getConnection();
 			String query ="SELECT id,password,img,name,address,phone FROM customer where id=? and password=?";
@@ -535,7 +528,7 @@ public class ezbasketDAOImpl implements ezbasketDAO {
 			rs=ps.executeQuery();
 			
 			if(rs.next()) {
-				customer=new customerVO(rs.getString("id"),
+				customer=new CustomerVO(rs.getString("id"),
 						rs.getString("password"),
 						rs.getString("img"),
 						rs.getString("name"),
