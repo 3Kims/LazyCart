@@ -18,9 +18,11 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 <title>Ezbasket</title>
-
 <style type="text/css">
-
+	body{
+		font-family: 'Balsamiq Sans', cursive;
+	}
+	
 	/* bootstrap4 icon  */
 	.bi{
 		margin:0px;
@@ -36,7 +38,6 @@
 	
 	/*login box  */
 	#loginContainer{
-		font-family: 'Balsamiq Sans', cursive;
 		width:90%;height:90%;
 		margin:0 auto;
 		background:#fff;padding:2%;margin-top:5%;border:2px solid #fff;border-radius:15px;font-size:0.8em;
@@ -53,7 +54,7 @@
 	h1{
 		margin:0 auto;padding:1%;text-align:center;font-size:40px;color:#6c757d;
 	}
-	#loginSubmit,#registerSubmit{
+	.Signin_register_Btn{
 		border:1.3px solid #03a9f4ad;
 		background:#fff;
 		border-radius:2px;
@@ -96,13 +97,12 @@
 	#registerForm table td span{
 		color:orange;
 	}
-	#registerForm table input, #registerForm #initialize{
+	#registerForm table input, #registerForm .initialize{
 		border: 1px solid #e6e6e6; border-radius:2px; width:200px;height:25px;
 	}
 	#buttons{
 		text-align:center;margin:3%;
 	}
-	h1{margin:0 auto;padding:1%;text-align:center;font-size:40px;color:#6c757d;}
 	#phone1,#phone2,#phone3{width:60px;}	
 	
 	
@@ -118,6 +118,9 @@
 		border: 0; 
 	}
 	.upload-name{
+		width: 200px;
+	}
+	/* .upload-name{
 		position: absolute; 
 		width: 0px; 
 		height: 0px; 
@@ -126,7 +129,7 @@
 		overflow: hidden; 
 		clip:rect(0,0,0,0); 
 		border: 0; 
-	}
+	} */
 	.user_icon{
 		object-fiti:contain;
   }
@@ -339,8 +342,8 @@
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p></p><p></p>
 																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
-																<input type="submit" name="loginSubmit" id="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all"> &nbsp;
-																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerSubmit" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all"></a><p></p>
+																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
+																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
 																<ul style="-webkit-padding-start:0px;">
 																	<li>Find ID</li> &nbsp;&nbsp;
@@ -398,13 +401,13 @@
 																</table>
 																<!-- carousel prev button -->
 																<div id="buttons">
-																	<div>
+																	<div class="input-group-append">
 																		<a href="#carouselExampleControls" role="button" data-slide="prev">
-																		<input type="button" id="registerSubmit" value="prev" class="ui-button ui-widget ui-corner-all"></a>
-																	</div><p></p>
-																	<span class="sr-only">Prev</span>
-																	<input type="submit" id="registerSubmit" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
-																	<input type="button" id="initialize" name="initialize"  value="초기화">
+																		<input type="button" id="prevCarousel" value="뒤로" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a>
+																		<span class="sr-only">Prev</span>&nbsp; &nbsp;	
+																	<input type="submit" class="ui-button ui-widget ui-corner-all Signin_register_Btn" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" class="ui-button ui-widget ui-corner-all Signin_register_Btn" name="initialize"  value="초기화">
+																	</div>
 																</div>
 															</form>
 														</div>
@@ -498,23 +501,38 @@
 		
 		/*user thumnail upload start*/
 	 	var fileTarget = $('.filebox .upload-hidden'); 
+	 	var fileRoute = "";
+	 	var fileName = "";
+	 	var fileExtensionArray = ['jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png'];
 	 	
 	 	fileTarget.on('change', function(){
-		 	if(window.FileReader){//modern browser 
-			 	var filename = $(this)[0].files[0].name; 
-		 	} else { //old IE 
-		 		var originalFilename=$(this).val();
-			 	var filename = $(this).val().split('/').pop().split('\\').pop();//extract only filename
-			} // 추출한 파일명 삽입 
-			$(this).siblings('.upload-name').val(filename); 
+	 		var fileRoute = $(this).val();  //파일 경로 추출
+	 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
+	 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
+		 		if(data == fileExtension){
+		 			return true;
+		 		}
+		 	});
+	 		if(fileExtension == null){
+	 			alert("이미지 파일을 넣어주세요.('jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
+	 			location.reload(true);
+	 			return;
+	 		}
+	 		
+	 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
+	 		
+	 		
+	 		console.log("fileRoute: "+fileRoute);
+	 		console.log("filename: "+fileName);
+	 		
+			$(this).siblings('.upload-name').val(fileRoute); 
 			$(this).siblings('.bi-person-square').attr('fill', '#229954');
-			
-			var fileSource = $(this).siblings('.upload-name').val(filename);
 			
 			$.ajax({
 	 			type: "post",
 	 			url: "profileImg.do",
-	 			data: "fileSource="+fileSource,
+	 			data: {'fileRoute': fileRoute,
+	 						'fileName' : fileName},
 	 			error:function(xhr,status,message){
 					alert("error : "+message );
 				},
@@ -534,7 +552,7 @@
 	 		$.ajax({
 	 			type: "post",
 	 			url: "category.do",
-	 			data: {'productList':${"productList"},'category':category},
+	 			data: {'productList':${'productList'},'category':category},
 	 			error:function(xhr,status,message){
 					alert("error : "+message );
 				},

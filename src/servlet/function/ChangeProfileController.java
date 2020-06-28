@@ -19,7 +19,7 @@ public class ChangeProfileController implements Controller {
 		EzbasketDAO dao = null;
 		String path = "fileResult.jsp";
 		
-		String fileSource = "img/"+(String) request.getAttribute("fileSource"); 
+		String fileName = "img/"+(String)request.getParameter("fileName");
 		
 		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
 		System.out.println("Get file, customer success...controller");
@@ -27,7 +27,7 @@ public class ChangeProfileController implements Controller {
 		try {
 			dao = EzbasketDAOImpl.getInstance();
 			
-			dao.changeUsersImg(customer.getId(), fileSource);
+			dao.changeUsersImg(customer.getId(), fileName);
 			System.out.println("Change user's img success...controller");
 			
 			customer = dao.searchCustomer(customer.getId());
