@@ -33,7 +33,7 @@ public class LoginController implements Controller {
 			path="LoginError.jsp";
 		else {
 			request.getSession().setAttribute("customer", customer);
-			request.setAttribute("productList", productList);
+			request.getSession().setAttribute("productList", productList);
 			System.out.println("LoginController success..");
 		}
 		return new ModelAndView(path);	
