@@ -39,44 +39,49 @@ public class LoginController implements Controller {
 			request.getSession().setAttribute("productList", productList);
 			System.out.println("LoginController success..");
 		}
-
 		HashMap<String, ArrayList<String>> categoryList = new HashMap<>();
 		HashSet<String> shopList = new HashSet<>();
-		int max = 0;
-		int min = productList.get(0).getPrice();
-		for (ProductVO p : productList) {
-			System.out.println("반복문 시작");
-			// 가격 비교
-			if (p.getName() == null) {
-				continue;
-			}
-			if (p.getPrice() > max) {
-				max = p.getPrice();
-			}
-			if (p.getPrice() < min) {
-				min = p.getPrice();
-			}
-			// 카테고리 추가
-			String[] categories = p.getCategory().split(">");
-			if (categories.length < 2) {
-				categoryList.put(categories[0], new ArrayList<String>());
-			} else {
-				if (categoryList.containsKey(categories[0])) {
-					categoryList.get(categories[0]).add(categories[1]);
-				} else {
-					categoryList.put(categories[0], new ArrayList<String>());
-					categoryList.get(categories[0]).add(categories[1]);
-				}
-
-			}
-			// 샵 추가
-			shopList.add(p.getShop());
-
-		}
-		// 가격 배열 생성
 		int[] priceList = new int[2];
-		priceList[0] = min;
-		priceList[1] = max;
+		
+		if(productList.size()>1) {
+			int max = 0;
+			int min = productList.get(0).getPrice();
+			for (ProductVO p : productList) {
+				System.out.println("반복문 시작");
+				// 가격 비교
+				if (p.getName() == null) {
+					continue;
+				}
+				if (p.getPrice() > max) {
+					max = p.getPrice();
+				}
+				if (p.getPrice() < min) {
+					min = p.getPrice();
+				}
+				// 카테고리 추가
+				String[] categories = p.getCategory().split(">");
+				if (categories.length < 2) {
+					categoryList.put(categories[0], new ArrayList<String>());
+				} else {
+					if (categoryList.containsKey(categories[0])) {
+						categoryList.get(categories[0]).add(categories[1]);
+					} else {
+						categoryList.put(categories[0], new ArrayList<String>());
+						categoryList.get(categories[0]).add(categories[1]);
+					}
+
+				}
+				// 샵 추가
+				shopList.add(p.getShop());
+
+			}
+			// 가격 배열 생성
+			
+			priceList[0] = min;
+			priceList[1] = max;
+		}
+		
+		
 
 		request.setAttribute("categoryList", categoryList);
 		request.setAttribute("shopList", shopList);

@@ -44,7 +44,9 @@ public class AddCartController implements Controller {
 				HashSet<String> shopList = new HashSet<>();
 				
 				for(ProductVO p: productList) {
-					
+					if(p.getName()==null) {
+						continue;
+					}
 					//가격 비교
 					if(p.getPrice()>max) {
 						max = p.getPrice();
