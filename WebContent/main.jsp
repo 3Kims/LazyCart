@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,6 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
 <title>Ezbasket</title>
 <style type="text/css">
 	body{
@@ -105,9 +105,8 @@
 	}
 	#phone1,#phone2,#phone3{width:60px;}	
 	
-	
 	/* file box  */
-	.filebox input[type="file"] { 
+	.fileBox input[type="file"] { 
 		position: absolute; 
 		width: 1px; 
 		height: 1px; 
@@ -246,46 +245,62 @@
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-			  		<form action="search_product.do" method="post">
-							<div class="input-group">
-						    <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
-						    <div class="input-group-append">
-						      <button class="btn btn-secondary" type="submit">
-						        <i class="fa fa-search"> 
-							        <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><!-- icon -->
-											 <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-											 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-											</svg>
-										</i>
-						      </button>
-						    </div>
-						  </div>
-					  </form><!--url로 검색 -->
-					  <span class="sr-only">(current)</span>
-					</div>
+              <form action="search_product.do" method="post">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit">
+                      <i class="fa fa-search"> 
+                        <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><!-- icon -->
+                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                        </svg>
+                      </i>
+                    </button>
+                  </div>
+                </div>
+              </form><!--url로 검색 -->
+					    <span class="sr-only">(current)</span>
+					  </div>
 			    </div>
 			  </div>
-			  
+			 
 			  <!-- 유저 프로필 업로드 영역 -->
+			  
+
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-			      <div>
-			  			<div class="filebox"> 
-				  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
-				  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-								  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-								</svg>
-				  			<label for="ex_filename" id="profileButton">Upload</label> 
-				  			<input type="file" id="ex_filename" class="upload-hidden"> 
-				  			<span id="fileResult"></span>
-			  			</div>
-					  	<span class="sr-only">(current)</span>
-					  	<a href="LogoutController.do"><button>logout</button></a>
-						</div>
-			    </div>
-			  </div>
-			  
+            <div class="input-group-append">
+              <c:choose>
+                <c:when test="${empty sessionScope.customer}">
+                    <span class="sr-only">(current)</span>
+                    <strong>로그인이 필요합니다.</strong>
+                </c:when>
+                <c:otherwise>
+                  <form action="profileImg.do" id="fileForm" method="post" enctype="multipart/form-data">
+                    <div class="filebox"> 
+                        <input class="upload-name" value="Img Route.." disabled="disabled"> 
+                        <svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                          </svg>
+                        <label for="ex_filename" id="profileButton">Upload</label> 
+                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                        <span id="fileResult"></span>
+                        <input type="submit" value="Upload">
+                    </div>
+                  </form>
+                  <span class="sr-only">(current)</span>
+                    <a href="LogoutController.do"><button>logout</button></a>
+                  <span class="sr-only">(current)</span>
+                    <a href="ChangeUserInfoController.do"><button>회원정보수정</button></a>
+                  <span class="sr-only">(current)</span>
+                    <button class="deleteCustomer">회원탈퇴</button>
+                </c:otherwise>
+              </c:choose>
+            </div>
+          </div>
+		    </div>
 			</nav>
 		</div>
   	</header>
@@ -298,7 +313,12 @@
 		      <section>
 		      
 		      <!-- 분류 조건영역 -->
+		        <div class = "category all">
+		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
+		      	</div>
+		      	<hr>
 		      <div class = "category price">
+		      <p>가격</p>
             <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
             <div id="slider-range"></div><hr>
 		      </div>
@@ -315,7 +335,7 @@
 		      <div class = "category seller">
 		      	<p><b>쇼핑몰</b></p>
 		      	<c:forEach items="${shopList}" var="shop">
-		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a><br>
 		      	</c:forEach>
 		      </div>
 		      <hr>
@@ -524,7 +544,7 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
  
-   
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -535,28 +555,68 @@
 <!-- Chart.js -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-  
+
 <script>
+	/* function fileBoxEvents(e){
+		e.preventDefault();
+		var fileData = new FormData($("#fileForm")[0]);
+	
+		$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: "profileImg.do",
+				data: fileData,
+			success:function(data){
+				$('#fileForm')[0].reset();
+				$('#fileResult').html("success");	// 장바구니에 데이터를 출력
+			},
+			error:function(xhr,status,message){
+				alert("error : "+message );
+			}
+		});	//ajax..get changed fileform
+	} */
+	
 	$(function(){
 		
 		/* JQUERY 슬라이더 시작 */
 	 	$("#slider-range").slider({
 			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
+			min:  <c:out value="${priceList[0]}"/>,
+			max: <c:out value="${priceList[1]}"/>,
+			values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
 			slide: function(event, ui) {
-			 $("#amount").val("$"+ui.values[0]+"-$"+ui.values[1]);
-			}
+			 $("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");
+			 //가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
+			 $.ajax({
+		 			type: "post",
+		 			url: "category.do",
+		 			data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
+		 			error:function(xhr,status,message){
+						alert("error : "+message );
+					},
+					success:function(data){
+						var html = data;
+						$('.list-group').html(data);
+					}
+		 		}); //categoryClick ajax
+		 	}
 		});
-		$("#amount").val("$"+$("#slider-range").slider("values",0)+"-$"+$("#slider-range").slider("values", 1));		 	
+		$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
 		/* JQUERY 슬라이더 끝 */
-		
+
+		/*회원탈퇴 재확인 시작*/
+    $("button.deleteCustomer").click(function() {
+      var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
+      if (deleteConfirm == true) {
+        window.location.href = "DeleteCustomer.do";   
+      }else {
+        return;
+      }//else
+    });// $("button.deleteCustomer").click
+    /*회원탈퇴 재확인 끝*/
 		
 		/*user thumnail upload start*/
-	 	var fileTarget = $('.filebox .upload-hidden'); 
-	 	var fileRoute = "";
-	 	var fileName = "";
+	 	var fileTarget = $('.fileBox .upload-hidden'); 
 	 	var fileExtensionArray = ['jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png'];
 	 	
 	 	fileTarget.on('change', function(){
@@ -572,37 +632,21 @@
 	 			location.reload(true);
 	 			return;
 	 		}
-	 		
 	 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
+	 		//파일명과 파일루트 추출완료
 	 		
-	 		
-	 		console.log("fileRoute: "+fileRoute);
-	 		console.log("filename: "+fileName);
-	 		
-			$(this).siblings('.upload-name').val(fileRoute); 
-			$(this).siblings('.bi-person-square').attr('fill', '#229954');
-			
-			$.ajax({
-	 			type: "post",
-	 			url: "profileImg.do",
-	 			data: {'fileRoute': fileRoute,
-	 						'fileName' : fileName},
-	 			error:function(xhr,status,message){
-					alert("error : "+message );
-				},
-				success:function(data){
-					console.log("success");
-					$('#fileResult').html(data);	// 장바구니에 데이터를 출력
-				}
-	 		});	//ajax..get changed fileform
-		});//fileTarget change
+			$(this).siblings('.upload-name').val(fileName); 
+			$(this).siblings('.bi-person-square').attr('fill', '#229954'); 
+			//파일명뜨기, 완료 색깔 변경 완료
     /*user thumnail upload finished*/
-			
-    
+	 	});
+	 	
 		/*category start*/
 	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+	 		console.log("clicked!");
 	 		var category = $(this).attr("id");	//정렬 기준
-	 		
+	 		var option = $(this).text();
+	 		//체크박스 클레스 checked로 바꾸는 로직 필요
 	 		$.ajax({
 	 			type: "post",
 	 			url: "category.do",
@@ -611,12 +655,13 @@
 					alert("error : "+message );
 				},
 				success:function(data){
-					$('.list-group').html("성공");	// 장바구니에 데이터를 출력
+					console.log(data);
+					var html = data;
+					$('.list-group').html(data);
 				}
 	 		});//categoryClick ajax
 	 	});//categoryClick
-	 	/*category finished*/
-	 	
+	 	/*category finished*/	
  	});//document onload
  	
  	
@@ -737,8 +782,5 @@
 		});
  	
 </script>
-	 	
-		
-	  
 </body>
 </html>
