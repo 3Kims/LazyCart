@@ -16,7 +16,6 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
 <title>Ezbasket</title>
 <style type="text/css">
 	body{
@@ -104,7 +103,6 @@
 		text-align:center;margin:3%;
 	}
 	#phone1,#phone2,#phone3{width:60px;}	
-	
 	
 	/* file box  */
 	.filebox input[type="file"] { 
@@ -221,9 +219,9 @@
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-				  		<form action="search_product.do" method="post">
+				  		<form action="SearchInCart.do" method="post">
 								<div class="input-group">
-							    <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
+							    <input type="text" class="form-control" placeholder="Please enter product's name...." name="SearchInCartKeyword">
 							    <div class="input-group-append">
 							      <button class="btn btn-secondary" type="submit">
 							        <i class="fa fa-search"> 
@@ -511,6 +509,7 @@
 		});
 		$("#amount").val("$"+$("#slider-range").slider("values",0)+"-$"+$("#slider-range").slider("values", 1));		 	
 		/* JQUERY 슬라이더 끝 */
+<<<<<<< HEAD
 		/*회원탈퇴 재확인 시작*/
         $("button.deleteCustomer").click(function() {
             var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
@@ -522,6 +521,8 @@
         });// $("button.deleteCustomer").click
         
         /*회원탈퇴 재확인 끝*/
+=======
+>>>>>>> new/SearchInCart
 		
 		/*user thumnail upload start*/
 	 	var fileTarget = $('.filebox .upload-hidden'); 
