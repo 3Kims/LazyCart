@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -245,16 +246,19 @@
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
 			      <div>
-			  			<div class="filebox"> 
-				  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
-				  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-								  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-								</svg>
-				  			<label for="ex_filename" id="profileButton">Upload</label> 
-				  			<input type="file" id="ex_filename" class="upload-hidden"> 
-				  			<span id="fileResult"></span>
-			  			</div>
+			      	<form id="fileboxID" method="post" enctype="multipart/form-data">
+				  			<div class="filebox"> 
+					  			<!-- <input class="upload-name" value="Img Route.." disabled="disabled">  -->
+					  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+									  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+									</svg>
+					  			<label for="ex_filename" id="profileButton">파일선택</label> 
+					  			<input type="file" id="ex_filename" class="upload-hidden"> 
+					  			<button onClick="fileBoxEvents(event)">업로드</button>
+					  			<span id="fileResult"></span>
+				  			</div>
+				  		</form>
 					  	<span class="sr-only">(current)</span>
 					  	<a href="LogoutController.do"><button>logout</button></a>
 						</div>
@@ -473,18 +477,37 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
  
-   
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  <!-- 낮은 버전이 아래로 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   
 <script>
+	function fileBoxEvents(e){
+		e.preventDefault();
+		var fileData = new FormData($("#fileboxID")[0]);
+	
+		$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: "profileImg.do",
+				data: fileData,
+			success:function(data){
+				$('#fileboxID')[0].reset();
+				$('#fileResult').html("success");	// 장바구니에 데이터를 출력
+			},
+			error:function(xhr,status,message){
+				alert("error : "+message );
+			}
+		});	//ajax..get changed fileform
+	}
+	
 	$(function(){
 		
-
 		/* JQUERY 슬라이더 시작 */
 	 	$("#slider-range").slider({
 			range: true,
@@ -501,11 +524,10 @@
 		
 		/*user thumnail upload start*/
 	 	var fileTarget = $('.filebox .upload-hidden'); 
-	 	var fileRoute = "";
-	 	var fileName = "";
 	 	var fileExtensionArray = ['jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png'];
 	 	
 	 	fileTarget.on('change', function(){
+	 		var file = $(this)[0].files[0];
 	 		var fileRoute = $(this).val();  //파일 경로 추출
 	 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
 	 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
@@ -518,33 +540,19 @@
 	 			location.reload(true);
 	 			return;
 	 		}
-	 		
+	 		console.log("fileExtension: "+fileExtension);
 	 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
+	 		//파일명과 파일루트 추출완료
 	 		
-	 		
-	 		console.log("fileRoute: "+fileRoute);
-	 		console.log("filename: "+fileName);
-	 		
-			$(this).siblings('.upload-name').val(fileRoute); 
-			$(this).siblings('.bi-person-square').attr('fill', '#229954');
-			
-			$.ajax({
-	 			type: "post",
-	 			url: "profileImg.do",
-	 			data: {'fileRoute': fileRoute,
-	 						'fileName' : fileName},
-	 			error:function(xhr,status,message){
-					alert("error : "+message );
-				},
-				success:function(data){
-					console.log("success");
-					$('#fileResult').html(data);	// 장바구니에 데이터를 출력
-				}
-	 		});	//ajax..get changed fileform
-		});//fileTarget change
+			//$(this).siblings('.upload-name').val(fileName); 
+			$(this).siblings('.bi-person-square').attr('fill', '#229954'); 
+			//파일명뜨기, 완료 색깔 변경 완료
+
     /*user thumnail upload finished*/
-			
-    
+	 	});
+	 	
+	 	
+	 	
 		/*category start*/
 	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 	 		var category = $(this).attr("id");	//정렬 기준
@@ -561,8 +569,7 @@
 				}
 	 		});//categoryClick ajax
 	 	});//categoryClick
-	 	/*category finished*/
-	 	
+	 	/*category finished*/	
  	});//document onload
 </script>
 	 	
