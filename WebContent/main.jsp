@@ -248,7 +248,7 @@
                         <c:choose>
                             <c:when test="${empty sessionScope.customer}">
                                 <span class="sr-only">(current)</span>
-                                <a href="LoginController.do"><button>login</button></a>
+                                <strong>로그인이 필요합니다.</strong>
                             </c:when>
                             <c:otherwise>
                                 <div class="filebox"> 
