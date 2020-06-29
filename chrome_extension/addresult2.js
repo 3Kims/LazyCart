@@ -10,4 +10,4 @@ function getParameterByName(name) {
 	console.log(url);
 	var iframe = document.getElementById("addCartResult");
 	iframe.src=("http://localhost:8888/EZbasket/addcart.do?url="+url);
-	location.href = "bucket.html";
+	setTimeout("location.href = 'bucket.html'",30);

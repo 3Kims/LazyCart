@@ -1,3 +1,10 @@
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 
 
 function getCurrentTabUrl(callback) {
@@ -13,7 +20,10 @@ function getCurrentTabUrl(callback) {
 
 function renderURL(statusText){
 	
-	location.href="addresult2.html?url="+statusText;
+	var url = getParameterByName("url");
+	console.log(url);
+	var iframe = document.getElementById("iframe_cart");
+	iframe.src=("http://localhost:8888/EZbasket/addcart.do?url="+url);
 }
 
 document.addEventListener("DOMContentLoaded",function(){
