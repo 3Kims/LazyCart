@@ -557,25 +557,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
 <script>
-	/* function fileBoxEvents(e){
-		e.preventDefault();
-		var fileData = new FormData($("#fileForm")[0]);
-	
-		$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url: "profileImg.do",
-				data: fileData,
-			success:function(data){
-				$('#fileForm')[0].reset();
-				$('#fileResult').html("success");	// 장바구니에 데이터를 출력
-			},
-			error:function(xhr,status,message){
-				alert("error : "+message );
-			}
-		});	//ajax..get changed fileform
-	} */
-	
 	$(function(){
 		
 		/* JQUERY 슬라이더 시작 */
@@ -782,9 +763,5 @@
 		});
  	
 </script>
-<<<<<<< HEAD
-	  
-=======
->>>>>>> f5cff3e23242fd78f2022989efaa9f2601b9ba26
 </body>
 </html>
