@@ -80,13 +80,9 @@ public class LoginController implements Controller {
 			priceList[0] = min;
 			priceList[1] = max;
 		}
-		
-		
-
-		request.getSession().setAttribute("categoryList", categoryList);
-		request.getSession().setAttribute("shopList", shopList);
-		request.getSession().setAttribute("priceList", priceList);
-
-		return new ModelAndView(path,true);
+		request.setAttribute("categoryList", categoryList);
+		request.setAttribute("shopList", shopList);
+		request.setAttribute("priceList", priceList);
+		return new ModelAndView(path);
 	}
 }

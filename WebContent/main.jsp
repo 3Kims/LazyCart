@@ -17,7 +17,6 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
 <title>Ezbasket</title>
 <style type="text/css">
 	body{
@@ -105,7 +104,6 @@
 		text-align:center;margin:3%;
 	}
 	#phone1,#phone2,#phone3{width:60px;}	
-	
 	
 	/* file box  */
 	.fileBox input[type="file"] { 
@@ -222,9 +220,9 @@
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-				  		<form action="search_product.do" method="post">
+				  		<form action="SearchInCart.do" method="post">
 								<div class="input-group">
-							    <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
+							    <input type="text" class="form-control" placeholder="Please enter product's name...." name="SearchInCartKeyword">
 							    <div class="input-group-append">
 							      <button class="btn btn-secondary" type="submit">
 							        <i class="fa fa-search"> 
@@ -241,30 +239,43 @@
 						</div>
 			    </div>
 			  </div>
-			  
+			 
 			  <!-- 유저 프로필 업로드 영역 -->
+			  
+
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-			      <div>
-			      	<form action="profileImg.do" id="fileForm" method="post" enctype="multipart/form-data">
-				  			<div class="fileBox"> 
-					  			<!-- <input class="upload-name" value="Img Route.." disabled="disabled">  -->
-					  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-									  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-									  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-									</svg>
-					  			<label for="fileType" id="fileLabel">파일선택</label> 
-					  			<input type="file" id="fileType" name="fileType" class="upload-hidden"> 
-					  			<span id="fileResult"></span>
-					  			<input type="submit" value="Upload">
-				  			</div>
-				  		</form>
-					  	<span class="sr-only">(current)</span>
-					  	<a href="LogoutController.do"><button>logout</button></a>
-						</div>
-			    </div>
-			  </div>
-			  
+            <div class="input-group-append">
+              <c:choose>
+                <c:when test="${empty sessionScope.customer}">
+                    <span class="sr-only">(current)</span>
+                    <strong>로그인이 필요합니다.</strong>
+                </c:when>
+                <c:otherwise>
+                  <form action="profileImg.do" id="fileForm" method="post" enctype="multipart/form-data">
+                    <div class="filebox"> 
+                        <input class="upload-name" value="Img Route.." disabled="disabled"> 
+                        <svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                          </svg>
+                        <label for="ex_filename" id="profileButton">Upload</label> 
+                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                        <span id="fileResult"></span>
+                        <input type="submit" value="Upload">
+                    </div>
+                  </form>
+                  <span class="sr-only">(current)</span>
+                    <a href="LogoutController.do"><button>logout</button></a>
+                  <span class="sr-only">(current)</span>
+                    <a href="ChangeUserInfoController.do"><button>회원정보수정</button></a>
+                  <span class="sr-only">(current)</span>
+                    <button class="deleteCustomer">회원탈퇴</button>
+                </c:otherwise>
+              </c:choose>
+            </div>
+          </div>
+		    </div>
 			</nav>
 		</div>
   	</header>
@@ -538,6 +549,17 @@
 		});
 		$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
 		/* JQUERY 슬라이더 끝 */
+
+		/*회원탈퇴 재확인 시작*/
+    $("button.deleteCustomer").click(function() {
+      var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
+      if (deleteConfirm == true) {
+        window.location.href = "DeleteCustomer.do";   
+      }else {
+        return;
+      }//else
+    });// $("button.deleteCustomer").click
+    /*회원탈퇴 재확인 끝*/
 		
 		/*user thumnail upload start*/
 	 	var fileTarget = $('.fileBox .upload-hidden'); 
@@ -589,8 +611,5 @@
 	 	/*category finished*/	
  	});//document onload
 </script>
-	 	
-		
-	  
 </body>
 </html>
