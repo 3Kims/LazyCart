@@ -277,7 +277,12 @@
 		      <section>
 		      
 		      <!-- 분류 조건영역 -->
+		        <div class = "category all">
+		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
+		      	</div>
+		      	<hr>
 		      <div class = "category price">
+		      <p>가격</p>
             <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
             <div id="slider-range"></div><hr>
 		      </div>
@@ -294,7 +299,7 @@
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
 		      	<c:forEach items="${shopList}" var="shop">
-		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a><br>
 		      	</c:forEach>
 		      </div>
 		      
@@ -511,15 +516,29 @@
 		/* JQUERY 슬라이더 시작 */
 	 	$("#slider-range").slider({
 			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
+			min:  <c:out value="${priceList[0]}"/>,
+			max: <c:out value="${priceList[1]}"/>,
+			values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
 			slide: function(event, ui) {
-			 $("#amount").val("$"+ui.values[0]+"-$"+ui.values[1]);
-			}
+			 $("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");
+			 //가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
+			 $.ajax({
+		 			type: "post",
+		 			url: "category.do",
+		 			data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
+		 			error:function(xhr,status,message){
+						alert("error : "+message );
+					},
+					success:function(data){
+						var html = data;
+						$('.list-group').html(data);
+					}
+		 		}); //categoryClick ajax
+		 	}
 		});
-		$("#amount").val("$"+$("#slider-range").slider("values",0)+"-$"+$("#slider-range").slider("values", 1));		 	
+		$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
 		/* JQUERY 슬라이더 끝 */
+
 		
 		
 		/*user thumnail upload start*/
@@ -555,17 +574,22 @@
 	 	
 		/*category start*/
 	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+	 		console.log("clicked!");
 	 		var category = $(this).attr("id");	//정렬 기준
-	 		
+	 		var option = $(this).text();
+	 		//체크박스 클레스 checked로 바꾸는 로직 필요
 	 		$.ajax({
 	 			type: "post",
 	 			url: "category.do",
-	 			data: {'productList':${'productList'},'category':category},
+	 			data: {'category':category,'option':option},
+	 			dataType : "text",
 	 			error:function(xhr,status,message){
 					alert("error : "+message );
 				},
 				success:function(data){
-					$('.list-group').html("성공");	// 장바구니에 데이터를 출력
+					console.log(data);
+					var html = data;
+					$('.list-group').html(data);
 				}
 	 		});//categoryClick ajax
 	 	});//categoryClick
