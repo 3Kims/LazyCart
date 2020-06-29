@@ -44,7 +44,6 @@ public class LoginController implements Controller {
 			System.out.println("LoginController success..");
 		}
 	
-		int max=0; int min=productList.get(0).getPrice();
 		HashMap<String,ArrayList<String>> categoryList = new HashMap<>();
 
 		HashSet<String> shopList = new HashSet<>();

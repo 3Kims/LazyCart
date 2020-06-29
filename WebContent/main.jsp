@@ -116,10 +116,7 @@
 		clip:rect(0,0,0,0); 
 		border: 0; 
 	}
-	.upload-name{
-		width: 200px;
-	}
-	/* .upload-name{
+	.upload_name{
 		position: absolute; 
 		width: 0px; 
 		height: 0px; 
@@ -128,7 +125,7 @@
 		overflow: hidden; 
 		clip:rect(0,0,0,0); 
 		border: 0; 
-	} */
+	}
 	.user_icon{
 		object-fiti:contain;
   }
