@@ -1,18 +1,9 @@
 package servlet.function;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.Base64;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.Executors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -33,8 +24,7 @@ import servlet.controller.ModelAndView;
 @MultipartConfig (fileSizeThreshold=1024*1024*10, maxFileSize=1024*1024*50, maxRequestSize=1024*1024*100)  
 public class ChangeProfileController implements Controller {
 	
-	private static final String UPLOAD_DIR = "filefolder";
-	
+	private static final int LIMIT_SIZE_BYTES = 1024 * 1024;
 	public ChangeProfileController() {}
 	
 	
@@ -43,45 +33,63 @@ public class ChangeProfileController implements Controller {
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("ChangeProfileController start...");
 		EzbasketDAO dao = null;
-		String path = "fileResult.jsp";
+		String path = "main.jsp";
+		String fileName = "";
 		
 		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
 		String customerId = customer.getId();
 	
-		// 서버의 실제 경로
-		String applicationPath = request.getServletContext().getRealPath("");
-		String uploadFilePath = applicationPath + UPLOAD_DIR;
-				
-		System.out.println(" LOG :: [서버 루트 경로] :: " + applicationPath);
-		System.out.println(" LOG :: [파일 저장 경로] :: " + uploadFilePath);
-				
-		// creates the save directory if it does not exists
-		File fileSaveDir = new File(uploadFilePath);
-				
-		// 파일 경로 없으면 생성
-		if (!fileSaveDir.exists()) {
-			fileSaveDir.mkdirs();
-		}
 
-		String fileName = null;
-	    //Get all the parts from request and write it to the file on server
-	    try {
-			for (Part part : request.getParts()) {
-				getPartConfig(part);
-			    fileName = getFileName(part);
-			    System.out.println(" LOG :: [ 업로드 파일 경로 ] :: " + uploadFilePath + File.separator + fileName);
-			    part.write(uploadFilePath + File.separator + fileName);
+		request.getServletPath();
+		String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
+		
+		//String usersPath = request.getContextPath()+"/img/"+customerId;
+		System.out.println(usersPath);
+         
+        File serverDir = new File(usersPath);
+		if(!serverDir.exists()) {
+			try {
+				serverDir.mkdir();
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
-		} catch (IOException | ServletException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		}else {
+			System.out.println("Already folder exist...");
 		}
-	    
-	    request.setAttribute("fileName", fileName);
-	    
-	    
-	    
-	    
+		
+ 
+        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+        fileItemFactory.setRepository(serverDir);
+        fileItemFactory.setSizeThreshold(LIMIT_SIZE_BYTES);
+        ServletFileUpload fileUpload = new ServletFileUpload(fileItemFactory);
+ 
+        try {
+            List<FileItem> items = fileUpload.parseRequest(request);
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    System.out.printf("파라미터 명 : %s, 파라미터 값 :  %s \n", item.getFieldName(), item.getString("utf-8"));
+                } else {
+                    System.out.printf("파라미터 명 : %s, 파일 명 : %s,  파일 크기 : %s bytes \n", item.getFieldName(),
+                            item.getName(), item.getSize());
+                    if (item.getSize() > 0) {
+                        String separator = File.separator;
+                        int index =  item.getName().lastIndexOf(separator);
+                        fileName = item.getName().substring(index  + 1);
+                        File uploadFile = new File(usersPath +  separator + fileName);
+                        item.write(uploadFile);
+                    }
+                }
+            }
+            //out.println("<h1>파일 업로드 완료</h1>");
+ 
+ 
+        } catch (Exception e) {
+            // 파일 업로드 처리 중 오류가 발생하는 경우
+            e.printStackTrace();
+           // out.println("<h1>파일 업로드 중 오류가  발생하였습니다.</h1>");
+        }	    
+	           
+        
 		try {
 			dao = EzbasketDAOImpl.getInstance();
 			
@@ -96,7 +104,7 @@ public class ChangeProfileController implements Controller {
 			System.out.println("ChangeProfileController sql error...");
 		}
 		request.getSession().setAttribute("customer",customer);	
-		return new ModelAndView(path);
+		return new ModelAndView(path, true);
 	}
 	
 	private void getPartConfig(Part part) {

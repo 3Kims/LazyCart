@@ -541,7 +541,7 @@
 		
 		/*user thumnail upload start*/
 	 	var fileTarget = $('.fileBox .upload-hidden'); 
-	 	var fileExtensionArray = ['jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png'];
+	 	var fileExtensionArray = ['jpg', 'JPG', 'jpeg', 'JPEG', 'jpe', 'JPE', 'jfif', 'JFIF', 'gif', 'GIF', 'tif', 'TIF', 'tiff', 'TIFF', 'png', 'PNG'];
 	 	
 	 	fileTarget.on('change', function(){
 	 		var fileRoute = $(this).val();  //파일 경로 추출
@@ -552,7 +552,7 @@
 		 		}
 		 	});
 	 		if(fileExtension == null){
-	 			alert("이미지 파일을 넣어주세요.('jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
+	 			alert("이미지 파일을 넣어주세요.(jpg, 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
 	 			location.reload(true);
 	 			return;
 	 		}
@@ -589,8 +589,6 @@
 	 	/*category finished*/	
  	});//document onload
 </script>
-	 	
-		
 	  
 </body>
 </html>
