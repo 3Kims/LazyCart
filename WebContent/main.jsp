@@ -106,30 +106,15 @@
 	#phone1,#phone2,#phone3{width:60px;}	
 	
 	/* file box  */
-	.fileBox input[type="file"] { 
-		position: absolute; 
-		width: 1px; 
-		height: 1px; 
-		padding: 0; 
-		margin: -1px; 
-		overflow: hidden; 
-		clip:rect(0,0,0,0); 
-		border: 0; 
-	}
-	.upload_name{
-		position: absolute; 
-		width: 0px; 
-		height: 0px; 
-		padding: 0; 
-		margin: -1px; 
-		overflow: hidden; 
-		clip:rect(0,0,0,0); 
-		border: 0; 
-	}
 	.user_icon{
 		object-fiti:contain;
   }
-	
+  #fileType{
+  	display: none;
+  }
+	.form-control-file{
+		width:200px;
+	}
 	/* ProductList */
 	#productImg{object-fiti:contain;}
 	.list-group table{width:100%;}
@@ -274,16 +259,14 @@
                     <strong>로그인이 필요합니다.</strong>
                 </c:when>
                 <c:otherwise>
-                  <form action="profileImg.do" id="fileForm" method="post" enctype="multipart/form-data">
-                    <div class="filebox"> 
-                        <input class="upload-name" value="Img Route.." disabled="disabled"> 
+                  <form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
+                    <div id="fileBox" class="form-group"> 
                         <svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                             <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                          </svg>
-                        <label for="ex_filename" id="profileButton">Upload</label> 
-                        <input type="file" id="ex_filename" class="upload-hidden"> 
-                        <span id="fileResult"></span>
+                        </svg>
+                        <label for="fileType">Select</label>
+                        <input type="file" id="fileType" name="fileType" class="form-control-file"> 
                         <input type="submit" value="Upload">
                     </div>
                   </form>
@@ -594,7 +577,7 @@
     /*회원탈퇴 재확인 끝*/
 		
 		/*user thumnail upload start*/
-	 	var fileTarget = $('.fileBox .upload-hidden'); 
+	 	var fileTarget = $('#fileBox .form-control-file'); 
 	 	var fileExtensionArray = ['jpg', 'JPG', 'jpeg', 'JPEG', 'jpe', 'JPE', 'jfif', 'JFIF', 'gif', 'GIF', 'tif', 'TIF', 'tiff', 'TIFF', 'png', 'PNG'];
 	 	
 	 	fileTarget.on('change', function(){
@@ -644,7 +627,7 @@
  	
  	
  	
- 	<!-- Chart.js Script -->
+ 	//Chart.js Script
 		var randomScalingFactor = function() {
 			return Math.round(Math.random() * 100);
 		};

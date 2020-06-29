@@ -26,9 +26,7 @@ public class ChangeProfileController implements Controller {
 	
 	private static final int LIMIT_SIZE_BYTES = 1024 * 1024;
 	public ChangeProfileController() {}
-	
-	
-	
+
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("ChangeProfileController start...");
@@ -39,30 +37,27 @@ public class ChangeProfileController implements Controller {
 		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
 		String customerId = customer.getId();
 	
-
-		request.getServletPath();
 		String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
 		
-		//String usersPath = request.getContextPath()+"/img/"+customerId;
 		System.out.println(usersPath);
          
         File serverDir = new File(usersPath);
 		if(!serverDir.exists()) {
 			try {
-				serverDir.mkdir();
+				serverDir.mkdirs();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}else {
 			System.out.println("Already folder exist...");
 		}
-		
  
         DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
         fileItemFactory.setRepository(serverDir);
         fileItemFactory.setSizeThreshold(LIMIT_SIZE_BYTES);
+        System.out.println("fileItemFactory: "+fileItemFactory);
         ServletFileUpload fileUpload = new ServletFileUpload(fileItemFactory);
- 
+        System.out.println("fileUpload: "+fileUpload);
         try {
             List<FileItem> items = fileUpload.parseRequest(request);
             for (FileItem item : items) {

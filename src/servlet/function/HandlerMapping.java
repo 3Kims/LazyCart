@@ -40,16 +40,19 @@ public class HandlerMapping {
 			System.out.println("Create ChangeUserInfoController Instance");
 		}
 		else if(command.equals("SearchInCart.do")) {
-			controller = new SearchInCartController();;
+			controller = new SearchInCartController();
 			System.out.println("Create SearchInCartController Instance");
 		}
 		else if(command.equals("LogoutController.do")) {
-			controller = new LogoutController();;
+			controller = new LogoutController();
 			System.out.println("Create LogoutController Instance");
 		}
 		else if(command.equals("DeleteCustomer.do")) {
-			controller = new DeleteCustomerController();;
+			controller = new DeleteCustomerController();
 			System.out.println("Create DeleteCustomerController Instance");
+		}else if(command.equals("profileImg.do")) {
+			controller = new ChangeProfileController();
+			System.out.println("Create ChangeProfileController Instance");
 		}
 		return controller;
 	}
