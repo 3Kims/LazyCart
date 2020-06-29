@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `ezbasket`.`customer` (
   `password` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL COMMENT 'customer table',
   `img` VARCHAR(100),
   `name` VARCHAR(15) NOT NULL,
-  `address` VARCHAR(45) NULL,
+  `address` VARCHAR(100) NULL,
   `phone` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;

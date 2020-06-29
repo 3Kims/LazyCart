@@ -1,4 +1,25 @@
-<%@ page language="java" contentType="text/plane; charset=utf-8"
-    pageEncoding="utf-8"%>
-
-${productListBycategory}
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<body>
+	<table>
+		<c:forEach items="${productListByCategory}" var="product">
+			<c:choose>
+				<c:when test="${empty product.img}">
+					<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td>${product.img}</td>
+						<td>${product.name}</td>
+						<td>${product.price}</td>
+						<td>${product.category}</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+	</table>
+</body>
+</html>

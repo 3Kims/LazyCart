@@ -44,7 +44,9 @@ public class AddCartController implements Controller {
 				HashSet<String> shopList = new HashSet<>();
 				
 				for(ProductVO p: productList) {
-					
+					if(p.getName()==null) {
+						continue;
+					}
 					//가격 비교
 					if(p.getPrice()>max) {
 						max = p.getPrice();
@@ -73,9 +75,9 @@ public class AddCartController implements Controller {
 				int[] priceList = new int[2];
 				priceList[0]=min; priceList[1]=max;
 				
-				request.setAttribute("categoryList", categoryList);
-				request.setAttribute("shopList", shopList);
-				request.setAttribute("priceList", priceList);
+				request.getSession().setAttribute("categoryList", categoryList);
+				request.getSession().setAttribute("shopList", shopList);
+				request.getSession().setAttribute("priceList", priceList);
 				
 				return new ModelAndView(path);
 					
