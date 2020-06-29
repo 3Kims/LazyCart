@@ -39,9 +39,9 @@ public class MusinsaParser implements Parser {
 			System.out.println("category: "+category);
 			
 			//이미지
-			String image = document.select("img#bigimg").get(0).toString();
-
+			String image = document.select("img#bigimg").get(0).attr("src");
 			product = new ProductVO(name, price, shop, url, category, image);
+			System.out.println(image);
 			System.out.println("product-------------------------");
 			System.out.println(product);
 		} catch (IOException e) {

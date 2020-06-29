@@ -24,22 +24,29 @@ public class LoginController implements Controller {
 		String path = "main.jsp";
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-
-		try {
-			customer = EzbasketDAOImpl.getInstance().login(id, password);
+    
+		try {	
+			customer=EzbasketDAOImpl.getInstance().login(id, password);
 			productList = EzbasketDAOImpl.getInstance().getUsersProducts(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}
+		catch(SQLException e) {
 			System.out.println("LoginController sql error...");
 		}
-		if (customer == null)
-			path = "LoginError.jsp";
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("장바구니에 담긴 상품이 없습니다.");
+		}
+		if(customer == null) 
+			path="LoginError.jsp";
+
 		else {
 			request.getSession().setAttribute("customer", customer);
 			request.getSession().setAttribute("productList", productList);
 			System.out.println("LoginController success..");
 		}
-		HashMap<String, ArrayList<String>> categoryList = new HashMap<>();
+	
+		int max=0; int min=productList.get(0).getPrice();
+		HashMap<String,ArrayList<String>> categoryList = new HashMap<>();
+
 		HashSet<String> shopList = new HashSet<>();
 		int[] priceList = new int[2];
 		
@@ -80,13 +87,9 @@ public class LoginController implements Controller {
 			priceList[0] = min;
 			priceList[1] = max;
 		}
-		
-		
-
-		request.getSession().setAttribute("categoryList", categoryList);
-		request.getSession().setAttribute("shopList", shopList);
-		request.getSession().setAttribute("priceList", priceList);
-
-		return new ModelAndView(path,true);
+		request.setAttribute("categoryList", categoryList);
+		request.setAttribute("shopList", shopList);
+		request.setAttribute("priceList", priceList);
+		return new ModelAndView(path);
 	}
 }
