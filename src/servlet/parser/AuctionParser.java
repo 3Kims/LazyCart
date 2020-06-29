@@ -52,7 +52,7 @@ public class AuctionParser implements Parser {
 			System.out.println("image-------------------------");
 			Element imageParentNode = document.getElementById(" on");
 			Elements liNodes =document.select("ul[class=viewer]").get(0).children();
-			String image = liNodes.get(0).getElementsByTag("img").toString();
+			String image = liNodes.get(0).getElementsByTag("img").attr("src");
 			System.out.println(image);
 
 			product = new ProductVO(name, price, shop, url, category, image);
