@@ -240,27 +240,41 @@
 						</div>
 			    </div>
 			  </div>
-			  
+			 
 			  <!-- 유저 프로필 업로드 영역 -->
+			  
+
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-			      <div>
-			  			<div class="filebox"> 
-				  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
-				  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-								  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-								</svg>
-				  			<label for="ex_filename" id="profileButton">Upload</label> 
-				  			<input type="file" id="ex_filename" class="upload-hidden"> 
-				  			<span id="fileResult"></span>
-			  			</div>
-					  	<span class="sr-only">(current)</span>
-					  	<a href="LogoutController.do"><button>logout</button></a>
-						</div>
-			    </div>
-			  </div>
-			  
+                    <div class="input-group-append">
+                        <c:choose>
+                            <c:when test="${empty sessionScope.customer}">
+                                <span class="sr-only">(current)</span>
+                                <a href="LoginController.do"><button>login</button></a>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="filebox"> 
+                                    <input class="upload-name" value="Img Route.." disabled="disabled"> 
+                                    <svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                      </svg>
+                                    <label for="ex_filename" id="profileButton">Upload</label> 
+                                    <input type="file" id="ex_filename" class="upload-hidden"> 
+                                    <span id="fileResult"></span>
+                                </div>
+                                <span class="sr-only">(current)</span>
+                               <a href="LogoutController.do"><button>logout</button></a>
+                              <span class="sr-only">(current)</span>
+                                <a href="ChangeUserInfoController.do"><button>회원정보수정</button></a>
+                              <span class="sr-only">(current)</span>
+                                <button class="deleteCustomer">회원탈퇴</button>
+                            </c:otherwise>
+                        </c:choose>
+			  			
+                    </div>
+                </div>
+		      </div>
 			</nav>
 		</div>
   	</header>
@@ -497,7 +511,17 @@
 		});
 		$("#amount").val("$"+$("#slider-range").slider("values",0)+"-$"+$("#slider-range").slider("values", 1));		 	
 		/* JQUERY 슬라이더 끝 */
-		
+		/*회원탈퇴 재확인 시작*/
+        $("button.deleteCustomer").click(function() {
+            var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
+            if (deleteConfirm == true) {
+                window.location.href = "DeleteCustomer.do";   
+            }else {
+                return;
+            }//else
+        });// $("button.deleteCustomer").click
+        
+        /*회원탈퇴 재확인 끝*/
 		
 		/*user thumnail upload start*/
 	 	var fileTarget = $('.filebox .upload-hidden'); 
