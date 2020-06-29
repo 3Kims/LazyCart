@@ -108,7 +108,7 @@
 	
 	
 	/* file box  */
-	.filebox input[type="file"] { 
+	.fileBox input[type="file"] { 
 		position: absolute; 
 		width: 1px; 
 		height: 1px; 
@@ -246,17 +246,17 @@
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
 			      <div>
-			      	<form id="fileboxID" method="post" enctype="multipart/form-data">
-				  			<div class="filebox"> 
+			      	<form action="profileImg.do" id="fileForm" method="post" enctype="multipart/form-data">
+				  			<div class="fileBox"> 
 					  			<!-- <input class="upload-name" value="Img Route.." disabled="disabled">  -->
 					  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
 									  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 									  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 									</svg>
-					  			<label for="ex_filename" id="profileButton">파일선택</label> 
-					  			<input type="file" id="ex_filename" class="upload-hidden"> 
-					  			<button onClick="fileBoxEvents(event)">업로드</button>
+					  			<label for="fileType" id="fileLabel">파일선택</label> 
+					  			<input type="file" id="fileType" name="fileType" class="upload-hidden"> 
 					  			<span id="fileResult"></span>
+					  			<input type="submit" value="Upload">
 				  			</div>
 				  		</form>
 					  	<span class="sr-only">(current)</span>
@@ -492,9 +492,9 @@
 
   
 <script>
-	function fileBoxEvents(e){
+	/* function fileBoxEvents(e){
 		e.preventDefault();
-		var fileData = new FormData($("#fileboxID")[0]);
+		var fileData = new FormData($("#fileForm")[0]);
 	
 		$.ajax({
 				type: "POST",
@@ -502,14 +502,14 @@
 				url: "profileImg.do",
 				data: fileData,
 			success:function(data){
-				$('#fileboxID')[0].reset();
+				$('#fileForm')[0].reset();
 				$('#fileResult').html("success");	// 장바구니에 데이터를 출력
 			},
 			error:function(xhr,status,message){
 				alert("error : "+message );
 			}
 		});	//ajax..get changed fileform
-	}
+	} */
 	
 	$(function(){
 		
@@ -538,15 +538,12 @@
 		});
 		$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
 		/* JQUERY 슬라이더 끝 */
-
-		
 		
 		/*user thumnail upload start*/
-	 	var fileTarget = $('.filebox .upload-hidden'); 
+	 	var fileTarget = $('.fileBox .upload-hidden'); 
 	 	var fileExtensionArray = ['jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png'];
 	 	
 	 	fileTarget.on('change', function(){
-	 		var file = $(this)[0].files[0];
 	 		var fileRoute = $(this).val();  //파일 경로 추출
 	 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
 	 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
@@ -559,18 +556,14 @@
 	 			location.reload(true);
 	 			return;
 	 		}
-	 		console.log("fileExtension: "+fileExtension);
 	 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
 	 		//파일명과 파일루트 추출완료
 	 		
-			//$(this).siblings('.upload-name').val(fileName); 
+			$(this).siblings('.upload-name').val(fileName); 
 			$(this).siblings('.bi-person-square').attr('fill', '#229954'); 
 			//파일명뜨기, 완료 색깔 변경 완료
-
     /*user thumnail upload finished*/
 	 	});
-	 	
-	 	
 	 	
 		/*category start*/
 	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우

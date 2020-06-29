@@ -87,6 +87,6 @@ public class LoginController implements Controller {
 		request.getSession().setAttribute("shopList", shopList);
 		request.getSession().setAttribute("priceList", priceList);
 
-		return new ModelAndView(path);
+		return new ModelAndView(path,true);
 	}
 }
