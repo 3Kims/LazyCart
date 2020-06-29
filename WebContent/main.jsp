@@ -295,7 +295,7 @@
 		      <div class = "category seller">
 		      	<p>쇼핑몰</p>
 		      	<c:forEach items="${shopList}" var="shop">
-		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
+		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a><br>
 		      	</c:forEach>
 		      </div>
 		      
@@ -569,6 +569,7 @@
 	 		console.log("clicked!");
 	 		var category = $(this).attr("id");	//정렬 기준
 	 		var option = $(this).text();
+	 		//체크박스 클레스 checked로 바꾸는 로직 필요
 	 		$.ajax({
 	 			type: "post",
 	 			url: "category.do",
