@@ -26,6 +26,8 @@ public class AddCartController implements Controller {
 		String id = customer.getId();
 		String url = request.getParameter("url");					  //get shoppingmall url..
 		ProductVO product = ParserMapping.getInstance().createParser(url); //run parser by url..
+		ArrayList<ProductVO> productList=new ArrayList<ProductVO>();
+		
 		if (id == null || id.equals(""))
 			System.out.println("AddCartController >>> No session id...controller");	
 		else{
@@ -35,7 +37,7 @@ public class AddCartController implements Controller {
 				System.out.println("Add item into Cart success...controller");
 				
 				System.out.println("Get current user's cartList...controller");
-				ArrayList<ProductVO> productList = dao.getUsersProducts(id);
+				productList = dao.getUsersProducts(id);
 				request.getSession().setAttribute("productList", productList);
 				System.out.println("Get cartList success...controller");
 				
@@ -67,7 +69,7 @@ public class AddCartController implements Controller {
 					}
 					//샵 추가
 					shopList.add(p.getShop());
-					
+
 				}
 				// 가격 배열 생성
 				int[] priceList = new int[2];
@@ -77,8 +79,7 @@ public class AddCartController implements Controller {
 				request.setAttribute("shopList", shopList);
 				request.setAttribute("priceList", priceList);
 				
-				return new ModelAndView(path);
-					
+				return new ModelAndView(path);	
 			}
 			catch (SQLException e) {
 				System.out.println("AddCartController sql error...");

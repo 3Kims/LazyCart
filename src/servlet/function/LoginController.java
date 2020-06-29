@@ -23,13 +23,15 @@ public class LoginController implements Controller {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		
-		try {
+		try {	
 			customer=EzbasketDAOImpl.getInstance().login(id, password);
 			productList = EzbasketDAOImpl.getInstance().getUsersProducts(id);
 		}
 		catch(SQLException e) {
-			e.printStackTrace();
 			System.out.println("LoginController sql error...");
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("장바구니에 담긴 상품이 없습니다.");
 		}
 		if(customer == null) 
 			path="LoginError.jsp";
@@ -38,6 +40,7 @@ public class LoginController implements Controller {
 			request.getSession().setAttribute("productList", productList);
 			System.out.println("LoginController success..");
 		}
+		
 		int max=0; int min=productList.get(0).getPrice();
 		HashMap<String,ArrayList<String>> categoryList = new HashMap<>();
 		HashSet<String> shopList = new HashSet<>();
