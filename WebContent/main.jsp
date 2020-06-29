@@ -136,11 +136,11 @@
 	
 	/* ProductList */
 	#productImg{object-fiti:contain;}
-	#productList 
-	{text-align:center;}
-	#productList th{width:20%;}
-	#productList table tbody td{width:20%;}
-	#list-group-item tr yd{width:20%;}																
+	.list-group table{width:100%;}
+	.list-group table tr{width:100%;}
+	.list-group th{display:inline-block;width:25%;text-align:center;}
+	.list-group td{width:25%;text-align:center;}
+																	
 				
 	/* 도넛 그래프 */
 	<script async="" src="//www.google-analytics.com/analytics.js"></script><script src="../../../dist/2.9.3/Chart.min.js"></script>
@@ -351,32 +351,28 @@
 						<!-- 장바구니 리스트 영역 -->
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-								<div class="list-group" id="productList">
-								<table>
-									<thead>
-										<tr>
-											<th>Image</th><th>Name</th><th>Price</th><th>Category</th>
-										<tr>
-									</thead>
-									<tbody>
-									<c:forEach items="${productList}" var="product">
-											<c:choose>
-												<c:when test="${empty product.img}">
-													<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
-												</c:when>
-												<c:otherwise>
-													<tr class="list-group-item">
-														<td id="productImg"><img src="${product.img}" width="150px" height="150px"></td>
-														<td id="name">${product.name}</td>
-														<td id="price">${product.price}</td>
-														<td id="category">${product.category}</td>
-													</tr>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</tbody>
+								<table id="productList" class="list-group">
+									<tr class="list-group-item">
+										<th>Image</th><th>Name</th><th>Price</th><th>Category</th>
+									</tr>
 								</table>
-							</div>
+								<table class="list-group">						
+									<c:forEach items="${productList}" var="product">
+										<c:choose>
+											<c:when test="${empty product.img}">
+												<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
+											</c:when>
+											<c:otherwise>
+												<tr class="list-group-item">
+													<td class="productImg"><img src="${product.img}" width="180px" height="180px"></td>
+													<td class="name">${product.name}</td>
+													<td class="price">${product.price}</td>
+													<td class="category">${product.category}</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+							</table>	
 						</c:when>
 					<c:otherwise>
 							
