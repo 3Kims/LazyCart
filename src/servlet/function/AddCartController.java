@@ -2,6 +2,9 @@ package servlet.function;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,12 +38,54 @@ public class AddCartController implements Controller {
 				ArrayList<ProductVO> productList = dao.getUsersProducts(id);
 				request.getSession().setAttribute("productList", productList);
 				System.out.println("Get cartList success...controller");
+				
+				int max=0; int min=productList.get(0).getPrice();
+				HashMap<String,ArrayList<String>> categoryList = new HashMap<>();
+				HashSet<String> shopList = new HashSet<>();
+				
+				for(ProductVO p: productList) {
+					
+					//가격 비교
+					if(p.getPrice()>max) {
+						max = p.getPrice();
+					}
+					if(p.getPrice()<min) {
+						min=p.getPrice();
+					}					
+					//카테고리 추가
+					String[] categories = p.getCategory().split(">");
+					if(categories.length<2) {
+						categoryList.put(categories[0],new ArrayList<String>());
+					}else {
+						if(categoryList.containsKey(categories[0])) {
+							categoryList.get(categories[0]).add(categories[1]);
+						}
+						else {
+							categoryList.put(categories[0], new ArrayList<String>());
+							categoryList.get(categories[0]).add(categories[1]);
+						}						
+					}
+					//샵 추가
+					shopList.add(p.getShop());
+					
+				}
+				// 가격 배열 생성
+				int[] priceList = new int[2];
+				priceList[0]=min; priceList[1]=max;
+				
+				request.setAttribute("categoryList", categoryList);
+				request.setAttribute("shopList", shopList);
+				request.setAttribute("priceList", priceList);
+				
+				return new ModelAndView(path);
+					
 			}
 			catch (SQLException e) {
 				System.out.println("AddCartController sql error...");
 				e.printStackTrace();	
 			}
 		}
+		
 		return new ModelAndView(path);	
 	}
 }
