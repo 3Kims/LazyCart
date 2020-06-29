@@ -589,9 +589,6 @@
 	 	/*category finished*/
 	 	
  	});//document onload
-</script>
-	 	
-		
-	  
-</body>
+		</script>
+	</body>
 </html>
