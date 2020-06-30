@@ -302,23 +302,26 @@
             <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
             <div id="slider-range"></div><hr>
 		      </div>
-		      <div class = "category product">
-		      	<p><b>카테고리</b></p>
-		      	<c:forEach items="${categoryList}" var="category">
-		      		<a class="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a><br>
-		      		<c:forEach items="${category.value}" var="secondCategory">
-		      			<a class="categoryClick" id="category"><span>${secondCategory}</span><span class="checkbox"></span></a>
-		      	  </c:forEach>
-            </c:forEach>
-		      </div>
-		      <hr>
-		      <div class = "category seller">
-		      	<p><b>쇼핑몰</b></p>
-		      	<c:forEach items="${shopList}" var="shop">
-		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a><br>
-		      	</c:forEach>
-		      </div>
-		      <hr>
+			<div class = "category product">
+			    <p>카테고리</p>
+			    <c:forEach items="${categoryList}" var="category">
+			        <span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
+			        <c:forEach items="${category.value}" var="secondCategory">
+			          <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>
+			      </c:forEach>
+			</c:forEach>
+			</div>
+			<hr>
+			<div class = "category seller">
+			    <p>쇼핑몰</p>
+			    <c:forEach items="${shopList}" var="shop">
+			      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
+			    </c:forEach>
+			</div>
+
+		      
+		      
+		    <!-- ??????????????????????????????????????????? -->  
 		      <div class = "category analysis">
 		      	<p><b>Analysis</b></p>
 		      	<c:forEach items="${data}" var="shop">
@@ -351,11 +354,7 @@
 						<!-- 장바구니 리스트 영역 -->
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-								<table id="productList" class="list-group">
-									<tr class="list-group-item">
-										<th>Image</th><th>Name</th><th>Price</th><th>Category</th>
-									</tr>
-								</table>
+
 								<table class="list-group">						
 									<c:forEach items="${productList}" var="product">
 										<c:choose>
@@ -538,6 +537,46 @@
 
 <script>
 	$(function(){
+		
+		/*category start*/
+	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+			
+			var category = "";
+	 		var checkedBoxesCategory = $("input[class='categoryClick category']:checked");
+			for (let index = 0; index < checkedBoxesCategory.length; index++) {
+				category += "~";
+				category +=checkedBoxesCategory[index].value;
+				
+			}
+	
+			var shop= "";
+			var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
+			for (let index = 0; index < checkedBoxesShop.length; index++) {
+				shop += "~";
+				shop += checkedBoxesShop[index].value;
+	
+			}
+			if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
+                window.location.href = "main.jsp";
+            } else {
+                $("table.list-group")
+                $.ajax({
+	 			type: "post",
+	 			url: "category.do",
+	 			data: {'category':category,'shop':shop},
+	 			dataType : "text",
+	 			error:function(xhr,status,message){
+					alert("error : "+message );
+				},
+				success:function(data){
+					console.log(data);
+					var html = data;
+					$('.list-group').html(data);
+				}
+	 		});//categoryClick ajax
+            }
+	 	});/*category finished*/
+		
 		/* JQUERY 슬라이더 시작 */
 	 	$("#slider-range").slider({
 			range: true,
@@ -601,27 +640,12 @@
     /*user thumnail upload finished*/
 	 	});
 	 	
-		/*category start*/
-	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-	 		console.log("clicked!");
-	 		var category = $(this).attr("id");	//정렬 기준
-	 		var option = $(this).text();
-	 		//체크박스 클레스 checked로 바꾸는 로직 필요
-	 		$.ajax({
-	 			type: "post",
-	 			url: "category.do",
-	 			data: {'category':category,'option':option},
-	 			error:function(xhr,status,message){
-					alert("error : "+message );
-				},
-				success:function(data){
-					console.log(data);
-					var html = data;
-					$('.list-group').html(data);
-				}
-	 		});//categoryClick ajax
-	 	});//categoryClick
-	 	/*category finished*/	
+			
+			
+		 	
+		 	
+		 	
+		 
  	});//document onload
  	
  	
