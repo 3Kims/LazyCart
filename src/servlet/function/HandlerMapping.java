@@ -39,10 +39,10 @@ public class HandlerMapping {
 			controller = new ChangeUserInfoController();
 			System.out.println("Create ChangeUserInfoController Instance");
 		}
-		else if(command.equals("SearchInCart.do")) {
+/*		else if(command.equals("SearchInCart.do")) {
 			controller = new SearchInCartController();
 			System.out.println("Create SearchInCartController Instance");
-		}
+		}*/
 		else if(command.equals("LogoutController.do")) {
 			controller = new LogoutController();
 			System.out.println("Create LogoutController Instance");

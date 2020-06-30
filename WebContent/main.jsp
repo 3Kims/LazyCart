@@ -610,7 +610,7 @@
 	 		$.ajax({
 	 			type: "post",
 	 			url: "category.do",
-	 			data: {'productList':${productList},'category':category},
+	 			data: {'category':category,'option':option},
 	 			error:function(xhr,status,message){
 					alert("error : "+message );
 				},
