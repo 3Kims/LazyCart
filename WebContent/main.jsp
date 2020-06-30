@@ -335,54 +335,55 @@
 		      <hr>
 		      <section>
 		      
-		      <!-- 분류 조건영역 -->
-		        <div class = "category all">
-		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
-		      	</div>
-		      	<hr>
-		      <div class = "category price">
-		      <p>가격</p>
-            <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
-            <div id="slider-range"></div><hr>
-		      </div>
-			<div class = "category product">
-			    <p>카테고리</p>
-			    <c:forEach items="${categoryList}" var="category">
-			        <span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
-			        </c:forEach>
-			        <c:forEach items="${category.value}" var="secondCategory">
-			          <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>
+			      <!-- 분류 조건영역 -->
+			      <div class = "category all">
+			      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
+			     	</div>
+			      <hr>
+			      <div class = "category price">
+			      	<p>가격</p>
+	          	<p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+	          	<div id="slider-range"></div>
+	          	<hr>
+			      </div>
+						<div class = "category product">
+					    <p>카테고리</p>
+					    <c:forEach items="${categoryList}" var="category">
+					    	<span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
+					    </c:forEach>
+					    <c:forEach items="${category.value}" var="secondCategory">
+					      <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>     
+							</c:forEach>
+						</div>
+						<hr>
+						<div class = "category seller">
+					    <p>쇼핑몰</p>
+					    <c:forEach items="${shopList}" var="shop">
+					      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
+					    </c:forEach>
+						</div>
+			      <hr>
 			      
-			</c:forEach>
-			</div>
-			<hr>
-			<div class = "category seller">
-			    <p>쇼핑몰</p>
-			    <c:forEach items="${shopList}" var="shop">
-			      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
-			    </c:forEach>
-			</div>
-		      <hr>
-	<!-- 	      카테고리 아날라이즈 -->
-		      <div class = "category analysis">
-		      	<p><b>Analysis</b></p>
-		      	<c:forEach items="${data}" var="shop">
-		      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
-		      	</c:forEach>
-		      </div>
-		    <!-- 도넛 그래프 -->
-				<div id="canvas-holder" style="width:40%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-				<canvas id="chart-area" style="display: block; height: 142px; width: 255px;" width="427" height="213" class="chartjs-render-monitor"></canvas>
-				</div>
-				<div id="Chart_Btn">
-					<button id="randomizeData">Randomize Data</button>
-					<button id="addDataset">Add Dataset</button>
-					<!-- <button id="removeDataset">Remove All</button> -->
-					<button id="addData">Add Data</button>
-					<button id="removeData">Remove Data</button>
-					<button id="changeCircleSize">Semi/Full</button>
-				</div>
-				
+						<!-- 카테고리 아날라이즈 -->
+			      <div class = "category analysis">
+			      	<p><b>Analysis</b></p>
+			      	<c:forEach items="${data}" var="shop">
+			      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
+			      	</c:forEach>
+			      </div>
+			      
+			    	<!-- 도넛 그래프 -->
+						<div id="canvas-holder" style="width:40%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+						<canvas id="chart-area" style="display: block; height: 142px; width: 255px;" width="427" height="213" class="chartjs-render-monitor"></canvas>
+						</div>
+						<div id="Chart_Btn">
+							<button id="randomizeData">Randomize Data</button>
+							<button id="addDataset">Add Dataset</button>
+							<!-- <button id="removeDataset">Remove All</button> -->
+							<button id="addData">Add Data</button>
+							<button id="removeData">Remove Data</button>
+							<button id="changeCircleSize">Semi/Full</button>
+						</div>
 		      </section>
 		    </div>
 		    
@@ -396,7 +397,6 @@
 						<!-- 장바구니 리스트 영역 -->
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-
 								<table class="list-group">						
 									<c:forEach items="${productList}" var="product">
 										<c:choose>
@@ -413,9 +413,9 @@
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-							</table>	
-						</c:when>
-					<c:otherwise>
+								</table>	
+							</c:when>
+						<c:otherwise>
 							
 							<!-- login carousel -->
 							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -575,7 +575,7 @@
 
 <script>
 $(function(){
-	
+	var shop= ""
 	/*category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		
@@ -587,12 +587,10 @@ $(function(){
 			
 		}
 
-		var shop= "";
 		var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
 		for (let index = 0; index < checkedBoxesShop.length; index++) {
 			shop += "~";
 			shop += checkedBoxesShop[index].value;
-
 		}
 		if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
             window.location.href = "main.jsp";
