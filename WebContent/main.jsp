@@ -538,7 +538,6 @@
 
 <script>
 	$(function(){
-		
 		/* JQUERY 슬라이더 시작 */
 	 	$("#slider-range").slider({
 			range: true,
@@ -636,7 +635,7 @@
 			type: 'doughnut',
 			data: {
 				datasets: [{
-					data: [100,200,300],
+					data: [randomScalingFactor(),randomScalingFactor(),randomScalingFactor()],
 					backgroundColor: [
 						window.chartColors.red,
 						window.chartColors.orange,
@@ -644,7 +643,7 @@
 						],
 					label: 'ProductList.size|Category'
 				}],
-				labels: ['Cupang','Musinsa','Yellow']
+				labels: ['Cupang','Musinsa','Auction']
 			},
 			options: {
 				responsive: true,
