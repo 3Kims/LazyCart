@@ -55,6 +55,15 @@ public class HandlerMapping {
 			controller = new LogoutController();;
 			System.out.println("Create LogoutController Instance");
 		}
+		else if(command.equals("DeleteCustomer.do")) {
+			controller = new DeleteCustomerController();
+			System.out.println("Create DeleteCustomerController Instance");
+		}else if(command.equals("profileImg.do")) {
+			controller = new ChangeProfileController();
+			System.out.println("Create ChangeProfileController Instance");
+		}
+		
+
 		return controller;
 	}
 	

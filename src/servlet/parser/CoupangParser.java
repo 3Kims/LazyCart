@@ -34,13 +34,14 @@ public class CoupangParser implements Parser {
 			String naverCategoriesText =  naverCategories.text();
 			category = naverCategoriesText.replaceAll("[0-9]","");
 			// 이미지
-			Element images = doc.select("img.prod-image__detail").get(0);
+			/*Element images = doc.select("img.prod-image__detail").get(0);
 			String thumbnailSrc = images.attr("data-preload-img-src");
 			String thumbnail ="//thumbnail10.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/";
 			String detailImage ="//image10.coupangcdn.com/image/retail/images/";
 			String imageSrc = thumbnailSrc.replace(thumbnail, detailImage);
-			String image =  "<img src="+ imageSrc +">";
-			
+			String image =imageSrc;*/ 
+			String image = doc.select("img.prod-image__detail").attr("src");
+			System.out.println("쿠팡 : "+image);
 			product = new ProductVO(name, price, shop, url, category, image);
 			System.out.println("product------------------------------");
 			System.out.println(product);

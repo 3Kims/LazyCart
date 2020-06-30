@@ -7,6 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<!-- Chart.js -->
+<script async="" src="//www.google-analytics.com/analytics.js"></script><script src="../../../dist/2.9.3/Chart.min.js"></script>
+<script src="../utils.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="../../../dist/2.9.3/Chart.min.js"></script>
+
 <!-- google font css -->
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
@@ -136,38 +145,30 @@
 	
 	/* ProductList */
 	#productImg{object-fiti:contain;}
-	.list-group table{width:100%;}
-	.list-group table tr{width:100%;}
-	.list-group th{display:inline-block;width:25%;text-align:center;}
-	.list-group td{width:25%;text-align:center;}
+	#productList{display:table;width:100%;text-align:center;}
+	#productList li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
+
+	.list-group{display:table;width:100%;}
+	.list-group li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
 																	
-				
+
+	<!-- Chart.js --> 
 	/* 도넛 그래프 */
-	<script async="" src="//www.google-analytics.com/analytics.js"></script><script src="../../../dist/2.9.3/Chart.min.js"></script>
-	<script src="../utils.js"></script>
-	<style>
 	canvas {
 		-moz-user-select: none;
 		-webkit-user-select: none;
 		-ms-user-select: none;
 	}
-	</style>
-	<!-- Chart.js --> 
+	
 	<style type="text/css">
 	@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}
 	.chartjs-render-monitor{animation:chartjs-render-animation 1ms}
 	.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}
 	.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}
 	.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}		
-	#Chart_Btn button{
-		border:1.3px solid #03a9f4ad;
-		background:#fff;
-		border-radius:12px;
-		font-size:10px;
-		text-align:center;
-		height:25px;
-		width:90px;
-	}				
+	}	
+	
+	canvas{object-fiti:contain;}
 </style>
 </head>
 
@@ -326,21 +327,102 @@
 		      	</c:forEach>
 		      </div>
 		    <!-- 도넛 그래프 -->
-				<div id="canvas-holder" style="width:40%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-				<canvas id="chart-area" style="display: block; height: 142px; width: 255px;" width="427" height="213" class="chartjs-render-monitor"></canvas>
+				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+					<canvas id="doughnut-chart-area" style="display: block; height: 240px; width: 300px;" width="280" height="200" class="chartjs-render-monitor"></canvas>
 				</div>
-				<div id="Chart_Btn">
-					<button id="randomizeData">Randomize Data</button>
-					<button id="addDataset">Add Dataset</button>
-					<!-- <button id="removeDataset">Remove All</button> -->
-					<button id="addData">Add Data</button>
-					<button id="removeData">Remove Data</button>
-					<button id="changeCircleSize">Semi/Full</button>
-				</div>
+					<script>
+					var dataArr=null;
+							
+					var randomScalingFactor = function() {
+						var coupangCnt = 0;
+						var musinsaCnt = 0;
+						var auctionCnt = 0;
+						
+						<c:forEach var="product" items="${productList}">
+							<c:if test="${product.shop eq 'coupang'}">
+							    coupangCnt += 1;
+							</c:if>
+							<c:if test="${product.shop eq 'Musinsa'}">
+								musinsaCnt += 1;
+							</c:if>
+							<c:if test="${product.shop eq 'Auction'}">
+								auctionCnt += 1;
+							</c:if>
+						</c:forEach>
+						
+						var shopCntArray = [coupangCnt,musinsaCnt,auctionCnt];
+
+						return shopCntArray; 
+					}; 				
+						var config = {
+							type: 'doughnut',
+							data: {
+								datasets: [{
+									data: randomScalingFactor(),
+									backgroundColor: [
+										'rgba(255, 99, 132, 0.2)',
+						                'rgba(54, 162, 235, 0.2)',
+						                'rgba(255, 206, 86, 0.2)',
+									],
+									label: 'Dataset 1'
+								}],
+								labels: [
+									'Coupang',
+									'Musinsa',
+									'Auction',
+								]
+							},
+							options: {
+								responsive: true,
+								legend: {
+									position: 'top',
+								},
+								title: {
+									display: true,
+									text: '쇼핑몰 별 상품수'
+								},
+								animation: {
+									animateScale: true,
+									animateRotate: true
+								}
+							}
+						};
 				
-		      </section>
+						window.onload = function() {
+							var ctx = document.getElementById('doughnut-chart-area').getContext('2d');
+							window.myDoughnut = new Chart(ctx, config);
+						};
+				
+						document.getElementById('addData').addEventListener('click', function() {
+							if (config.data.datasets.length > 0) {
+								config.data.labels.push('data #' + config.data.labels.length);
+				
+								var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
+								var newColor = window.chartColors[colorName];
+				
+								config.data.datasets.forEach(function(dataset) {
+									dataset.data.push(randomScalingFactor());
+									dataset.backgroundColor.push(newColor);
+								});
+				
+								window.myDoughnut.update();
+							}
+						});
+								
+						document.getElementById('removeData').addEventListener('click', function() {
+							config.data.labels.splice(-1, 1); // remove the label first
+				
+							config.data.datasets.forEach(function(dataset) {
+								dataset.data.pop();
+								dataset.backgroundColor.pop();
+							});
+				
+							window.myDoughnut.update();
+						});
+					</script>
+					
+	
 		    </div>
-		    
 		    <div class="col-9">
 			    <nav>
 						<div><!-- 통계아이콘 --></div> <div><!-- 아이콘영역 --></div> <div><!-- 정렬 영역 --></div>
@@ -351,30 +433,28 @@
 						<!-- 장바구니 리스트 영역 -->
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
-								<table id="productList" class="list-group">
-									<tr class="list-group-item">
-										<th>Image</th><th>Name</th><th>Price</th><th>Category</th>
-									</tr>
-								</table>
-								<table class="list-group">						
+								<div id="productList">
+									<li>Image</li><li>Name</li><li>Price</li><li>Category</li>
+								</div>
+								<div class="list-group">						
 									<c:forEach items="${productList}" var="product">
 										<c:choose>
 											<c:when test="${empty product.img}">
 												<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
 											</c:when>
 											<c:otherwise>
-												<tr class="list-group-item">
-													<td class="productImg"><img src="${product.img}" width="180px" height="180px"></td>
-													<td class="name">${product.name}</td>
-													<td class="price">${product.price}</td>
-													<td class="category">${product.category}</td>
-												</tr>
+												<ul  class="list-group-item">
+													<li id="productImg"><img src="${product.img}" width="180px" height="180px"></li>
+													<li id="name">${product.name}</li>
+													<li id="price">${product.price}</li>
+													<li id="category">${product.category}</li>
+												</ul>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-							</table>	
-						</c:when>
-					<c:otherwise>
+								</div>	
+							</c:when>
+						<c:otherwise>
 							
 							<!-- login carousel -->
 							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -532,10 +612,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  <!-- 낮은 버전이 아래로 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<!-- Chart.js -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-  
 <script>
 	$(function(){
 		/* JQUERY 슬라이더 시작 */
@@ -615,129 +691,12 @@
 	 		});//categoryClick ajax
 	 	});//categoryClick
 	 	/*category finished*/
-	 	
  	});//document onload
  	
- 	
- 	
- 	<!-- Chart.js Script -->
-		var randomScalingFactor = function() {
-			return Math.round(Math.random() * 100);
-		};
-
-		var config = {
-			type: 'doughnut',
-			data: {
-				datasets: [{
-					data: [randomScalingFactor(),randomScalingFactor(),randomScalingFactor()],
-					backgroundColor: [
-						window.chartColors.red,
-						window.chartColors.orange,
-						window.chartColors.yellow
-						],
-					label: 'ProductList.size|Category'
-				}],
-				labels: ['Cupang','Musinsa','Auction']
-			},
-			options: {
-				responsive: true,
-				legend: {
-					position: 'top',
-				},
-				title: {
-					display: true,
-					text: 'Doughnut Chart'
-				},
-				animation:{
-					animateScale: true,
-					animateRotate: true
-				}
-			}
-		};
-
-		window.onload = function() {
-			var ctx = document.getElementById('chart-area').getContext('2d');
-			window.myDoughnut = new Chart(ctx, config);
-		};
-
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			config.data.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return randomScalingFactor();
-				});
-			});
-			window.myDoughnut.update();
-		});
-
-		var colorNames = Object.keys(window.chartColors);
-		document.getElementById('addDataset').addEventListener('click', function() {
-			var newDataset = {
-				backgroundColor: [
 					window.chartColors.red,
-					window.chartColors.orange,
-					window.chartColors.yellow
-					],
-				data: [100,200,300],
-				label: 'New dataset ' + config.data.datasets.length,
-			};
-
-			for (var index = 0; index < config.data.labels.length; ++index) {
-				newDataset.data.push(randomScalingFactor());
 				var colorName = colorNames[index % colorNames.length];
-				var newColor = window.chartColors[colorName];
-				newDataset.backgroundColor.push(newColor);
-			}
-			config.data.datasets.push(newDataset);
-			window.myDoughnut.update();
-		});
-
 		document.getElementById('addData').addEventListener('click', function() {
-			if (config.data.datasets.length > 0) {
-				config.data.labels.push('data #' + config.data.labels.length);
-
-				var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
-				var newColor = window.chartColors[colorName];
-
-				config.data.datasets.forEach(function(dataset) {
-					dataset.data.push(randomScalingFactor());
-					dataset.backgroundColor.push(newColor);
-				});
-
-				window.myDoughnut.update();
-			}
-		});
-
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			config.data.datasets.splice(0, 1);
-			window.myDoughnut.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			config.data.labels.splice(-1, 1); // remove the label first
-
-			config.data.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-				dataset.backgroundColor.pop();
-			});
-
-			window.myDoughnut.update();
-		});
-
-		document.getElementById('changeCircleSize').addEventListener('click', function() {
-			if (window.myDoughnut.options.circumference === Math.PI) {
-				window.myDoughnut.options.circumference = 2 * Math.PI;
-				window.myDoughnut.options.rotation = -Math.PI / 2;
-			} else {
-				window.myDoughnut.options.circumference = Math.PI;
-				window.myDoughnut.options.rotation = -Math.PI;
-			}
-
-			window.myDoughnut.update();
-		});
- 	
 </script>
-	 	
-		
 	  
 </body>
 </html>
