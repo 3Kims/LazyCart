@@ -577,218 +577,218 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
 <script>
-	$(function(){
-		/* JQUERY 슬라이더 시작 */
-	 	$("#slider-range").slider({
-			range: true,
-			min: <c:out value="${priceList[0]}"/>,
-			max: <c:out value="${priceList[1]}"/>,
-			values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
-			slide: function(event, ui) {
-			 $("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");
-			 //가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
-			 $.ajax({
-		 			type: "post",
-		 			url: "category.do",
-		 			data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
-		 			error:function(xhr,status,message){
-						alert("error : "+message );
-					},
-					success:function(data){
-						var html = data;
-						$('.list-group').html(data);
-					}
-		 		}); //categoryClick ajax
-		 	}
-		});
-		$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
-		/* JQUERY 슬라이더 끝 */
-
-		/*회원탈퇴 재확인 시작*/
-    $("button.deleteCustomer").click(function() {
-      var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
-      if (deleteConfirm == true) {
-        window.location.href = "DeleteCustomer.do";   
-      }else {
-        return;
-      }//else
-    });// $("button.deleteCustomer").click
-    /*회원탈퇴 재확인 끝*/
-		
-		/*user thumnail upload start*/
-	 	var fileTarget = $('#fileBox .form-control-file'); 
-	 	var fileExtensionArray = ['jpg', 'JPG', 'jpeg', 'JPEG', 'jpe', 'JPE', 'jfif', 'JFIF', 'gif', 'GIF', 'tif', 'TIF', 'tiff', 'TIFF', 'png', 'PNG'];
-	 	
-	 	fileTarget.on('change', function(){
-	 		var fileRoute = $(this).val();  //파일 경로 추출
-	 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
-	 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
-		 		if(data == fileExtension){
-		 			return true;
-		 		}
-		 	});
-	 		if(fileExtension == null){
-	 			alert("이미지 파일을 넣어주세요.(jpg, 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
-	 			location.reload(true);
-	 			return;
-	 		}
-	 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
-	 		//파일명과 파일루트 추출완료
-	 		
-			$(this).siblings('.upload-name').val(fileName); 
-			$(this).siblings('.bi-person-square').attr('fill', '#229954'); 
-			//파일명뜨기, 완료 색깔 변경 완료
-    /*user thumnail upload finished*/
-	 	});
-	 	
-	 	$("#profileButton").click(function(){
-	 		console.log("what");
-	 	});
-	 	
-	 	$('#fileSubmit').click(function(){
-	 		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
-	 	});
-	 	
-		/*category start*/
-	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-	 		console.log("clicked!");
-	 		var category = $(this).attr("id");	//정렬 기준
-	 		var option = $(this).text();
-	 		//체크박스 클레스 checked로 바꾸는 로직 필요
-	 		$.ajax({
-	 			type: "post",
-	 			url: "category.do",
-	 			data: {'category':category,'option':option},
-	 			error:function(xhr,status,message){
+$(function(){
+	/* JQUERY 슬라이더 시작 */
+ 	$("#slider-range").slider({
+		range: true,
+		min: <c:out value="${priceList[0]}"/>,
+		max: <c:out value="${priceList[1]}"/>,
+		values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
+		slide: function(event, ui) {
+			$("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");
+			//가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
+			$.ajax({
+				type: "post",
+				url: "category.do",
+				data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
+				error:function(xhr,status,message){
 					alert("error : "+message );
 				},
 				success:function(data){
-					console.log(data);
 					var html = data;
 					$('.list-group').html(data);
 				}
-	 		});//categoryClick ajax
-	 	});//categoryClick
-	 	/*category finished*/	
-	 	
- 	});//document onload
- 	
- 	
- 	
- 	//Chart.js Script
-		var randomScalingFactor = function() {
-			return Math.round(Math.random() * 100);
-		};
+			}); //categoryClick ajax
+		}
+	});
+	$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
+	/* JQUERY 슬라이더 끝 */
 
-		var config = {
-			type: 'doughnut',
-			data: {
-				datasets: [{
-					data: [randomScalingFactor(),randomScalingFactor(),randomScalingFactor()],
-					backgroundColor: [
-						window.chartColors.red,
-						window.chartColors.orange,
-						window.chartColors.yellow
-						],
-					label: 'ProductList.size|Category'
-				}],
-				labels: ['Cupang','Musinsa','Auction']
+	/*회원탈퇴 재확인 시작*/
+  $("button.deleteCustomer").click(function() {
+  	var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
+   	if (deleteConfirm == true) {
+     	window.location.href = "DeleteCustomer.do";   
+    }else {
+     	return;
+    }//else
+  });// $("button.deleteCustomer").click
+  /*회원탈퇴 재확인 끝*/
+	
+	/*user thumnail upload start*/
+ 	var fileTarget = $('#fileBox .form-control-file'); 
+ 	var fileExtensionArray = ['jpg', 'JPG', 'jpeg', 'JPEG', 'jpe', 'JPE', 'jfif', 'JFIF', 'gif', 'GIF', 'tif', 'TIF', 'tiff', 'TIFF', 'png', 'PNG'];
+ 	
+ 	fileTarget.on('change', function(){
+ 		var fileRoute = $(this).val();  //파일 경로 추출
+ 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
+ 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
+	 		if(data == fileExtension){
+	 			return true;
+	 		}
+	 	});
+ 		if(fileExtension == null){
+ 			alert("이미지 파일을 넣어주세요.(jpg, 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
+ 			location.reload(true);
+ 			return;
+ 		}
+ 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
+ 		//파일명과 파일루트 추출완료
+ 		
+		$(this).siblings('.upload-name').val(fileName); 
+		$(this).siblings('.bi-person-square').attr('fill', '#229954'); 
+		//파일명뜨기, 완료 색깔 변경 완료
+   /*user thumnail upload finished*/
+ 	});
+ 	
+ 	$("#profileButton").click(function(){
+ 		console.log("what");
+ 	});
+ 	
+ 	$('#fileSubmit').click(function(){
+ 		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
+ 	});
+ 	
+	/*category start*/
+ 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+ 		console.log("clicked!");
+ 		var category = $(this).attr("id");	//정렬 기준
+ 		var option = $(this).text();
+ 		//체크박스 클레스 checked로 바꾸는 로직 필요
+ 		$.ajax({
+ 			type: "post",
+ 			url: "category.do",
+ 			data: {'category':category,'option':option},
+ 			error:function(xhr,status,message){
+				alert("error : "+message );
 			},
-			options: {
-				responsive: true,
-				legend: {
-					position: 'top',
-				},
-				title: {
-					display: true,
-					text: 'Doughnut Chart'
-				},
-				animation:{
-					animateScale: true,
-					animateRotate: true
-				}
+			success:function(data){
+				console.log(data);
+				var html = data;
+				$('.list-group').html(data);
 			}
-		};
+ 		});//categoryClick ajax
+ 	});//categoryClick
+ 	/*category finished*/	
+ 	
+});//document onload
+	
+	
+	
+//Chart.js Script
+var randomScalingFactor = function() {
+	return Math.round(Math.random() * 100);
+};
 
-		window.onload = function() {
-			var ctx = document.getElementById('chart-area').getContext('2d');
-			window.myDoughnut = new Chart(ctx, config);
-		};
+var config = {
+	type: 'doughnut',
+	data: {
+		datasets: [{
+			data: [randomScalingFactor(),randomScalingFactor(),randomScalingFactor()],
+			backgroundColor: [
+				window.chartColors.red,
+				window.chartColors.orange,
+				window.chartColors.yellow
+			],
+			label: 'ProductList.size|Category'
+		}],
+		labels: ['Cupang','Musinsa','Auction']
+	},
+	options: {
+		responsive: true,
+		legend: {
+			position: 'top',
+		},
+		title: {
+			display: true,
+			text: 'Doughnut Chart'
+		},
+		animation:{
+			animateScale: true,
+			animateRotate: true
+		}
+	}
+};
 
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			config.data.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return randomScalingFactor();
-				});
-			});
-			window.myDoughnut.update();
+window.onload = function() {
+	var ctx = document.getElementById('chart-area').getContext('2d');
+	window.myDoughnut = new Chart(ctx, config);
+};
+
+document.getElementById('randomizeData').addEventListener('click', function() {
+	config.data.datasets.forEach(function(dataset) {
+		dataset.data = dataset.data.map(function() {
+			return randomScalingFactor();
+		});
+	});
+	window.myDoughnut.update();
+});
+
+var colorNames = Object.keys(window.chartColors);
+document.getElementById('addDataset').addEventListener('click', function() {
+	var newDataset = {
+		backgroundColor: [
+			window.chartColors.red,
+			window.chartColors.orange,
+			window.chartColors.yellow
+			],
+		data: [100,200,300],
+		label: 'New dataset ' + config.data.datasets.length,
+	};
+
+	for (var index = 0; index < config.data.labels.length; ++index) {
+		newDataset.data.push(randomScalingFactor());
+		var colorName = colorNames[index % colorNames.length];
+		var newColor = window.chartColors[colorName];
+		newDataset.backgroundColor.push(newColor);
+	}
+	config.data.datasets.push(newDataset);
+	window.myDoughnut.update();
+});
+
+document.getElementById('addData').addEventListener('click', function() {
+	if (config.data.datasets.length > 0) {
+		config.data.labels.push('data #' + config.data.labels.length);
+
+		var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
+		var newColor = window.chartColors[colorName];
+
+		config.data.datasets.forEach(function(dataset) {
+			dataset.data.push(randomScalingFactor());
+			dataset.backgroundColor.push(newColor);
 		});
 
-		var colorNames = Object.keys(window.chartColors);
-		document.getElementById('addDataset').addEventListener('click', function() {
-			var newDataset = {
-				backgroundColor: [
-					window.chartColors.red,
-					window.chartColors.orange,
-					window.chartColors.yellow
-					],
-				data: [100,200,300],
-				label: 'New dataset ' + config.data.datasets.length,
-			};
+		window.myDoughnut.update();
+	}
+});
 
-			for (var index = 0; index < config.data.labels.length; ++index) {
-				newDataset.data.push(randomScalingFactor());
-				var colorName = colorNames[index % colorNames.length];
-				var newColor = window.chartColors[colorName];
-				newDataset.backgroundColor.push(newColor);
-			}
-			config.data.datasets.push(newDataset);
-			window.myDoughnut.update();
-		});
+document.getElementById('removeDataset').addEventListener('click', function() {
+	config.data.datasets.splice(0, 1);
+	window.myDoughnut.update();
+});
 
-		document.getElementById('addData').addEventListener('click', function() {
-			if (config.data.datasets.length > 0) {
-				config.data.labels.push('data #' + config.data.labels.length);
+document.getElementById('removeData').addEventListener('click', function() {
+	config.data.labels.splice(-1, 1); // remove the label first
 
-				var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
-				var newColor = window.chartColors[colorName];
+	config.data.datasets.forEach(function(dataset) {
+		dataset.data.pop();
+		dataset.backgroundColor.pop();
+	});
 
-				config.data.datasets.forEach(function(dataset) {
-					dataset.data.push(randomScalingFactor());
-					dataset.backgroundColor.push(newColor);
-				});
+	window.myDoughnut.update();
+});
 
-				window.myDoughnut.update();
-			}
-		});
+document.getElementById('changeCircleSize').addEventListener('click', function() {
+	if (window.myDoughnut.options.circumference === Math.PI) {
+		window.myDoughnut.options.circumference = 2 * Math.PI;
+		window.myDoughnut.options.rotation = -Math.PI / 2;
+	} else {
+		window.myDoughnut.options.circumference = Math.PI;
+		window.myDoughnut.options.rotation = -Math.PI;
+	}
 
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			config.data.datasets.splice(0, 1);
-			window.myDoughnut.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			config.data.labels.splice(-1, 1); // remove the label first
-
-			config.data.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-				dataset.backgroundColor.pop();
-			});
-
-			window.myDoughnut.update();
-		});
-
-		document.getElementById('changeCircleSize').addEventListener('click', function() {
-			if (window.myDoughnut.options.circumference === Math.PI) {
-				window.myDoughnut.options.circumference = 2 * Math.PI;
-				window.myDoughnut.options.rotation = -Math.PI / 2;
-			} else {
-				window.myDoughnut.options.circumference = Math.PI;
-				window.myDoughnut.options.rotation = -Math.PI;
-			}
-
-			window.myDoughnut.update();
-		});
+	window.myDoughnut.update();
+});
  	
 </script>
 </body>
