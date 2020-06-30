@@ -9,8 +9,12 @@ insert into product(name, price, shop, url, category, img) values("Desk", 23440,
 insert into product(name, price, shop, url, category, img) values("Chair", 15000, "Coupang", "url2", "furniture", "img02");
 insert into product(name, price, shop, url, category, img) values("Pencil", 1000, "NaverShopping", "url3", "furniture", "img03");
 
-
-insert into cart(customer_id, product_id, quantity, date) values('id01', 1, 123, '2020-10-23');
+insert into cart(customer_id, product_id, quantity, date) values('id01', 1, null, null);
 insert into cart(customer_id, product_id, quantity, date) values('id01', 2, 12, '2020-10-24');
-insert into cart(customer_id, product_id, quantity, date) values('id02', 1, 1, '2020-10-10');
+insert into cart(customer_id, product_id, quantity, date) values('id01', 3, 24, '2020-01-12');
+insert into cart(customer_id, product_id, quantity, date) values('id02', 1, null, null);
 insert into cart(customer_id, product_id, quantity, date) values('id02', 3, 55, '2020-09-23');
+insert into cart(customer_id, product_id, quantity, date) values('id02', 4, 10, '2020-07-12');
+insert into cart(customer_id, product_id, quantity, date) values('id03', 1, null, null);
+insert into cart(customer_id, product_id, quantity, date) values('id04', 1, null, null);
+insert into cart(customer_id, product_id, quantity, date) values('id05', 1, null, null);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,6 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
 <title>Ezbasket</title>
 <style type="text/css">
 	body{
@@ -114,35 +114,19 @@
 	}
 	#phone1,#phone2,#phone3{width:60px;}	
 	
-	
 	/* file box  */
-	.filebox input[type="file"] { 
-		position: absolute; 
-		width: 1px; 
-		height: 1px; 
-		padding: 0; 
-		margin: -1px; 
-		overflow: hidden; 
-		clip:rect(0,0,0,0); 
-		border: 0; 
-	}
-	.upload-name{
-		width: 200px;
-	}
-	/* .upload-name{
-		position: absolute; 
-		width: 0px; 
-		height: 0px; 
-		padding: 0; 
-		margin: -1px; 
-		overflow: hidden; 
-		clip:rect(0,0,0,0); 
-		border: 0; 
-	} */
 	.user_icon{
 		object-fiti:contain;
   }
-	
+  #fileType{
+  	display: none;
+  }
+	.form-control-file{
+		width:200px;
+	}
+	#fileSubmit, #updateUserInfoButton, #withdrawButton, #logoutButton, #profileButton{
+		display: none;
+	}
 	/* ProductList */
 	#productImg{object-fiti:contain;}
 	#productList{display:table;width:100%;text-align:center;}
@@ -193,7 +177,7 @@
 			  </div><!-- add basket icon-->
 			  
 			  <div class="navbar_icon" data-toggle="collapse" data-target="#search_product" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-					<svg class="bi bi-search user_icon" width="50px" height="50px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<svg class="bi bi-search user_icon" width="45px" height="45px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						<path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
 						<path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
 					</svg>			  
@@ -247,46 +231,100 @@
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-			  		<form action="search_product.do" method="post">
-							<div class="input-group">
-						    <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
-						    <div class="input-group-append">
-						      <button class="btn btn-secondary" type="submit">
-						        <i class="fa fa-search"> 
-							        <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><!-- icon -->
-											 <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-											 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-											</svg>
-										</i>
-						      </button>
-						    </div>
-						  </div>
-					  </form><!--url로 검색 -->
-					  <span class="sr-only">(current)</span>
-					</div>
+              <form action="search_product.do" method="post">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit">
+                      <i class="fa fa-search"> 
+                        <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><!-- icon -->
+                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                        </svg>
+                      </i>
+                    </button>
+                  </div>
+                </div>
+              </form><!--url로 검색 -->
+					    <span class="sr-only">(current)</span>
+					  </div>
 			    </div>
 			  </div>
-			  
+			 
 			  <!-- 유저 프로필 업로드 영역 -->
+			  
+
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-			      <div>
-			  			<div class="filebox"> 
-				  			<input class="upload-name" value="Img Route.." disabled="disabled"> 
-				  			<svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-								  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-								</svg>
-				  			<label for="ex_filename" id="profileButton">Upload</label> 
-				  			<input type="file" id="ex_filename" class="upload-hidden"> 
-				  			<span id="fileResult"></span>
-			  			</div>
-					  	<span class="sr-only">(current)</span>
-					  	<a href="LogoutController.do"><button>logout</button></a>
-						</div>
-			    </div>
-			  </div>
-			  
+            <div class="row" style="float: right;">
+              <c:choose>
+                <c:when test="${empty sessionScope.customer}">
+                	<div class="col-sm-12">
+                		<div class = "input-group-append" style="float: right;">
+			                <span class="sr-only">(current)</span>
+			               	<strong>로그인이 필요합니다.</strong>
+	               		</div>
+	                </div>
+                </c:when>
+                <c:otherwise>
+	  								<div class="col-sm-12">
+	  								<div class = "input-group-append" style="float: right;">
+	  									<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
+		                    <div id="fileBox" class="form-group"> 
+		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+														  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+														  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+														</svg>&nbsp;
+		                        <label for="fileType">Select</label>
+		                        <input type="file" id="fileType" name="fileType" class="form-control-file">&nbsp;
+		                        <label for ="fileSubmit">
+			                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
+															  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
+															</svg>
+		                        </label>&nbsp;
+		                        <input id="fileSubmit" type="submit">
+		                    </div>
+		                  </form>
+
+	  									<span class="sr-only">(current)</span>
+		                  <label for="profileButton">
+		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+												  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+												</svg>
+		                  </label>
+		                  <button id="profileButton"></button></a>
+		                  
+	  									<span class="sr-only">(current)</span>
+		                  <label for="logoutButton">
+		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+												</svg>
+		                  </label>
+		                  
+		                  <a href="LogoutController.do"><button id="logoutButton"></button></a>
+		                  <span class="sr-only">(current)</span>
+		                  <label for="updateUserInfoButton">
+		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+												</svg>
+		                  </label>
+		                  <a href="ChangeUserInfoController.do"><button id="updateUserInfoButton"></button></a>
+		                  <span class="sr-only">(current)</span>
+		                  <label for="withdrawButton">
+		                  	<svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+												</svg>
+		                  </label>
+		                  <button class="deleteCustomer" id="withdrawButton"></button>
+		                  </div>
+	  								</div>
+                </c:otherwise>
+              </c:choose>
+            </div>
+          </div>
+		    </div>
 			</nav>
 		</div>
   	</header>
@@ -299,27 +337,34 @@
 		      <section>
 		      
 		      <!-- 분류 조건영역 -->
+		        <div class = "category all">
+		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
+		      	</div>
+		      	<hr>
 		      <div class = "category price">
+		      <p>가격</p>
             <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
             <div id="slider-range"></div><hr>
 		      </div>
-		      <div class = "category product">
-		      	<p><b>카테고리</b></p>
-		      	<c:forEach items="${categoryList}" var="category">
-		      		<a class="categoryClick" id="category"><span>${category.key}</span><span class="checkbox"></span></a><br>
-		      		<c:forEach items="${category.value}" var="secondCategory">
-		      			<a class="categoryClick" id="category"><span>${secondCategory}</span><span class="checkbox"></span></a>
-		      	  </c:forEach>
-            </c:forEach>
-		      </div>
+			<div class = "category product">
+			    <p>카테고리</p>
+			    <c:forEach items="${categoryList}" var="category">
+			        <span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
+			        </c:forEach>
+			        <c:forEach items="${category.value}" var="secondCategory">
+			          <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>
+			      
+			</c:forEach>
+			</div>
+			<hr>
+			<div class = "category seller">
+			    <p>쇼핑몰</p>
+			    <c:forEach items="${shopList}" var="shop">
+			      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
+			    </c:forEach>
+			</div>
 		      <hr>
-		      <div class = "category seller">
-		      	<p><b>쇼핑몰</b></p>
-		      	<c:forEach items="${shopList}" var="shop">
-		      		<a class="categoryClick" id="shop"><span>${shop}</span><span class="checkbox"></span></a>
-		      	</c:forEach>
-		      </div>
-		      <hr>
+	<!-- 	      카테고리 아날라이즈 -->
 		      <div class = "category analysis">
 		      	<p><b>Analysis</b></p>
 		      	<c:forEach items="${data}" var="shop">
@@ -361,8 +406,8 @@
 									data: randomScalingFactor(),
 									backgroundColor: [
 										'rgba(255, 99, 132, 0.2)',
-						                'rgba(54, 162, 235, 0.2)',
-						                'rgba(255, 206, 86, 0.2)',
+						        'rgba(54, 162, 235, 0.2)',
+						        'rgba(255, 206, 86, 0.2)',
 									],
 									label: 'Dataset 1'
 								}],
@@ -437,7 +482,7 @@
 									<li>Image</li><li>Name</li><li>Price</li><li>Category</li>
 								</div>
 								<div class="list-group">						
-									<c:forEach items="${productList}" var="product">
+								  <c:forEach items="${productList}" var="product">
 										<c:choose>
 											<c:when test="${empty product.img}">
 												<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
@@ -473,10 +518,6 @@
 																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
-																<ul style="-webkit-padding-start:0px;">
-																	<li>Find ID</li> &nbsp;&nbsp;
-																	<li>Find PW</li>
-																</ul>
 															</form>
 														</div>
 												</div>
@@ -604,7 +645,7 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
  
-   
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -612,91 +653,153 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  <!-- 낮은 버전이 아래로 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
 <script>
-	$(function(){
-		/* JQUERY 슬라이더 시작 */
-	 	$("#slider-range").slider({
-			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
-			slide: function(event, ui) {
-			 $("#amount").val("$"+ui.values[0]+"-$"+ui.values[1]);
+$(function(){
+	
+	/*category start*/
+ 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		
+		var category = "";
+ 		var checkedBoxesCategory = $("input[class='categoryClick category']:checked");
+		for (let index = 0; index < checkedBoxesCategory.length; index++) {
+			category += "~";
+			category +=checkedBoxesCategory[index].value;
+			
+		}
+
+		var shop= "";
+		var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
+		for (let index = 0; index < checkedBoxesShop.length; index++) {
+			shop += "~";
+			shop += checkedBoxesShop[index].value;
+
+		}
+		if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
+            window.location.href = "main.jsp";
+        } else {
+            $("table.list-group")
+            $.ajax({
+ 			type: "post",
+ 			url: "category.do",
+ 			data: {'category':category,'shop':shop},
+ 			dataType : "text",
+ 			error:function(xhr,status,message){
+				alert("error : "+message );
+			},
+			success:function(data){
+				console.log(data);
+				var html = data;
+				$('.list-group').html(data);
 			}
-		});
-		$("#amount").val("$"+$("#slider-range").slider("values",0)+"-$"+$("#slider-range").slider("values", 1));		 	
-		/* JQUERY 슬라이더 끝 */
-		
-		
-		/*user thumnail upload start*/
-	 	var fileTarget = $('.filebox .upload-hidden'); 
-	 	var fileRoute = "";
-	 	var fileName = "";
-	 	var fileExtensionArray = ['jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png'];
-	 	
-	 	fileTarget.on('change', function(){
-	 		var fileRoute = $(this).val();  //파일 경로 추출
-	 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
-	 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
-		 		if(data == fileExtension){
-		 			return true;
-		 		}
-		 	});
-	 		if(fileExtension == null){
-	 			alert("이미지 파일을 넣어주세요.('jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
-	 			location.reload(true);
-	 			return;
-	 		}
-	 		
-	 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
-	 		
-	 		
-	 		console.log("fileRoute: "+fileRoute);
-	 		console.log("filename: "+fileName);
-	 		
-			$(this).siblings('.upload-name').val(fileRoute); 
-			$(this).siblings('.bi-person-square').attr('fill', '#229954');
-			
+ 		});//categoryClick ajax
+        }
+ 	});/*category finished*/
+	
+	/* JQUERY 슬라이더 시작 */
+ 	$("#slider-range").slider({
+		range: true,
+		min: <c:out value="${priceList[0]}"/>,
+		max: <c:out value="${priceList[1]}"/>,
+		values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
+		slide: function(event, ui) {
+			$("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");
+			//가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
 			$.ajax({
-	 			type: "post",
-	 			url: "profileImg.do",
-	 			data: {'fileRoute': fileRoute,
-	 						'fileName' : fileName},
-	 			error:function(xhr,status,message){
+				type: "post",
+				url: "category.do",
+				data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
+				error:function(xhr,status,message){
 					alert("error : "+message );
 				},
 				success:function(data){
-					console.log("success");
-					$('#fileResult').html(data);	// 장바구니에 데이터를 출력
+					var html = data;
+					$('.list-group').html(data);
 				}
-	 		});	//ajax..get changed fileform
-		});//fileTarget change
-    /*user thumnail upload finished*/
-			
-    
-		/*category start*/
-	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-	 		var category = $(this).attr("id");	//정렬 기준
-	 		
-	 		$.ajax({
-	 			type: "post",
-	 			url: "category.do",
-	 			data: {'productList':${productList},'category':category},
-	 			error:function(xhr,status,message){
-					alert("error : "+message );
-				},
-				success:function(data){
-					$('.list-group').html("성공");	// 장바구니에 데이터를 출력
-				}
-	 		});//categoryClick ajax
-	 	});//categoryClick
-	 	/*category finished*/
- 	});//document onload
+			}); //categoryClick ajax
+		}
+	});
+	
+
+	/*회원탈퇴 재확인 시작*/
+  $("button.deleteCustomer").click(function() {
+  	var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
+   	if (deleteConfirm == true) {
+     	window.location.href = "DeleteCustomer.do";   
+    }else {
+     	return;
+    }//else
+  });// $("button.deleteCustomer").click
+  /*회원탈퇴 재확인 끝*/
+	
+	/*user thumnail upload start*/
+ 	var fileTarget = $('#fileBox .form-control-file'); 
+ 	var fileExtensionArray = ['jpg', 'JPG', 'jpeg', 'JPEG', 'jpe', 'JPE', 'jfif', 'JFIF', 'gif', 'GIF', 'tif', 'TIF', 'tiff', 'TIFF', 'png', 'PNG'];
  	
-					window.chartColors.red,
-				var colorName = colorNames[index % colorNames.length];
-		document.getElementById('addData').addEventListener('click', function() {
+ 	fileTarget.on('change', function(){
+ 		var fileRoute = $(this).val();  //파일 경로 추출
+ 		var fileExtension = fileRoute.substring(fileRoute.length-3); //"확장자 추출"
+ 		fileExtension = fileExtensionArray.find(function(data){ //fileExtensionArray안에 있는 것이 아니라면  undefined반환. 맞으면 true반환
+	 		if(data == fileExtension){
+	 			return true;
+	 		}
+	 	});
+ 		if(fileExtension == null){
+ 			alert("이미지 파일을 넣어주세요.(jpg, 'jpeg', 'jpe', 'jfif', 'gif', 'tif', 'tiff', 'png')");
+ 			location.reload(true);
+ 			return;
+ 		}
+ 		var fileName= $(this).val().split('/').pop().split('\\').pop();//extract only fileName
+ 		//파일명과 파일루트 추출완료
+ 		
+		$(this).siblings('.upload-name').val(fileName); 
+		$(this).siblings('.bi-person-square').attr('fill', '#229954'); 
+		//파일명뜨기, 완료 색깔 변경 완료
+   /*user thumnail upload finished*/
+ 	});
+ 	
+	var fileBox = $("#fileBox");
+	fileBox.hide();
+ 	$("#profileButton").click(function(){
+ 		var fileBox = $("#fileBox");
+ 		
+ 		if(fileBox.css("display")=="none"){
+ 			fileBox.show();
+ 		}else{
+ 			fileBox.hide();
+ 		}
+ 	});
+ 	
+ 	$('#fileSubmit').click(function(){
+ 		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
+ 	});
+ 	
+ 	
+ 	
+/*  Google API Key가 있어야함.  클라우드 환경 필요. 
+
+getLocation();
+ 	
+ 	var location = document.getElementById("geoLocation");
+ 	function getLocation() {
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(showPosition, error);  //성공 rollback함수 showPosition 실패 rollback함수 error
+	    //navigator.geolocation.watchPosition(showPosition, error);
+	  } else {
+	    location.innerHTML = "Geolocation is not supported by this browser.";
+	  }
+	}
+	function showPosition(position) { //GeolocationPosision 객체인 position 
+		var latitude = position.coords.latitude;
+		var longtitude = position.coords.longitude;
+		var imgUrl = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longtitude + "&zoom=15&size=500x400&sensor=false";
+	  location.innerHTML ="<img src="+imgUrl+">";
+	}
+	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
+		loaction.innerHTML=positionError.message;
+	} */
+ 	
+});//document onload
 </script>
-	  
 </body>
 </html>

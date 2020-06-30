@@ -40,7 +40,7 @@ function cancelCheck(){
 </head>
 <body align="center">
 	<div class="container">
-	<h1>Update User Infomation</h1><p>
+	<h1>Update User Information</h1><p>
 	<form action="registerSuccess.jsp" id="registerFrm" method="post" onsubmit="return registerCheck();">	
 	<table>
 		<tr>
