@@ -255,18 +255,19 @@
 
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-            <div class="row">
+            <div class="row" style="float: right;">
               <c:choose>
                 <c:when test="${empty sessionScope.customer}">
-                    <span class="sr-only">(current)</span>
-                    <strong>로그인이 필요합니다.</strong>
+                	<div class="col-sm-12">
+                		<div class = "input-group-append" style="float: right;">
+			                <span class="sr-only">(current)</span>
+			               	<strong>로그인이 필요합니다.</strong>
+	               		</div>
+	                </div>
                 </c:when>
                 <c:otherwise>
-	                	<div class="col-sm-9">
-		                	
-	                	</div>
-	  								<div class="col-sm-3">
-	  								<div class = "input-group-append" align="right">
+	  								<div class="col-sm-12">
+	  								<div class = "input-group-append" style="float: right;">
 	  									<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
 		                    <div id="fileBox" class="form-group"> 
 		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
@@ -329,8 +330,6 @@
   		<!-- 레이어 나누기 -->
 	  	<div class="row">
 		    <div class="col-3">
-		      <!-- 위치 표시 -->
-		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
 		      
@@ -580,15 +579,14 @@
 
 <script>
 $(function(){
+	
 	/*category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-		
 		var category = "";
  		var checkedBoxesCategory = $("input[class='categoryClick category']:checked");
 		for (let index = 0; index < checkedBoxesCategory.length; index++) {
 			category += "~";
 			category +=checkedBoxesCategory[index].value;
-			
 		}
 
 		var shop= "";
@@ -684,23 +682,44 @@ $(function(){
  	
 	var fileBox = $("#fileBox");
 	fileBox.hide();
-	
  	$("#profileButton").click(function(){
  		var fileBox = $("#fileBox");
  		
  		if(fileBox.css("display")=="none"){
  			fileBox.show();
- 		}
- 		else{
+ 		}else{
  			fileBox.hide();
  		}
- 		
- 		$(this)
  	});
  	
  	$('#fileSubmit').click(function(){
  		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
  	});
+ 	
+ 	
+ 	
+/*  Google API Key가 있어야함.  클라우드 환경 필요. 
+
+getLocation();
+ 	
+ 	var location = document.getElementById("geoLocation");
+ 	function getLocation() {
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(showPosition, error);  //성공 rollback함수 showPosition 실패 rollback함수 error
+	    //navigator.geolocation.watchPosition(showPosition, error);
+	  } else {
+	    location.innerHTML = "Geolocation is not supported by this browser.";
+	  }
+	}
+	function showPosition(position) { //GeolocationPosision 객체인 position 
+		var latitude = position.coords.latitude;
+		var longtitude = position.coords.longitude;
+		var imgUrl = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longtitude + "&zoom=15&size=500x400&sensor=false";
+	  location.innerHTML ="<img src="+imgUrl+">";
+	}
+	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
+		loaction.innerHTML=positionError.message;
+	} */
  	
 });//document onload
 	
@@ -744,6 +763,7 @@ var config = {
 window.onload = function() {
 	var ctx = document.getElementById('chart-area').getContext('2d');
 	window.myDoughnut = new Chart(ctx, config);
+
 };
 
 document.getElementById('randomizeData').addEventListener('click', function() {

@@ -37,10 +37,10 @@ public class ChangeProfileController implements Controller {
 		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
 		String customerId = customer.getId();
 	
-		String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
-		//String usersPath = "C:/img/"+customerId;
+		//String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
+		//String usersPath = "../WebContent/img/"+customerId;
 
-		//String projectPath = "C:/lcj/githubAll/EZbasket/WebContent/img/"+customerId;
+		String usersPath = "C:/lcj/githubAll/EZbasket/WebContent/img/"+customerId;
 		System.out.println(usersPath);
          
         File serverDir = new File(usersPath);
