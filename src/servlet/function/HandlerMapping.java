@@ -31,7 +31,7 @@ public class HandlerMapping {
 			controller = new AddCartController();
 			System.out.println("Create AddCartController Instance.");
 		}
-		else if(command.equals("Category.do")) {
+		else if(command.equals("category.do")) {
 			controller = new CategoryController();
 			System.out.println("Create CategoryController Instance");
 		}
