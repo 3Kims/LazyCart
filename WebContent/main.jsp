@@ -434,10 +434,6 @@
 																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
-																<ul style="-webkit-padding-start:0px;">
-																	<li>Find ID</li> &nbsp;&nbsp;
-																	<li>Find PW</li>
-																</ul>
 															</form>
 														</div>
 												</div>
