@@ -37,11 +37,14 @@ public class ChangeProfileController implements Controller {
 		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
 		String customerId = customer.getId();
 	
-		String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
-		
+		//String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
+		String usersPath = "C:/img/"+customerId;
+
+		//String projectPath = "C:/lcj/githubAll/EZbasket/WebContent/img/"+customerId;
 		System.out.println(usersPath);
          
         File serverDir = new File(usersPath);
+        //File projectDir = new File(projectPath);
 		if(!serverDir.exists()) {
 			try {
 				serverDir.mkdirs();
@@ -52,14 +55,24 @@ public class ChangeProfileController implements Controller {
 			System.out.println("Already folder exist...");
 		}
  
+		/*if(!projectDir.exists()) {
+			try {
+				projectDir.mkdirs();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("Already folder exist...");
+		}*/
+		
         DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
         fileItemFactory.setRepository(serverDir);
         fileItemFactory.setSizeThreshold(LIMIT_SIZE_BYTES);
-        System.out.println("fileItemFactory: "+fileItemFactory);
         ServletFileUpload fileUpload = new ServletFileUpload(fileItemFactory);
-        System.out.println("fileUpload: "+fileUpload);
+        
         try {
             List<FileItem> items = fileUpload.parseRequest(request);
+            System.out.println("items: "+items);
             for (FileItem item : items) {
                 if (item.isFormField()) {
                     System.out.printf("파라미터 명 : %s, 파라미터 값 :  %s \n", item.getFieldName(), item.getString("utf-8"));
@@ -77,18 +90,17 @@ public class ChangeProfileController implements Controller {
             }
             //out.println("<h1>파일 업로드 완료</h1>");
  
- 
         } catch (Exception e) {
             // 파일 업로드 처리 중 오류가 발생하는 경우
             e.printStackTrace();
            // out.println("<h1>파일 업로드 중 오류가  발생하였습니다.</h1>");
         }	    
-	           
+	    
         
 		try {
 			dao = EzbasketDAOImpl.getInstance();
 			
-			dao.changeUsersImg(customer.getId(), "img/"+customerId+"/"+fileName);
+			dao.changeUsersImg(customer.getId(), "C:\\img\\"+customerId+"\\"+fileName);
 			System.out.println("Change user's img success...controller");
 			
 			customer = dao.searchCustomer(customer.getId());

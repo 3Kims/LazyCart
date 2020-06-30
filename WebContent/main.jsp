@@ -115,6 +115,9 @@
 	.form-control-file{
 		width:200px;
 	}
+	#fileSubmit, #updateUserInfoButton, #withdrawButton, #logoutButton{
+		display: none;
+	}
 	/* ProductList */
 	#productImg{object-fiti:contain;}
 	.list-group table{width:100%;}
@@ -173,7 +176,7 @@
 			  </div><!-- add basket icon-->
 			  
 			  <div class="navbar_icon" data-toggle="collapse" data-target="#search_product" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-					<svg class="bi bi-search user_icon" width="50px" height="50px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<svg class="bi bi-search user_icon" width="45px" height="45px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						<path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
 						<path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
 					</svg>			  
@@ -252,30 +255,67 @@
 
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-            <div class="input-group-append">
+            <div class="input-group-append row">
               <c:choose>
                 <c:when test="${empty sessionScope.customer}">
                     <span class="sr-only">(current)</span>
                     <strong>로그인이 필요합니다.</strong>
                 </c:when>
                 <c:otherwise>
-                  <form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
-                    <div id="fileBox" class="form-group"> 
-                        <svg class="bi bi-person-square" width="25px" height="25px" viewBox="0 0 16 16" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                            <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        </svg>
-                        <label for="fileType">Select</label>
-                        <input type="file" id="fileType" name="fileType" class="form-control-file"> 
-                        <input type="submit" value="Upload">
-                    </div>
-                  </form>
-                  <span class="sr-only">(current)</span>
-                    <a href="LogoutController.do"><button>logout</button></a>
-                  <span class="sr-only">(current)</span>
-                    <a href="ChangeUserInfoController.do"><button>회원정보수정</button></a>
-                  <span class="sr-only">(current)</span>
-                    <button class="deleteCustomer">회원탈퇴</button>
+	                	<div class="col-sm-10">
+		                	<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
+		                    <div id="fileBox" class="form-group"> 
+		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
+														  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+														  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+														</svg>&nbsp;
+		                        <label for="fileType">Select</label>
+		                        <input type="file" id="fileType" name="fileType" class="form-control-file">&nbsp;
+		                        <label for ="fileSubmit">
+			                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
+															  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
+															</svg>
+		                        </label>&nbsp;
+		                        <input id="fileSubmit" type="submit">
+		                    </div>
+		                  </form>
+	                	</div>
+	  								<div class="col-sm-2" align="right">
+	  								
+	  								
+	  									<span class="sr-only">(current)</span>
+		                  <label for="profileButton">
+		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+												  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+												</svg>
+		                  </label>
+		                  <button id="profileButton"></button></a>
+		                  
+	  									<span class="sr-only">(current)</span>
+		                  <label for="logoutButton">
+		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+												</svg>
+		                  </label>
+		                  
+		                  <a href="LogoutController.do"><button id="logoutButton"></button></a>
+		                  <span class="sr-only">(current)</span>
+		                  <label for="updateUserInfoButton">
+		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+												</svg>
+		                  </label>
+		                  <a href="ChangeUserInfoController.do"><button id="updateUserInfoButton"></button></a>
+		                  <span class="sr-only">(current)</span>
+		                  <label for="withdrawButton">
+		                  	<svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+												</svg>
+		                  </label>
+		                  <button class="deleteCustomer" id="withdrawButton"></button>
+	  								</div>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -542,7 +582,7 @@
 		/* JQUERY 슬라이더 시작 */
 	 	$("#slider-range").slider({
 			range: true,
-			min:  <c:out value="${priceList[0]}"/>,
+			min: <c:out value="${priceList[0]}"/>,
 			max: <c:out value="${priceList[1]}"/>,
 			values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
 			slide: function(event, ui) {
@@ -602,6 +642,14 @@
     /*user thumnail upload finished*/
 	 	});
 	 	
+	 	$("#profileButton").click(function(){
+	 		console.log("what");
+	 	});
+	 	
+	 	$('#fileSubmit').click(function(){
+	 		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
+	 	});
+	 	
 		/*category start*/
 	 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 	 		console.log("clicked!");
@@ -623,6 +671,7 @@
 	 		});//categoryClick ajax
 	 	});//categoryClick
 	 	/*category finished*/	
+	 	
  	});//document onload
  	
  	
