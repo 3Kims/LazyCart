@@ -36,9 +36,7 @@ public class ChangeProfileController implements Controller {
 	private static final String UPLOAD_DIR = "filefolder";
 	
 	public ChangeProfileController() {}
-	
-	
-	
+
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("ChangeProfileController start...");
