@@ -1,6 +1,6 @@
 document.getElementById("login").addEventListener("click", goLogin);
 document.getElementById("bucket").addEventListener("click", goBucket);
-console.log(document.getElementById("iframe_main").contentWindow.document.getElementById("user_thumnail"));
+console.log(document.getElementById("iframe_main").contentDocument.getElementById("user_thumnail"));
 
 function goLogin() {
 	location.href = "login.html";

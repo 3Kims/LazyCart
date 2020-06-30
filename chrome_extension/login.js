@@ -1,12 +1,7 @@
 
-	document.getElementById("gocart").addEventListener("click",goCart);
-	document.getElementById("addcart").addEventListener("click",addCart);
-
-function goCart() {
-
-	location.href="bucket.html"
-
+document.getElementById("loginResult").onload = function(){
+	var url = this.src;
+	console.log(url);
+	this.contentDocument	
 }
-function addCart() {
-	location.href="cart.html";
-}
+
