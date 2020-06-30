@@ -37,8 +37,8 @@ public class ChangeProfileController implements Controller {
 		CustomerVO customer = (CustomerVO) request.getSession().getAttribute("customer");
 		String customerId = customer.getId();
 	
-		//String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
-		String usersPath = "C:/img/"+customerId;
+		String usersPath = request.getServletContext().getRealPath("/img/"+customerId);
+		//String usersPath = "C:/img/"+customerId;
 
 		//String projectPath = "C:/lcj/githubAll/EZbasket/WebContent/img/"+customerId;
 		System.out.println(usersPath);
@@ -100,7 +100,7 @@ public class ChangeProfileController implements Controller {
 		try {
 			dao = EzbasketDAOImpl.getInstance();
 			
-			dao.changeUsersImg(customer.getId(), "C:\\img\\"+customerId+"\\"+fileName);
+			dao.changeUsersImg(customer.getId(), "img/"+customerId+"/"+fileName);
 			System.out.println("Change user's img success...controller");
 			
 			customer = dao.searchCustomer(customer.getId());

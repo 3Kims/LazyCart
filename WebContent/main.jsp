@@ -115,7 +115,7 @@
 	.form-control-file{
 		width:200px;
 	}
-	#fileSubmit, #updateUserInfoButton, #withdrawButton, #logoutButton{
+	#fileSubmit, #updateUserInfoButton, #withdrawButton, #logoutButton, #profileButton{
 		display: none;
 	}
 	/* ProductList */
@@ -255,15 +255,19 @@
 
 			  <div class="collapse navbar-collapse" id="userinfo">
 			    <div class="navbar-nav">
-            <div class="input-group-append row">
+            <div class="row">
               <c:choose>
                 <c:when test="${empty sessionScope.customer}">
                     <span class="sr-only">(current)</span>
                     <strong>로그인이 필요합니다.</strong>
                 </c:when>
                 <c:otherwise>
-	                	<div class="col-sm-10">
-		                	<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
+	                	<div class="col-sm-9">
+		                	
+	                	</div>
+	  								<div class="col-sm-3">
+	  								<div class = "input-group-append" style="float: right;">
+	  									<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
 		                    <div id="fileBox" class="form-group"> 
 		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
 														  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -280,10 +284,7 @@
 		                        <input id="fileSubmit" type="submit">
 		                    </div>
 		                  </form>
-	                	</div>
-	  								<div class="col-sm-2" align="right">
-	  								
-	  								
+
 	  									<span class="sr-only">(current)</span>
 		                  <label for="profileButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -315,6 +316,7 @@
 												</svg>
 		                  </label>
 		                  <button class="deleteCustomer" id="withdrawButton"></button>
+		                  </div>
 	  								</div>
                 </c:otherwise>
               </c:choose>
@@ -578,6 +580,8 @@
 
 <script>
 $(function(){
+
+	
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
 		range: true,
@@ -641,8 +645,20 @@ $(function(){
    /*user thumnail upload finished*/
  	});
  	
+	var fileBox = $("#fileBox");
+	fileBox.hide();
+	
  	$("#profileButton").click(function(){
- 		console.log("what");
+ 		var fileBox = $("#fileBox");
+ 		
+ 		if(fileBox.css("display")=="none"){
+ 			fileBox.show();
+ 		}
+ 		else{
+ 			fileBox.hide();
+ 		}
+ 		
+ 		$(this)
  	});
  	
  	$('#fileSubmit').click(function(){
