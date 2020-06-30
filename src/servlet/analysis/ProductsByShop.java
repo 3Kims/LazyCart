@@ -1,13 +1,16 @@
-package servlet.function;
+package servlet.analysis;
 
 import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import model.CustomerVO;
 import model.EzbasketDAOImpl;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
-public class RegisterController implements Controller {
+public class ProductsByShop implements Controller{
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) {
@@ -19,7 +22,7 @@ public class RegisterController implements Controller {
 		String password= request.getParameter("password1");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
-		String address = request.getParameter("postcode")+"|"+request.getParameter("roadAddress")+"|"+request.getParameter("jibunAddress");
+		String address = request.getParameter("roadAddress");
 		CustomerVO customer= new CustomerVO(id,password,"img/default.png",name,address,phone);
 		
 		try {
@@ -34,4 +37,5 @@ public class RegisterController implements Controller {
 		
 		return new ModelAndView(path);
 	}
+
 }

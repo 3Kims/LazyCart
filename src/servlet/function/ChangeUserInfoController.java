@@ -22,7 +22,10 @@ public class ChangeUserInfoController implements Controller{
 		String password= request.getParameter("password1");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
-		String address = request.getParameter("roadAddress");
+		request.getParameter("address").split("|");
+		String address = request.getParameter("roadAddress").split("|")[1];
+		String postcode = request.getParameter("postcode").split("|")[0];
+		String jibunAddress= request.getParameter("jibunAddress").split("|")[2];
 		System.out.println("Get user info success...controller");
 
 		//2.Create CustomerVO object
@@ -32,10 +35,11 @@ public class ChangeUserInfoController implements Controller{
 			System.out.println("ChangeUserInfoController success...");
 		}
 		catch(SQLException e) {
-			e.printStackTrace();
 			System.out.println("ChangeUserInfoController sql errer...");
 		}
-		request.getSession().setAttribute("customer",customer);		
+		request.getSession().setAttribute("customer",customer);
+		request.getSession().setAttribute("postcode",postcode);
+		request.getSession().setAttribute("jibunAddress",jibunAddress);
 		return new ModelAndView(path);
 	}
 }
