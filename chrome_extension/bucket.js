@@ -20,10 +20,9 @@ function getCurrentTabUrl(callback) {
 
 function renderURL(statusText){
 	
-	var url = getParameterByName("url");
-	console.log(url);
+
 	var iframe = document.getElementById("iframe_cart");
-	iframe.src=("http://localhost:8888/EZbasket/addcart.do?url="+url);
+	iframe.src=("http://localhost:8888/EZbasket/addcart.do?url="+statusText);
 }
 
 document.addEventListener("DOMContentLoaded",function(){

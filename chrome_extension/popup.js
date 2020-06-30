@@ -1,14 +1,6 @@
 document.getElementById("login").addEventListener("click", goLogin);
 document.getElementById("bucket").addEventListener("click", goBucket);
-
-var s = document.createElement('script');
-s.textContent = 'var isLogin=getElementById("iframe_main").contentWindow.document.getElementByClassName("badge badge-warning");';
-document.head.appendChild(s);
-console.log(isLogin);
-if(isLogin==null){
-	document.getElementById("login").html("로그아웃");
-}
-
+console.log(document.getElementById("iframe_main").contentWindow.document.getElementById("user_thumnail"));
 
 function goLogin() {
 	location.href = "login.html";
