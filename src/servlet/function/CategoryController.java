@@ -1,6 +1,8 @@
 package servlet.function;
-
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.SynchronousQueue;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,47 +14,108 @@ public class CategoryController implements Controller {
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("CategoryController start...");
-		String category = request.getParameter("category");
-		String option = request.getParameter("option");
-		ArrayList<ProductVO> productList = (ArrayList<ProductVO>) request.getSession().getAttribute("productList");
-		ArrayList<ProductVO> productListByCategory = new ArrayList<>();
-		
-		String path = "result.jsp";
-		System.out.println("데이터 받기 성공!");System.out.println(category + " : "+option);
-		if(category.equals("price")) {
-			String[] prices = option.split("-");
-			for(ProductVO product: productList) {
-				if(product.getName()==null)
-					continue;
-				if(Integer.parseInt(prices[0])<product.getPrice() && Integer.parseInt(prices[1])>product.getPrice()) {
-					productListByCategory.add(product);
+		try {
+
+			ArrayList<ProductVO> oldProductList = (ArrayList<ProductVO>) request.getSession().getAttribute("productList");
+			ArrayList<ProductVO> newProductList = new ArrayList<>();
+			ArrayList<ProductVO> finalProductList = new ArrayList<>();
+			String path = "result.jsp";
+			System.out.println("CategoryController start...");
+			String shoplist = request.getParameter("shop");
+			String[] category = request.getParameter("category").split("~");
+			String[] shop = shoplist.split("~");
+			System.out.println("length`````````````");
+			System.out.println(category.length);
+			System.out.println(shop.length);
+			System.out.println("toString");
+			for (String z : category) {
+				System.out.println(z);
+			}
+			for(String w : shop) {
+				System.out.println(w);
+			}
+			System.out.println("``````````````````````````````");
+			if (oldProductList.size() > 1) {
+				if (shop.length==1 && category.length!=1) {
+					for (int i = 1; i < category.length; i++) {
+			            System.out.println("CATEGORY FILTERING START FOR ::: "+category[i]);
+			            for (ProductVO pdCat:oldProductList) {
+			                if (pdCat.getName()==null) {
+			                    continue;
+			                }else {
+			                    if(pdCat.getCategory().contains(category[i]) && !newProductList.contains(pdCat)) {
+			                        System.out.println("this"+pdCat.getName()+"----- "+category[i]);
+			                        newProductList.add(pdCat);
+			                    }else {
+			                        continue;
+			                    }
+			                }
+			                
+			            }
+					}	
+				} else if (shop.length!=1 && category.length==1) {
+					if (shop.length>1) {
+					    for (int i = 1; i < shop.length; i++) {
+					            System.out.println("SHOP FILTERING START FOR ::: "+shop);
+					            for (ProductVO pdShop:oldProductList) {
+					                if (pdShop.getName()==null) {
+					                    continue;
+					                }else {
+					                    if(pdShop.getShop().contains(shop[i]) && !newProductList.contains(pdShop)) {
+					                        System.out.println("this"+pdShop.getName()+"----- "+shop[i]);
+					                        newProductList.add(pdShop);
+					                    }else {
+					                        continue;
+					                    }
+					                }
+					                
+					            }
+					    }
+					}
+				}else if (shop.length!=1 && category.length!=1) {
+					
+					for (int i = 1; i < category.length; i++) {
+			            System.out.println("CATEGORY FILTERING START FOR ::: "+category[i]);
+			            for (ProductVO pdCat:oldProductList) {
+			                if (pdCat.getName()==null) {
+			                    continue;
+			                }else {
+			                    if(pdCat.getCategory().contains(category[i]) && !newProductList.contains(pdCat)) {
+			                        System.out.println("this"+pdCat.getName()+"----- "+category[i]);
+			                        newProductList.add(pdCat);
+			                    }else {
+			                        continue;
+			                    }
+			                }
+			                
+			            }
+					}
+					
+					for(ProductVO newp : newProductList) {
+						String newpShop = newp.getShop();
+						if (shoplist.contains(newpShop)) {
+							finalProductList.add(newp);
+						}
+					}
+					request.getSession().setAttribute("productListByCategory", finalProductList);
+					System.out.println("CategoryController success... ON MULTI CONTIONAL");
+					return new ModelAndView(path);
 				}
 			}
-			
-		} else if(category.equals("category")) {
-			for(ProductVO product: productList) {
-				if(product.getCategory()==null)
-					continue;
-				if(product.getCategory().contains(option)) {
-					productListByCategory.add(product);
-				}
+			 else {
+				System.out.println("productlist size eqaul to or less than 1");
 			}
-		} else if(category.equals("shop")) {
-			
-			for(ProductVO product: productList) {
-				if(product.getShop()==null)
-					continue;
-				if(product.getShop().equals(option)) {
-					productListByCategory.add(product);
-				}
-			}
-		} else if(category.equals("all")) {
-			productListByCategory = productList;
+			System.out.println("list length ::: "+newProductList.size());
+			request.getSession().setAttribute("productListByCategory", newProductList);
+			System.out.println("CategoryController success...");
+			return new ModelAndView(path);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("result.jsp");
+
+			// TODO: handle exception
 		}
-		request.setAttribute("productListByCategory", productListByCategory);
-		System.out.println("CategoryController success...");
-		return new ModelAndView(path);
+		
 	}
 
 }

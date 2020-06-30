@@ -266,7 +266,7 @@
 		                	
 	                	</div>
 	  								<div class="col-sm-3">
-	  								<div class = "input-group-append" style="float: right;">
+	  								<div class = "input-group-append" align="right">
 	  									<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
 		                    <div id="fileBox" class="form-group"> 
 		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
@@ -580,7 +580,44 @@
 
 <script>
 $(function(){
+	/*category start*/
+ 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
+		
+		var category = "";
+ 		var checkedBoxesCategory = $("input[class='categoryClick category']:checked");
+		for (let index = 0; index < checkedBoxesCategory.length; index++) {
+			category += "~";
+			category +=checkedBoxesCategory[index].value;
+			
+		}
 
+		var shop= "";
+		var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
+		for (let index = 0; index < checkedBoxesShop.length; index++) {
+			shop += "~";
+			shop += checkedBoxesShop[index].value;
+
+		}
+		if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
+            window.location.href = "main.jsp";
+        } else {
+            $("table.list-group")
+            $.ajax({
+ 			type: "post",
+ 			url: "category.do",
+ 			data: {'category':category,'shop':shop},
+ 			dataType : "text",
+ 			error:function(xhr,status,message){
+				alert("error : "+message );
+			},
+			success:function(data){
+				console.log(data);
+				var html = data;
+				$('.list-group').html(data);
+			}
+ 		});//categoryClick ajax
+        }
+ 	});/*category finished*/
 	
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
@@ -664,28 +701,6 @@ $(function(){
  	$('#fileSubmit').click(function(){
  		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
  	});
- 	
-	/*category start*/
- 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
- 		console.log("clicked!");
- 		var category = $(this).attr("id");	//정렬 기준
- 		var option = $(this).text();
- 		//체크박스 클레스 checked로 바꾸는 로직 필요
- 		$.ajax({
- 			type: "post",
- 			url: "category.do",
- 			data: {'category':category,'option':option},
- 			error:function(xhr,status,message){
-				alert("error : "+message );
-			},
-			success:function(data){
-				console.log(data);
-				var html = data;
-				$('.list-group').html(data);
-			}
- 		});//categoryClick ajax
- 	});//categoryClick
- 	/*category finished*/	
  	
 });//document onload
 	
