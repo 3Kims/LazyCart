@@ -1,6 +1,6 @@
 document.getElementById("login").addEventListener("click", goLogin);
 document.getElementById("bucket").addEventListener("click", goBucket);
-console.log(document.getElementById("iframe_main").contentDocument.getElementById("user_thumnail"));
+//console.log(document.getElementById("iframe_main").contentDocument.getElementById("user_thumnail"));
 
 function goLogin() {
 	location.href = "login.html";
@@ -10,7 +10,6 @@ function goBucket() {
 }
 
 function getCurrentTabUrl(callback) {
-
 	chrome.tabs.query({
 		'active' : true,
 		'windowId' : chrome.windows.WINDOW_ID_CURRENT
@@ -21,7 +20,6 @@ function getCurrentTabUrl(callback) {
 }
 
 function renderURL(statusText){
-	
 	location.href="addresult.html?url="+statusText;
 }
 
