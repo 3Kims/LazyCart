@@ -658,6 +658,7 @@
 
 <script>
 $(function(){
+    
     /* JQUERY 슬라이더 시작 */
         $("#slider-range").slider({
 		range: true,
@@ -668,10 +669,15 @@ $(function(){
 			$("#amount").val(ui.values[0]+" - "+ui.values[1]);
 		}
 	});
-    $("#slider-range").children().addClass('FilterObject');
 	/* JQUERY 슬라이더 끝 */
+    /* test
+        $( ".FilterObject" ).on("click", function() {
+        var checkedBoxesCategory = $("input[id=categoryInput]:checked");
+        alert(checkedBoxesCategory.length);
+    });//click
+    */ 
+    $(document).on("keyup click", ".FilterObject",function() {
     /* 비동기 필터링 스타트 */
-    $(document).on("keyup click mouseenter", ".FilterObject",function() {
     	var amount = $("input#amount").val();
     	var keyword = $("input#searchKeyword").val();
         var category = "";
@@ -700,8 +706,12 @@ $(function(){
                 $('.list-group').html(data);
             }
         });//categoryClick ajax
-    }); // evetnBinding
+    });
+    /* 비동기 필터링 스타트 */
+    
+    
     /* 비동기 필터링 끝 */
+
 
 	/*회원탈퇴 재확인 시작*/
   $("button.deleteCustomer").click(function() {
