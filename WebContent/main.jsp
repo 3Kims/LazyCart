@@ -719,6 +719,9 @@ $(function(){
 			}); //categoryClick ajax
 		}
 	});
+			$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
+			/* JQUERY 슬라이더 끝 */
+
 	
 
 	/*회원탈퇴 재확인 시작*/
