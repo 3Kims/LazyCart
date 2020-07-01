@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +15,11 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="../../../dist/2.9.3/Chart.min.js"></script>
-
 <!-- google font css -->
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 
 <!-- basic css,jquery 1.12.1 -->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Bootstrap CSS -->
@@ -32,7 +30,19 @@
 
 <style type="text/css">
 	body{
-		font-family: 'Balsamiq Sans', cursive;
+		@font-face {
+		  font-family: 'Balsamiq Sans', cursive;
+		  src: url("../fonts/notoSansKR/NotoSans-Bold.woff") format("woff");
+		  font-style: normal;
+		}
+		
+		@font-face {
+			font-family: 'Nanum Brush Script', serif;
+			src: url("../fonts/openSans/OpenSans-SemiBold.woff") format("woff");
+			unicode-range: U+0020-007E;
+			font-style: normal;
+		}
+	}
 	}
 	
 	/* bootstrap4 icon  */
@@ -115,7 +125,18 @@
 	#buttons{
 		text-align:center;margin:3%;
 	}
-	#phone1,#phone2,#phone3{width:60px;}	
+	#registerForm table input[id="phone1"], 
+	#registerForm table input[id="phone2"], 
+	#registerForm table input[id="phone3"]{width:58.5px;}
+	
+	#registerForm table input[id="postcode"]{
+		width: 60px;
+		margin-top: 30px;
+	}
+	#registerForm table input[id="searchPostCode"]{
+		width: 95px;
+		text-align: center;
+	}
 	
 	/* file box  */
 	.user_icon{
@@ -136,7 +157,7 @@
 	#productList li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
 
 	.list-group{display:table;width:100%;}
-	.list-group li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
+	.list-group li{display:table-cell;width:20%;list-style-type:none;text-align:center;object-fit: contain;}
 																	
 
 	<!-- Chart.js --> 
@@ -272,22 +293,22 @@
 	               		</div>
 	                </div>
                 </c:when>
-                <c:otherwise>
-	  								<div class="col-sm-12">
-	  								<div class = "input-group-append" style="float: right;">
-	  									<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
+               <c:otherwise>
+							<div class="col-sm-12">
+							<div class = "input-group-append" style="float: right;">
+								<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
 		                    <div id="fileBox" class="form-group"> 
 		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-														  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-														  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-														</svg>&nbsp;
+									  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+									  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+									</svg>&nbsp;
 		                        <label for="fileType">Select</label>
 		                        <input type="file" id="fileType" name="fileType" class="form-control-file">&nbsp;
 		                        <label for ="fileSubmit">
 			                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-															  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
-															  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
-															</svg>
+									  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
+									  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
+									</svg>
 		                        </label>&nbsp;
 		                        <input id="fileSubmit" type="submit">
 		                    </div>
@@ -296,52 +317,52 @@
 	  									<span class="sr-only">(current)</span>
 		                  <label for="profileButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-												  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+							  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+							</svg>
 		                  </label>
 		                  <button id="profileButton"></button></a>
 		                  
 	  									<span class="sr-only">(current)</span>
 		                  <label for="logoutButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+							</svg>
 		                  </label>
 		                  
 		                  <a href="LogoutController.do"><button id="logoutButton"></button></a>
 		                  <span class="sr-only">(current)</span>
 		                  <label for="updateUserInfoButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+							</svg>
 		                  </label>
 		                  <a href="changeUserInfo.jsp"><button id="updateUserInfoButton"></button></a>
 		                  <span class="sr-only">(current)</span>
 		                  <label for="withdrawButton">
 		                  	<svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+							</svg>
 		                  </label>
 		                  <button class="deleteCustomer" id="withdrawButton"></button>
 		                  </div>
-	  								</div>
-                </c:otherwise>
-              </c:choose>
-            </div>
-          </div>
-		    </div>
-			</nav>
-		</div>
-  	</header>
-  		<!-- 레이어 나누기 -->
-	  	<div class="row">
-		    <div class="col-3">
-		      <!-- 위치 표시 -->
-		      <p>현재 위치 : 서울</p>
-		      <hr>
-		      <section>
-		      
+	  					</div>
+	                </c:otherwise>
+	              </c:choose>
+	            </div>
+	          </div>
+			    </div>
+				</nav>
+			</div>
+	  	</header>
+	  		<!-- 레이어 나누기 -->
+		  	<div class="row">
+			    <div class="col-3">
+			      <!-- 위치 표시 -->
+			      <p>현재 위치 : 서울</p>
+			      <hr>
+			      <section>
+			      
 		      <!-- 분류 조건영역 -->
 		        <div class = "category all">
 		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
@@ -370,14 +391,15 @@
 			    </c:forEach>
 			</div>
 		      <hr>
-	<!-- 	      카테고리 아날라이즈 -->
+				<!-- 카테고리 아날라이즈 -->
 		      <div class = "category analysis">
 		      	<p><b>Analysis</b></p>
 		      	<c:forEach items="${data}" var="shop">
 		      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
 		      	</c:forEach>
 		      </div>
-		    <!-- 도넛 그래프 -->
+		    
+      			  <!-- 도넛 그래프 -->
 				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 					<canvas id="doughnut-chart-area" style="display: block; height: 20%; width: 100%;" width="95%" height="100%" class="chartjs-render-monitor"></canvas>
 				</div>
@@ -411,18 +433,13 @@
 							data: {
 								datasets: [{
 									data: randomScalingFactor(),
-									backgroundColor: [
-										'rgba(255, 99, 132, 0.2)',
-								        'rgba(54, 162, 235, 0.2)',
-								        'rgba(255, 206, 86, 0.2)'
-									],
+									backgroundColor: 
+                 					['rgba(255, 99, 132, 0.2)',
+								   'rgba(54, 162, 235, 0.2)',
+								   'rgba(255, 206, 86, 0.2)'],
 									label: 'Dataset 1'
 								}],
-								labels: [
-									'Coupang',
-									'Musinsa',
-									'Auction',
-								]
+								labels: ['Coupang','Musinsa','Auction',]
 							},
 							options: {
 								responsive: true,
@@ -572,9 +589,7 @@
 					        }
 					    }
 					});
-					
 					</script>
-					
 		    </div>
 		    <div class="col-9">
 			    <nav>
@@ -587,7 +602,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div id="productList">
-									<li>Image</li><li>Name</li><li>Price</li><li>Category</li>
+									<li><b>Image</b></li><li><b>Name</b></li><li><b>Price</b></li><li><b>Category</b></li><li><b>Delete</b></li>
 								</div>
 								<div class="list-group">						
 								  <c:forEach items="${productList}" var="product">
@@ -597,10 +612,11 @@
 											</c:when>
 											<c:otherwise>
 												<ul  class="list-group-item">
-													<li id="productImg"><img src="${product.img}" width="180px" height="180px"></li>
-													<li id="name">${product.name}</li>
-													<li id="price">${product.price}</li>
-													<li id="category">${product.category}</li>
+												  <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+						                           <li id="name">${product.name}</li>
+						                           <li id="price">${product.price}</li>
+						                           <li id="category">${product.category}</li>
+						                           <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
 												</ul>
 											</c:otherwise>
 										</c:choose>
@@ -622,7 +638,7 @@
 															<form action="LoginController.do" id="loginFrm" method="post">
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p></p><p></p>
-																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
+																PW &nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
 																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
@@ -670,8 +686,8 @@
 																		<td>주소</td>
 																		<td>
 																			<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-																			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																			<input type="button" id="searchPostCode" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소"><br>
 																			<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
@@ -690,15 +706,15 @@
 														</div>
 													</div>
 												</div>
-										    </div>
-									    </div>
-									  </div>
-									</div>
-									</c:otherwise>
-								</c:choose>
-							</article>
-						</div>
-					</div>
+											</div>
+								    </div>
+							    </div>
+							  </div>
+							</div><!--carousel  -->
+							</c:otherwise>
+						</c:choose>
+					</article>
+
 				</div>
 				<p></p>
 				<hr width="90%">
@@ -706,8 +722,6 @@
 	
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-
 
 <!-- 주소 찾기 API script -->									
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -765,7 +779,7 @@
 
 
 <script>
-$(function(){	
+$(function(){
 	/*category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		
@@ -804,7 +818,9 @@ $(function(){
  		});//categoryClick ajax
         }
  	});/*category finished*/
-	
+     
+
+
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
 		range: true,
@@ -907,8 +923,7 @@ getLocation();
 	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
 		loaction.innerHTML=positionError.message;
 	} */
- 	
-	
+ 		
 	//password 일치 체크하고
 	function registerCheck(){
 		if($("#idCheck").text()=="이미 등록된 ID 입니다."){
