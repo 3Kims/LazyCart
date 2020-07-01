@@ -16,7 +16,6 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="../../../dist/2.9.3/Chart.min.js"></script>
-
 <!-- google font css -->
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
@@ -133,7 +132,7 @@
 	#productList li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
 
 	.list-group{display:table;width:100%;}
-	.list-group li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
+	.list-group li{display:table-cell;width:20%;list-style-type:none;text-align:center;object-fit: contain;}
 																	
 
 	<!-- Chart.js --> 
@@ -479,7 +478,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div id="productList">
-									<li>Image</li><li>Name</li><li>Price</li><li>Category</li>
+									<li>Image</li><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
 								</div>
 								<div class="list-group">						
 								  <c:forEach items="${productList}" var="product">
@@ -489,10 +488,13 @@
 											</c:when>
 											<c:otherwise>
 												<ul  class="list-group-item">
-													<li id="productImg"><img src="${product.img}" width="180px" height="180px"></li>
-													<li id="name">${product.name}</li>
-													<li id="price">${product.price}</li>
-													<li id="category">${product.category}</li>
+												
+                                                   <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+							                       <li id="name">${product.name}</li>
+							                       <li id="price">${product.price}</li>
+							                       <li id="category">${product.category}</li>
+							                       <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
+											
 												</ul>
 											</c:otherwise>
 										</c:choose>
@@ -656,7 +658,7 @@
 
 <script>
 $(function(){
-	
+
 	/*category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		
@@ -695,7 +697,9 @@ $(function(){
  		});//categoryClick ajax
         }
  	});/*category finished*/
-	
+     
+
+
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
 		range: true,
@@ -799,6 +803,7 @@ getLocation();
 		loaction.innerHTML=positionError.message;
 	} */
  	
+
 });//document onload
 </script>
 </body>

@@ -37,6 +37,7 @@ public interface EzbasketDAO {
 	
 	//d
 	void deleteUsersAllProduct(String customerId) throws SQLException;
+	void deleteProduct(String customerId) throws SQLException;
 	void deleteCustomer(String customerId) throws SQLException;
 	void deleteCustomerImg(String customerId) throws SQLException;
 	

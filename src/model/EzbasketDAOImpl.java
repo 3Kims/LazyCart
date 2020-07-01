@@ -472,6 +472,24 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 			closeAll(ps, conn);
 		}
 	}
+	@Override
+	public void deleteProduct(String productIdString) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			int productIdInt = Integer.parseInt(productIdString);
+			System.out.println("deleteProduct start..");
+			conn = getConnection();
+			String query = "delete from cart where product_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productIdInt);
+			ps.executeUpdate();
+			System.out.println("deleteUsersAllProduct success..");
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
 	
 	@Override
 	public void deleteCustomer(String customerId) throws SQLException {
