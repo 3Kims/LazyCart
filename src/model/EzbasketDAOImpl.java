@@ -209,7 +209,7 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 		CustomerVO customer = null;
 		
 		try {
-			System.out.println("searchCustomer start...");
+			System.out.println("searchCustomer start..."+id);
 			conn = getConnection();
 			String query = "SELECT * FROM customer WHERE id=?";
 			ps = conn.prepareStatement(query);

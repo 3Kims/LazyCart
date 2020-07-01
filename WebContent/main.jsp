@@ -331,7 +331,7 @@
 							  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
 							</svg>
 		                  </label>
-		                  <a href="ChangeUserInfoController.do"><button id="updateUserInfoButton"></button></a>
+		                  <a href="changeUserInfo.jsp"><button id="updateUserInfoButton"></button></a>
 		                  <span class="sr-only">(current)</span>
 		                  <label for="withdrawButton">
 		                  	<svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -428,9 +428,9 @@
 									data: randomScalingFactor(),
 
 									backgroundColor: [
-										'rgba(255, 99, 132, 0.2)',
-						        'rgba(54, 162, 235, 0.2)',
-						        'rgba(255, 206, 86, 0.2)',
+										'rgba(255, 99, 132, 1)',
+								        'rgba(54, 162, 235, 1)',
+								        'rgba(255, 206, 86, 1)',
 									],
 									label: 'Dataset 1'
 								}],
@@ -484,14 +484,14 @@
 							window.myDoughnut.update();
 						});
 					</script>
-
+				
 				
 				<p></p>
 				 <!-- 히스토그램  평균가격대|쇼핑몰 -->
-				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-					<canvas id="canvas" style="display: block; height: 30%; width: 100%;" width="100%" height="100%" class="chartjs-render-monitor"></canvas>
+				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><p>
+					<canvas id="hist-canvas" style="display: block; height: 30%; width: 100%;" width="100%" height="100%" class="chartjs-render-monitor"></canvas>
 				</div>
-					
+								
 					<script>
 					var randomScalingFactor = function() {
 						var coupangCnt = 0;
@@ -524,29 +524,30 @@
 						return shopCntArray; 
 					};
 					 
-					new Chart(document.getElementById("canvas"), {
+					new Chart(document.getElementById("hist-canvas"), {
 					    type: 'bar',
 					    data: {
 					        labels: ['Coupang', 'Musinsa', 'Auction'],
 					        datasets: [{
-					            label: '쇼핑 몰별 평균 가격대',
+					            label: 'none',
 					            data: randomScalingFactor(),
 					            borderColor:
-					            	['rgba(255, 99, 132, 0.2)',
-							        'rgba(54, 162, 235, 0.2)',
-							        'rgba(255, 206, 86, 0.2)'],
+					            	['rgba(255, 99, 132, 1)',
+							        'rgba(54, 162, 235, 1)',
+							        'rgba(255, 206, 86, 1)'],
 					            backgroundColor: 
-					            	['rgba(255, 99, 132, 0.2)',
-							        'rgba(54, 162, 235, 0.2)',
-							        'rgba(255, 206, 86, 0.2)'],
+					            	['rgba(255, 99, 132, 1)',
+							        'rgba(54, 162, 235, 1)',
+							        'rgba(255, 206, 86, 1)'],
 					            fill: false,
 					        }]
 					    },
 					    options: {
+					    	legend:false,
 					        responsive: true,
 					        title: {
 					            display: true,
-					            text: '막대 차트 테스트'
+					            text: '쇼핑 몰별 평균 가격대'
 					        },
 					        tooltips: {
 					            mode: 'index',
@@ -586,10 +587,6 @@
 					    }
 					});
 					</script>
-
-					
-	
-
 		    </div>
 		    <div id="columnRightLayout" class="col-9">
 			    <nav>
@@ -612,11 +609,11 @@
 											</c:when>
 											<c:otherwise>
 												<ul class="list-group-item">
-                           <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
-							             <li id="name">${product.name}</li>
-							             <li id="price">${product.price}</li>
-							            <li id="category">${product.category}</li>
-							             <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height="20%"></a></li>
+                           							<li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+										            <li id="name">${product.name}</li>
+										            <li id="price">${product.price}</li>
+										            <li id="category">${product.category}</li>
+										            <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height="20%"></a></li>
 												</ul>
 											</c:otherwise>
 										</c:choose>
@@ -928,7 +925,7 @@ getLocation();
 		location.innerHTML=positionError.message;
 	} */
 
- 		
+		
 	//password 일치 체크하고
 	function registerCheck(){
 		if($("#idCheck").text()=="이미 등록된 ID 입니다."){
@@ -945,31 +942,36 @@ getLocation();
 			}
 		}
 	}
-
-	$("#register_id").keyup(function(){
+	
+	
+		$("#register_id").keyup(function(){
 		$.ajax({
 			type:"post",
 			url:"IdCheckController.do?",
 			data:{"id":$("#register_id").val()},
+			error:function(xhr,status,message){
+	             alert("error : "+xhr+status+message );
+	         },
 			success:function(data){
 				if($("#register_id").val()!=""){
-					if(data==false){
-						alert(data);
-						$("#idCheck").html("이미 등록된 ID 입니다.");//"이미 등록된 ID 입니다."
-					}else{$("#idCheck").html("사용가능한 ID 입니다.");}//"사용가능한 ID 입니다."
+					if((""+data).trim()=="true"){
+						$("#idCheck").html("사용가능한 ID 입니다.");//"이미 등록된 ID 입니다."
+					}else {$("#idCheck").html("이미 등록된 ID 입니다.");}//
 				}else {$("#idCheck").html("ID를 입력해주세요.");}
 			}//success
-		});//ajax
-	});
-	
-	$("#initialize").click(function(){
-		if(confirm("초기화 하시겠습니까?")){
-			$("input[type=text]").val("");
-			$("input[type=password]").val("");
-		}
-	});
+			});//ajax
+		});//password2
+		
+		$("#initialize").click(function(){
+			if(confirm("초기화 하시겠습니까?")){
+				$("input[type=text]").val("");
+				$("input[type=password]").val("");
+			}
+		});
 
 });//document onload
 </script>
+
+
 </body>
 </html>
