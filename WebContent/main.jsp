@@ -691,8 +691,14 @@ $(function(){
 				console.log(data);
 				var html = data;
 				$('.list-group').html(data);
+				
+				$("#slider-range").slider( "option", "min",${priceList[0]});
+				$("#slider-range").slider( "option", "max",${priceList[1]});
+		 		$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");	
+		 		//slider
 			}
  		});//categoryClick ajax
+
         }
  	});/*category finished*/
 	
@@ -707,7 +713,7 @@ $(function(){
 			//가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
 			$.ajax({
 				type: "post",
-				url: "category.do",
+				url: "price.do",
 				data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
 				error:function(xhr,status,message){
 					alert("error : "+message );
@@ -719,8 +725,8 @@ $(function(){
 			}); //categoryClick ajax
 		}
 	});
-			$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
-			/* JQUERY 슬라이더 끝 */
+	$("#amount").val($("#slider-range").slider("values",0)+"원 - "+$("#slider-range").slider("values", 1)+"원");		 	
+	/* JQUERY 슬라이더 끝 */
 
 	
 

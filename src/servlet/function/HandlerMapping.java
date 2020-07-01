@@ -53,6 +53,9 @@ public class HandlerMapping {
 		}else if(command.equals("profileImg.do")) {
 			controller = new ChangeProfileController();
 			System.out.println("Create ChangeProfileController Instance");
+		}else if(command.equals("price.do")) {
+			controller = new PriceController();
+			System.out.println("Create PriceController Instance");
 		}
 		return controller;
 	}

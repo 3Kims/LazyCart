@@ -97,6 +97,21 @@ public class CategoryController implements Controller {
 							finalProductList.add(newp);
 						}
 					}
+					if(finalProductList.size()!=0) {
+						int min = finalProductList.get(0).getPrice();
+						int max = min;
+						for(ProductVO p : finalProductList) {
+							if(p.getPrice()>max)
+								max=p.getPrice();
+							if(p.getPrice()<min)
+								min=p.getPrice();
+						}
+						int[] priceList = new int[2];
+						priceList[0]=min;
+						priceList[1]=max;
+						request.getSession().setAttribute("priceList", priceList);
+						
+					}
 					request.getSession().setAttribute("productListByCategory", finalProductList);
 					System.out.println("CategoryController success... ON MULTI CONTIONAL");
 					return new ModelAndView(path);
@@ -106,6 +121,22 @@ public class CategoryController implements Controller {
 				System.out.println("productlist size eqaul to or less than 1");
 			}
 			System.out.println("list length ::: "+newProductList.size());
+			if(newProductList.size()!=0) {
+				int min = newProductList.get(0).getPrice();
+				int max = min;
+				for(ProductVO p : newProductList) {
+					if(p.getPrice()>max)
+						max=p.getPrice();
+					if(p.getPrice()<min)
+						min=p.getPrice();
+				}
+				int[] priceList = new int[2];
+				priceList[0]=min;
+				priceList[1]=max;
+				request.getSession().setAttribute("priceList", priceList);
+				
+			}
+			
 			request.getSession().setAttribute("productListByCategory", newProductList);
 			System.out.println("CategoryController success...");
 			return new ModelAndView(path);
