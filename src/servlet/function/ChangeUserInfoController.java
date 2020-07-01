@@ -21,15 +21,13 @@ public class ChangeUserInfoController implements Controller{
 		String id = request.getParameter("id");
 		String password= request.getParameter("password1");
 		String name = request.getParameter("name");
-		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
-		request.getParameter("address").split("|");
-		String address = request.getParameter("roadAddress").split("|")[1];
-		String postcode = request.getParameter("postcode").split("|")[0];
-		String jibunAddress= request.getParameter("jibunAddress").split("|")[2];
-		System.out.println("Get user info success...controller");
-
+		String address = request.getParameter("postcode")+"="+request.getParameter("roadAddress")+"="+request.getParameter("jibunAddress");
+		String phone = request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3");
+		
+		
 		//2.Create CustomerVO object
-		CustomerVO customer = new CustomerVO(id,password,name,address,phone);
+		CustomerVO customer= new CustomerVO(id,password,"img/default.png",name,address,phone);
+		System.out.println("ChangeUserInfo:"+customer);
 		try {
 			EzbasketDAOImpl.getInstance().changeUserInfo(customer);
 			System.out.println("ChangeUserInfoController success...");
@@ -38,8 +36,6 @@ public class ChangeUserInfoController implements Controller{
 			System.out.println("ChangeUserInfoController sql errer...");
 		}
 		request.getSession().setAttribute("customer",customer);
-		request.getSession().setAttribute("postcode",postcode);
-		request.getSession().setAttribute("jibunAddress",jibunAddress);
 		return new ModelAndView(path);
 	}
 }

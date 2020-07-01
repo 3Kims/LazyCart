@@ -41,7 +41,7 @@ public class CoupangParser implements Parser {
 			String imageSrc = thumbnailSrc.replace(thumbnail, detailImage);
 			String image =imageSrc;*/ 
 			String image = doc.select("img.prod-image__detail").attr("src");
-			System.out.println("쿠팡 : "+image);
+			
 			product = new ProductVO(name, price, shop, url, category, image);
 			System.out.println("product------------------------------");
 			System.out.println(product);
