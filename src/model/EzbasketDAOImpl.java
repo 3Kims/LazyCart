@@ -222,7 +222,7 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 						rs.getString("name"),
 						rs.getString("address"),
 						rs.getString("phone"));
-			//System.out.println("customerVO vo:"+vo);
+			System.out.println("customerVO vo:"+customer);
 			System.out.println("searchCustomer success...");
 			}
 		}catch(Exception e){
@@ -427,8 +427,7 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 			ps.setString(4, customer.getPhone());
 			ps.setString(5, customer.getId());
 			
-			ps.executeUpdate();
-			System.out.println("changeUserInfo success..");
+			System.out.println(ps.executeUpdate()+"changeUserInfo success..");
 		}finally {
 			closeAll(ps, conn);
 		}
@@ -466,6 +465,24 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, customerId);
 			
+			ps.executeUpdate();
+			System.out.println("deleteUsersAllProduct success..");
+		}finally {
+			closeAll(ps, conn);
+		}
+	}
+	@Override
+	public void deleteProduct(String productIdString) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			int productIdInt = Integer.parseInt(productIdString);
+			System.out.println("deleteProduct start..");
+			conn = getConnection();
+			String query = "delete from cart where product_id=?";
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productIdInt);
 			ps.executeUpdate();
 			System.out.println("deleteUsersAllProduct success..");
 		}finally {

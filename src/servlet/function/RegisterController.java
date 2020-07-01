@@ -18,8 +18,8 @@ public class RegisterController implements Controller {
 		String id = request.getParameter("id");
 		String password= request.getParameter("password1");
 		String name = request.getParameter("name");
-		String phone = request.getParameter("phone1")+request.getParameter("phone2")+request.getParameter("phone3");
-		String address = request.getParameter("postcode")+"|"+request.getParameter("roadAddress")+"|"+request.getParameter("jibunAddress");
+		String phone = request.getParameter("phone1")+"-"+request.getParameter("phone2")+"-"+request.getParameter("phone3");
+		String address = request.getParameter("postcode")+"="+request.getParameter("roadAddress")+"="+request.getParameter("jibunAddress");
 		CustomerVO customer= new CustomerVO(id,password,"img/default.png",name,address,phone);
 		
 		try {

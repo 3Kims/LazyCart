@@ -15,22 +15,22 @@ public class IdCheckController implements Controller{
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("IdCheckController start...");
 		
-		String path="idCheckResult.jsp";
+		String path="IdCheckResult.jsp";
 		CustomerVO customer = null;
 		String id=request.getParameter("id");
 		
 		try {
 			customer = EzbasketDAOImpl.getInstance().searchCustomer(id);
+			if(customer==null) {
+				System.out.println("customer : "+ customer);
+				request.setAttribute("data",true);
+			}
+			System.out.println("customer : "+ customer);
+			request.setAttribute("data",false);//false
 		}
-		catch(SQLException e) {
-			e.printStackTrace();
-			System.out.println("IdCheckController sql error...");
+		catch(SQLException | NullPointerException e) {
+			System.out.println(e.getMessage());
 		}
-		if(id.equals(customer.getId()))
-			request.setAttribute("result",false);
-		else 
-			request.setAttribute("result",true);
-		System.out.println("IdCheckController success...");
 		return new ModelAndView (path);
 	}
 }

@@ -16,12 +16,10 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="../../../dist/2.9.3/Chart.min.js"></script>
-
 <!-- google font css -->
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
 <!-- basic css,jquery 1.12.1 -->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Bootstrap CSS -->
@@ -112,7 +110,18 @@
 	#buttons{
 		text-align:center;margin:3%;
 	}
-	#phone1,#phone2,#phone3{width:60px;}	
+	#registerForm table input[id="phone1"], 
+	#registerForm table input[id="phone2"], 
+	#registerForm table input[id="phone3"]{width:58.5px;}
+	
+	#registerForm table input[id="postcode"]{
+		width: 60px;
+		margin-top: 30px;
+	}
+	#registerForm table input[id="searchPostCode"]{
+		width: 95px;
+		text-align: center;
+	}
 	
 	/* file box  */
 	.user_icon{
@@ -133,7 +142,7 @@
 	#productList li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
 
 	.list-group{display:table;width:100%;}
-	.list-group li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
+	.list-group li{display:table-cell;width:20%;list-style-type:none;text-align:center;object-fit: contain;}
 																	
 
 	<!-- Chart.js --> 
@@ -335,134 +344,138 @@
 		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
-			      <!-- 분류 조건영역 -->
-			      <div class = "category all">
-			      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
-			     	</div>
-			      <hr>
-			      <div class = "category price">
-			      	<p>가격</p>
-	          	<p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
-	          	<div id="slider-range"></div>
-	          	<hr>
-			      </div>
-						<div class = "category product">
-					    <p>카테고리</p>
-					    <c:forEach items="${categoryList}" var="category">
-					    	<span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
-					    </c:forEach>
-					    <c:forEach items="${category.value}" var="secondCategory">
-					      <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>     
-							</c:forEach>
-						</div>
-						<hr>
-						<div class = "category seller">
-					    <p>쇼핑몰</p>
-					    <c:forEach items="${shopList}" var="shop">
-					      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
-							</c:forEach>
-						</div>
-						<hr>
+		      
+		      <!-- 분류 조건영역 -->
+		        <div class = "category all">
+		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
+		      	</div>
+		      	<hr>
+		      <div class = "category price">
+		      <p>가격</p>
+            <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
+            <div id="slider-range"></div><hr>
+		      </div>
+			<div class = "category product">
+			    <p>카테고리</p>
+			    <c:forEach items="${categoryList}" var="category">
+			        <span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
+			        </c:forEach>
+			        <c:forEach items="${category.value}" var="secondCategory">
+			          <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>
+			      
+			</c:forEach>
+			</div>
+			<hr>
+			<div class = "category seller">
+			    <p>쇼핑몰</p>
+			    <c:forEach items="${shopList}" var="shop">
+			      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
+			    </c:forEach>
+			</div>
+		      <hr>
+	<!-- 	      카테고리 아날라이즈 -->
+		      <div class = "category analysis">
+		      	<p><b>Analysis</b></p>
+		      	<c:forEach items="${data}" var="shop">
+		      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
+		      	</c:forEach>
+		      </div>
+		    <!-- 도넛 그래프 -->
+				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+					<canvas id="doughnut-chart-area" style="display: block; height: 240px; width: 300px;" width="280" height="200" class="chartjs-render-monitor"></canvas>
+				</div>
+					<script>
+					var dataArr=null;
+							
+					var randomScalingFactor = function() {
+						var coupangCnt = 0;
+						var musinsaCnt = 0;
+						var auctionCnt = 0;
 						
-						<!-- 카테고리 아날라이즈 -->
-			      <div class = "category analysis">
-			      	<p><b>Analysis</b></p>
-			      	<c:forEach items="${data}" var="shop">
-			      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
-			      	</c:forEach>
-			      </div>
-				    <!-- 도넛 그래프 -->
-						<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-							<canvas id="doughnut-chart-area" style="display: block; height: 240px; width: 300px;" width="280" height="200" class="chartjs-render-monitor"></canvas>
-						</div>
-						<script>
-							var dataArr=null;
-									
-							var randomScalingFactor = function() {
-								var coupangCnt = 0;
-								var musinsaCnt = 0;
-								var auctionCnt = 0;
-								
-								<c:forEach var="product" items="${productList}">
-									<c:if test="${product.shop eq 'coupang'}">
-									    coupangCnt += 1;
-									</c:if>
-									<c:if test="${product.shop eq 'Musinsa'}">
-										musinsaCnt += 1;
-									</c:if>
-									<c:if test="${product.shop eq 'Auction'}">
-										auctionCnt += 1;
-									</c:if>
-								</c:forEach>
-								var shopCntArray = [coupangCnt,musinsaCnt,auctionCnt];
-								return shopCntArray; 
-							}; 				
-							var config = {
-								type: 'doughnut',
-								data: {
-									datasets: [{
-										data: randomScalingFactor(),
-										backgroundColor: [
-											'rgba(255, 99, 132, 0.2)',
-							        'rgba(54, 162, 235, 0.2)',
-							        'rgba(255, 206, 86, 0.2)',
-										],
-										label: 'Dataset 1'
-									}],
-									labels: [
-										'Coupang',
-										'Musinsa',
-										'Auction',
-									]
+						<c:forEach var="product" items="${productList}">
+							<c:if test="${product.shop eq 'coupang'}">
+							    coupangCnt += 1;
+							</c:if>
+							<c:if test="${product.shop eq 'Musinsa'}">
+								musinsaCnt += 1;
+							</c:if>
+							<c:if test="${product.shop eq 'Auction'}">
+								auctionCnt += 1;
+							</c:if>
+						</c:forEach>
+						
+						var shopCntArray = [coupangCnt,musinsaCnt,auctionCnt];
+
+						return shopCntArray; 
+					}; 				
+						var config = {
+							type: 'doughnut',
+							data: {
+								datasets: [{
+									data: randomScalingFactor(),
+									backgroundColor: [
+										'rgba(255, 99, 132, 1)',
+						        'rgba(54, 162, 235, 1)',
+						        'rgba(255, 206, 86, 1)',
+									],
+									label: 'Dataset 1'
+								}],
+								labels: [
+									'Coupang',
+									'Musinsa',
+									'Auction',
+								]
+							},
+							options: {
+								responsive: true,
+								legend: {
+									position: 'top',
 								},
-								options: {
-									responsive: true,
-									legend: {
-										position: 'top',
-									},
-									title: {
-										display: true,
-										text: '쇼핑몰 별 상품수'
-									},
-									animation: {
-										animateScale: true,
-										animateRotate: true
-									}
+								title: {
+									display: true,
+									text: '쇼핑몰 별 상품수'
+								},
+								animation: {
+									animateScale: true,
+									animateRotate: true
 								}
-							};
-							window.onload = function() {
-								var ctx = document.getElementById('doughnut-chart-area').getContext('2d');
-								window.myDoughnut = new Chart(ctx, config);
-							};
-						
-							document.getElementById('addData').addEventListener('click', function() {
-								if (config.data.datasets.length > 0) {
-									config.data.labels.push('data #' + config.data.labels.length);
-					
-									var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
-									var newColor = window.chartColors[colorName];
-					
-									config.data.datasets.forEach(function(dataset) {
-										dataset.data.push(randomScalingFactor());
-										dataset.backgroundColor.push(newColor);
-									});
-					
-									window.myDoughnut.update();
-								}
-							});
-										
-							document.getElementById('removeData').addEventListener('click', function() {
-								config.data.labels.splice(-1, 1); // remove the label first
-					
+							}
+						};
+				
+						window.onload = function() {
+							var ctx = document.getElementById('doughnut-chart-area').getContext('2d');
+							window.myDoughnut = new Chart(ctx, config);
+						};
+				
+						document.getElementById('addData').addEventListener('click', function() {
+							if (config.data.datasets.length > 0) {
+								config.data.labels.push('data #' + config.data.labels.length);
+				
+								var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
+								var newColor = window.chartColors[colorName];
+				
 								config.data.datasets.forEach(function(dataset) {
-									dataset.data.pop();
-									dataset.backgroundColor.pop();
+									dataset.data.push(randomScalingFactor());
+									dataset.backgroundColor.push(newColor);
 								});
-					
+				
 								window.myDoughnut.update();
+							}
+						});
+								
+						document.getElementById('removeData').addEventListener('click', function() {
+							config.data.labels.splice(-1, 1); // remove the label first
+				
+							config.data.datasets.forEach(function(dataset) {
+								dataset.data.pop();
+								dataset.backgroundColor.pop();
 							});
-						</script>
-					</section>
+				
+							window.myDoughnut.update();
+						});
+					</script>
+					
+	
 		    </div>
 		    <div class="col-9">
 			    <nav>
@@ -471,165 +484,8 @@
 					<hr>
 					<article>
 					
-						<!-- 장바구니 리스트 영역 -->
-						<c:choose>
-							<c:when test="${!empty sessionScope.customer}">
-								<div id="productList">
-									<li>Image</li><li>Name</li><li>Price</li><li>Category</li>
-								</div>
-								<div class="list-group">						
-								  <c:forEach items="${productList}" var="product">
-										<c:choose>
-											<c:when test="${empty product.img}">
-												<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
-											</c:when>
-											<c:otherwise>
-												<ul  class="list-group-item">
-													<li id="productImg"><img src="${product.img}" width="180px" height="180px"></li>
-													<li id="name">${product.name}</li>
-													<li id="price">${product.price}</li>
-													<li id="category">${product.category}</li>
-												</ul>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>	
-							</c:when>
-						<c:otherwise>
-							
-							<!-- login carousel -->
-							<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-							  <div class="carousel-inner">
-							    <div class="carousel-item active" data-interval="false">
-							    	<div id="loginBody">
-											<div class="container" >
-												<div id="loginContainer">
-													<h1>Login</h1>
-														<div id="loginFrmBox">
-															<!-- login form -->
-															<form action="LoginController.do" id="loginFrm" method="post">
-																<br>
-																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p></p><p></p>
-																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
-																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
-																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
-																<p></p><p></p><p></p>
-															</form>
-														</div>
-												</div>
-											</div>
-										</div>
-							    </div>			
-							    
-							    <!-- register carousel -->				 
-								  <div class="carousel-item">
-								  	<div id="registerBody">
-								   		<div class="container">
-								    		<div id="registerContainer">
-													<h1>Register</h1><p></p>
-														<div id="registerForm">
-															<!-- register form -->
-															<form action="registerSubmit.do" id="registerFrm" method="post" onsubmit="return registerCheck();">
-																<table>
-																	<tr>
-																		<td><span>*</span>이름</td><td><input type ="text" id="name" name="name" required="required"></td>
-																	</tr>
-																	<tr>
-																		<td><span>*</span>휴대전화 번호</td>
-																		<td>
-																			<input type ="text" id="phone1" name="phone1" required="required" maxlength=3> 
-																			- <input type ="text" id="phone2" name="phone2" name="phone2" required="required" maxlength=4> 
-																			- <input type ="text" id="phone3" name="phone3" name="phone3" required="required" maxlength=4>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td><span>*</span>ID</td>
-																		<td><input type ="text" id="register_id" name="id" required="required"><span id="idCheck"></span><p></p></td>
-																	</tr>
-																	<tr>
-																		<td><span>*</span>PW</td>
-																		<td><input type ="password" id="password1" name="password1" required="required"></td>
-																	</tr>
-																	<tr>
-																		<td><span>*</span>PW확인</td>
-																		<td><input type ="password" id="password2" name="password2" required="required"><span id="passwordCheck"></span></td>
-																	</tr>
-																	<tr>
-																		<td>주소</td>
-																		<td>
-																			<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-																			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-																			<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
-																		</td>			
-																	</tr>
-																</table>
-																<!-- carousel prev button -->
-																<div id="buttons">
-																	<div class="input-group-append">
-																		<a href="#carouselExampleControls" role="button" data-slide="prev">
-																		<input type="button" id="prevCarousel" value="뒤로" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a>
-																		<span class="sr-only">Prev</span>&nbsp; &nbsp;	
-																	<input type="submit" class="ui-button ui-widget ui-corner-all Signin_register_Btn" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
-																	<input type="button" class="ui-button ui-widget ui-corner-all Signin_register_Btn" name="initialize"  value="초기화">
-																	</div>
-																</div>
-															</form>
-														</div>
-												</div>
-
-												<!-- 주소 찾기 API script -->									
-												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-												<script><!-- 주소 찾기 API script -->
-												    function execDaumPostcode() {
-											        new daum.Postcode({
-										            oncomplete: function(data) {
-									                var roadAddr = data.roadAddress; // 도로명 주소 변수
-									                var extraRoadAddr = ''; // 참고 항목 변수
-									                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-									                    extraRoadAddr += data.bname;
-									                }
-									                // 건물명이 있고, 공동주택일 경우 추가한다.
-									                if(data.buildingName !== '' && data.apartment === 'Y'){
-									                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-									                }
-									                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-									                if(extraRoadAddr !== ''){
-									                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-									                }
-									
-									                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-									                document.getElementById('postcode').value = data.zonecode;
-									                document.getElementById("roadAddress").value = roadAddr;
-									                document.getElementById("jibunAddress").value = data.jibunAddress;
-									                
-									                var guideTextBox = document.getElementById("guide");
-									                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-									                if(data.autoRoadAddress) {
-								                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-								                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-								                    guideTextBox.style.display = 'block';
-									                }
-									                else if(data.autoJibunAddress) {
-								                    var expJibunAddr = data.autoJibunAddress;
-								                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-								                    guideTextBox.style.display = 'block';
-									                } 
-									                else {
-								                    guideTextBox.innerHTML = '';
-								                    guideTextBox.style.display = 'none';
-									                }
-										            }
-											        }).open();
-												    }
-												</script><!-- 주소 찾기 API script -->
-											</div>
-								    </div>
-							    </div>
-							  </div>
-							</div>
-							</c:otherwise>
-						</c:choose>
+						<!-- 에러 메세지 영역-->
+						<h1 id="errorMessage">${error}</h1>
 					</article>
 				</div>
 			</div>
@@ -652,7 +508,7 @@
 
 <script>
 $(function(){
-	var shop= ""
+
 	/*category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		
@@ -664,10 +520,12 @@ $(function(){
 			
 		}
 
+		var shop= "";
 		var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
 		for (let index = 0; index < checkedBoxesShop.length; index++) {
 			shop += "~";
 			shop += checkedBoxesShop[index].value;
+
 		}
 		if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
             window.location.href = "main.jsp";
@@ -689,7 +547,9 @@ $(function(){
  		});//categoryClick ajax
         }
  	});/*category finished*/
-	
+     
+
+
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
 		range: true,
@@ -793,6 +653,7 @@ getLocation();
 		loaction.innerHTML=positionError.message;
 	} */
  	
+
 });//document onload
 </script>
 </body>
