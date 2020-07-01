@@ -11,11 +11,11 @@
 				</c:when>
 				<c:otherwise>
 				<ul  class="list-group-item">
-                   <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
-                   <li id="name">${product.name}</li>
-                   <li id="price">${product.price}</li>
-                   <li id="category">${product.category}</li>
-                   <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
+           <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+           <li id="name">${product.name}</li>
+           <li id="price">${product.price}</li>
+           <li id="category">${product.category}</li>
+           <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
 				</ul>
 				</c:otherwise>
 			</c:choose>

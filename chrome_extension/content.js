@@ -7,8 +7,8 @@ if(document.getElementById("user_thumnail")!=null){//로그인되어있다면
 	    console.log(response);
 	});
 	console.log("메세지 전달 완료");
-}else{
 	
+}else if(document.getElementById("empty_user_thumnail")!=null){
 	console.log("로그아웃상태!!");
 	chrome.runtime.sendMessage({data: "logout"}, function(response){
 		console.log(response);

@@ -25,9 +25,6 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <title>Ezbasket</title>
-
-
-
 <style type="text/css">
 	body{
 		@font-face {
@@ -166,7 +163,6 @@
 		-moz-user-select: none;
 		-webkit-user-select: none;
 		-ms-user-select: none;
-		object-fiti:contain;
 	}
 	
 	<style type="text/css">
@@ -179,8 +175,6 @@
 	
 	canvas{object-fiti:contain;}
 </style>
-
-
 </head>
 
 <body>
@@ -211,7 +205,7 @@
 			  </div> <!-- search icon-->
 			  
 			  <!-- 사용자로고  -->
-			  <div class="navbar_icon" data-toggle="collapse" data-target="#userinfo" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			  <div class="navbar_icon" data-toggle="collapse" data-target="#userinfo" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
 					<div class="navbar_icon">
 					  <c:choose>
 						  <c:when test="${empty sessionScope.customer.img}">
@@ -254,15 +248,15 @@
 			   		 </div>
 			  	</div>
 			  
-			  <!-- 사용자 상품 찾기 정보 -->
+			  <!-- 사용자 장바구니 검색 정보 -->
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-              <form action="search_product.do" method="post">
+              <form action="#" method="post">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
+                  <input type="text" id="searchKeyword" class="form-control FilterObject" placeholder="Please enter keyword...." name="SearchInCartKeyword">
                   <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">
+                    <button class="btn btn-secondary" type="button">
                       <i class="fa fa-search"> 
                         <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><!-- icon -->
                          <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
@@ -337,7 +331,7 @@
 							  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
 							</svg>
 		                  </label>
-		                  <a href="changeUserInfo.jsp"><button id="updateUserInfoButton"></button></a>
+		                  <a href="ChangeUserInfoController.do"><button id="updateUserInfoButton"></button></a>
 		                  <span class="sr-only">(current)</span>
 		                  <label for="withdrawButton">
 		                  	<svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -370,24 +364,24 @@
 		      	<hr>
 		      <div class = "category price">
 		      <p>가격</p>
-            <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
-            <div id="slider-range"></div><hr>
-		      </div>
+                <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;" value="${priceList[0]} - ${priceList[1]}"></p>
+                    <div class="FilterObject"><div id="slider-range"></div><hr>
+                </div></div>
 			<div class = "category product">
 			    <p>카테고리</p>
 			    <c:forEach items="${categoryList}" var="category">
-			        <span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
+			        <span><input id="categoryInput" type="checkbox" class="FilterObject categoryClick category" value="${category.key}">${category.key}</span><br>
 			        </c:forEach>
 			        <c:forEach items="${category.value}" var="secondCategory">
-			          <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>
-			      
+			          <span><input id="categoryInput" type="checkbox" class="FilterObject categoryClick category" value="${secondCategory}">${secondCategory}</span>
+                      
 			</c:forEach>
 			</div>
 			<hr>
 			<div class = "category seller">
 			    <p>쇼핑몰</p>
 			    <c:forEach items="${shopList}" var="shop">
-			      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
+			      <span><input id="shopInput" type="checkbox" class="FilterObject categoryClick shop" value="${shop}">${shop}</span>
 			    </c:forEach>
 			</div>
 		      <hr>
@@ -401,10 +395,9 @@
 		    
       			  <!-- 도넛 그래프 -->
 				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-					<canvas id="doughnut-chart-area" style="display: block; height: 20%; width: 100%;" width="95%" height="100%" class="chartjs-render-monitor"></canvas>
+					<canvas id="doughnut-chart-area" style="display: block; height: 240px; width: 300px;" width="280" height="200" class="chartjs-render-monitor"></canvas>
 				</div>
 					<script>
-					
 					var dataArr=null;
 							
 					var randomScalingFactor = function() {
@@ -433,10 +426,12 @@
 							data: {
 								datasets: [{
 									data: randomScalingFactor(),
-									backgroundColor: 
-                 					['rgba(255, 99, 132, 0.2)',
-								   'rgba(54, 162, 235, 0.2)',
-								   'rgba(255, 206, 86, 0.2)'],
+
+									backgroundColor: [
+										'rgba(255, 99, 132, 0.2)',
+						        'rgba(54, 162, 235, 0.2)',
+						        'rgba(255, 206, 86, 0.2)',
+									],
 									label: 'Dataset 1'
 								}],
 								labels: ['Coupang','Musinsa','Auction',]
@@ -489,6 +484,7 @@
 							window.myDoughnut.update();
 						});
 					</script>
+
 				
 				<p></p>
 				 <!-- 히스토그램  평균가격대|쇼핑몰 -->
@@ -590,8 +586,12 @@
 					    }
 					});
 					</script>
+
+					
+	
+
 		    </div>
-		    <div class="col-9">
+		    <div id="columnRightLayout" class="col-9">
 			    <nav>
 						<div><!-- 통계아이콘 --></div> <div><!-- 아이콘영역 --></div> <div><!-- 정렬 영역 --></div>
 					</nav>
@@ -602,7 +602,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div id="productList">
-									<li><b>Image</b></li><li><b>Name</b></li><li><b>Price</b></li><li><b>Category</b></li><li><b>Delete</b></li>
+									<span id = "productImgHeader"><li>Image</li></span><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
 								</div>
 								<div class="list-group">						
 								  <c:forEach items="${productList}" var="product">
@@ -611,12 +611,12 @@
 												<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
 											</c:when>
 											<c:otherwise>
-												<ul  class="list-group-item">
-												  <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
-						                           <li id="name">${product.name}</li>
-						                           <li id="price">${product.price}</li>
-						                           <li id="category">${product.category}</li>
-						                           <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
+												<ul class="list-group-item">
+                           <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+							             <li id="name">${product.name}</li>
+							             <li id="price">${product.price}</li>
+							            <li id="category">${product.category}</li>
+							             <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height="20%"></a></li>
 												</ul>
 											</c:otherwise>
 										</c:choose>
@@ -647,7 +647,7 @@
 												</div>
 											</div>
 										</div>
-							    	</div>			
+							    </div>			
 							    
 							    <!-- register carousel -->				 
 								  <div class="carousel-item">
@@ -698,27 +698,27 @@
 																		<a href="#carouselExampleControls" role="button" data-slide="prev">
 																		<input type="button" id="prevCarousel" value="뒤로" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a>
 																		<span class="sr-only">Prev</span>&nbsp; &nbsp;	
-																	<input type="submit" class="ui-button ui-widget ui-corner-all Signin_register_Btn" id="registerSubmit" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
-																	<input type="button" class="ui-button ui-widget ui-corner-all Signin_register_Btn" id="initialize" name="initialize"  value="초기화">
+																	<input type="submit" class="ui-button ui-widget ui-corner-all Signin_register_Btn" name="registerSubmit" value="회원가입">&nbsp; &nbsp;
+																	<input type="button" class="ui-button ui-widget ui-corner-all Signin_register_Btn" name="initialize"  value="초기화">
 																	</div>
 																</div>
 															</form>
 														</div>
-													</div>
 												</div>
 											</div>
 								    </div>
 							    </div>
 							  </div>
-							</div><!--carousel  -->
+							</div>
 							</c:otherwise>
 						</c:choose>
 					</article>
-
 				</div>
-				<p></p>
-				<hr width="90%">
-				<p></p>
+			</div>
+		</div>
+		<p></p>
+		<hr width="90%">
+		<p></p>
 	
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -770,81 +770,85 @@
 </script>
 <!-- 주소 찾기 API script -->
 
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  <!-- 낮은 버전이 아래로 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 <script>
 $(function(){
-	/*category start*/
- 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-		
-		var category = "";
- 		var checkedBoxesCategory = $("input[class='categoryClick category']:checked");
-		for (let index = 0; index < checkedBoxesCategory.length; index++) {
-			category += "~";
-			category +=checkedBoxesCategory[index].value;
-			
+	
+	forExtension();
+	noSessionCollapase();
+	
+	function forExtension(){
+		var windowHeight = $(window).height(); 
+	  var windowWidth = $(window).width(); 
+		console.log(windowHeight);
+		console.log(windowHeight);
+	  if(windowWidth <= 535){
+		  $(".col-3").hide();
+		  $("#columnRightLayout").attr('class', 'col-12');
+	  }
+	}
+	
+	function noSessionCollapase(){
+		var id = "${sessionScope.customer.id}";
+		if(id == 0){
+			console.log("nosession");
+			$(".navbar_icon").attr("data-toggle", "");	
 		}
+	}
 
-		var shop= "";
-		var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
-		for (let index = 0; index < checkedBoxesShop.length; index++) {
-			shop += "~";
-			shop += checkedBoxesShop[index].value;
-
-		}
-		if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
-            window.location.href = "main.jsp";
-        } else {
-            $("table.list-group")
-            $.ajax({
- 			type: "post",
- 			url: "category.do",
- 			data: {'category':category,'shop':shop},
- 			dataType : "text",
- 			error:function(xhr,status,message){
-				alert("error : "+message );
-			},
-			success:function(data){
-				console.log(data);
-				var html = data;
-				$('.list-group').html(data);
-			}
- 		});//categoryClick ajax
-        }
- 	});/*category finished*/
-     
-
-
-	/* JQUERY 슬라이더 시작 */
- 	$("#slider-range").slider({
+  /* JQUERY 슬라이더 시작 */
+  $("#slider-range").slider({
 		range: true,
-		min: <c:out value="${priceList[0]}"/>,
-		max: <c:out value="${priceList[1]}"/>,
+		min: 0<c:out value="${priceList[0]}"/>,
+		max: 0<c:out value="${priceList[1]}"/>,
 		values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
 		slide: function(event, ui) {
-			$("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");
-			//가격 변동시 ajax 호출 -> 가격 범우에 맞는 데이터만 출력
-			$.ajax({
-				type: "post",
-				url: "category.do",
-				data: {'category':"price",'option':ui.values[0]+"-"+ui.values[1]},
-				error:function(xhr,status,message){
-					alert("error : "+message );
-				},
-				success:function(data){
-					var html = data;
-					$('.list-group').html(data);
-				}
-			}); //categoryClick ajax
+			$("#amount").val(ui.values[0]+" - "+ui.values[1]);
 		}
 	});
-	
+   $("#slider-range").children().addClass('FilterObject');
+	/* JQUERY 슬라이더 끝 */
+  
+   /* 비동기 필터링 스타트 */
+   $(document).on("keyup click mouseenter", ".FilterObject",function() {
+   	var amount = $("input#amount").val();
+   	var keyword = $("input#searchKeyword").val();
+       var category = "";
+       var shop= "";
+       var checkedBoxesCategory = $("input[id=categoryInput]:checked");
+	for (let index = 0; index < checkedBoxesCategory.length; index++) {
+		category += "~";
+		category +=checkedBoxesCategory[index].value;
+       }//for (let index = 0; index < checkedBoxesCategory.length; index++)
+	var checkedBoxesShop = $("input[id=shopInput]:checked");
+	for (let indexx = 0; indexx < checkedBoxesShop.length; indexx++) {
+		shop += "~";
+		shop += checkedBoxesShop[indexx].value;
+       }//for (let index = 0; index < checkedBoxesShop.length; index
+       $.ajax({
+           type: "post",
+           url: "category.do",
+           data: {'category':category,'shop':shop,'amount':amount,'keyword':keyword},
+           dataType : "text",
+           error:function(xhr,status,message){
+               alert("error : "+message );
+           },
+           success:function(data){
+               console.log(data);
+               var html = data;
+               $('.list-group').html(data);
+           }
+       });//categoryClick ajax
+   }); // evetnBinding
+    /* 비동기 필터링 끝 */
 
 	/*회원탈퇴 재확인 시작*/
   $("button.deleteCustomer").click(function() {
@@ -921,8 +925,9 @@ getLocation();
 	  location.innerHTML ="<img src="+imgUrl+">";
 	}
 	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
-		loaction.innerHTML=positionError.message;
+		location.innerHTML=positionError.message;
 	} */
+
  		
 	//password 일치 체크하고
 	function registerCheck(){
@@ -966,7 +971,5 @@ getLocation();
 
 });//document onload
 </script>
-
-
 </body>
 </html>
