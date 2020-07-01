@@ -32,3 +32,17 @@ document.addEventListener("DOMContentLoaded",function(){
 		});
 	});
 });
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	var loginTag = null;
+    if (request.data === "logined") {
+        console.log("current..logined status");
+        loginTag = document.getElementById("login");
+        loginTag.innerHTML="로그아웃";
+        sendResponse({ data: "popup menu changed to 로그아웃"});
+    } else if(request.data == "logout") {
+    	loginTag.innerHTML="로그인";
+        sendResponse({ data: "popup menu changed to 로그인"});
+    }
+    
+});
