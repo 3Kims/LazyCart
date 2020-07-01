@@ -3,5 +3,5 @@ import model.ProductVO;
 
 
 public interface Parser {
-	public ProductVO handle(String url);
+	public ProductVO handle(String url) throws Exception;
 }

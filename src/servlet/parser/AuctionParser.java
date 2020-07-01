@@ -18,10 +18,10 @@ import org.jsoup.select.Elements;
 
 import model.ProductVO;
 
-public class AuctionParser implements Parser {
+public class AuctionParser implements Parser{
 
 	@Override
-	public ProductVO handle(String url) {
+	public ProductVO handle(String url) throws Exception{
 		ProductVO product = null;
 		String shop ="Auction";
 		//url

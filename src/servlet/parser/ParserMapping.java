@@ -12,7 +12,7 @@ public class ParserMapping {
 	}
 	
 	//create controller...
-	public ProductVO createParser(String url) {
+	public ProductVO createParser(String url) throws Exception {
 		ProductVO product = null;
 		if(url.toLowerCase().contains("musinsa")) {
 			product = new MusinsaParser().handle(url);

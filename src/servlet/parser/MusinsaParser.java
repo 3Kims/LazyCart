@@ -14,7 +14,7 @@ import org.jsoup.select.Elements;
 import model.ProductVO;
 public class MusinsaParser implements Parser {
 	@Override
-	public ProductVO handle(String URL) {
+	public ProductVO handle(String URL) throws Exception{
 		ProductVO product = null;
 		try {
 			System.out.println("start musinsa parser..");
@@ -23,10 +23,8 @@ public class MusinsaParser implements Parser {
 			String url = URL;	
 			Document document = null;
 			document = Jsoup.connect(url).get();
-			
 			//이름
 			Element nameParentNode = document.select("span[class=product_title]").get(0);
-
 			String name = nameParentNode.text();
 			System.out.println("name: "+name);
 			

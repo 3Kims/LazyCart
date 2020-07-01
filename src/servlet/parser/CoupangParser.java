@@ -6,12 +6,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import model.ProductVO;
 public class CoupangParser implements Parser {
-	public ProductVO handle(String url) {
+	public ProductVO handle(String url) throws Exception{
 		ProductVO product = null;
 		Document doc;
 		try {
 			doc = Jsoup.connect(url).get();
-			System.out.println(doc);
+			//System.out.println(doc);
 			// 이름
 			String name = doc.selectFirst(".prod-buy-header__title").text();
 			System.out.println("name: "+name);
