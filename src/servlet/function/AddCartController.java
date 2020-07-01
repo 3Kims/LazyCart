@@ -22,14 +22,41 @@ public class AddCartController implements Controller {
 		System.out.println("AddCartController start...");
 		EzbasketDAO dao = null;
 		String path = "main.jsp";
-		CustomerVO customer= (CustomerVO)request.getSession().getAttribute("customer"); //get customer from session
-		String id = customer.getId();
+		CustomerVO customer=null;
+		String id = "";
+		try {
+			customer = (CustomerVO)request.getSession().getAttribute("customer"); //get customer from session
+			id = customer.getId();
+		} catch (NullPointerException e) {
+			path="error.jsp";
+			System.out.println("에러 발생");
+			System.out.println(e.getMessage());
+			request.setAttribute("error", "로그인을 먼저 해주세요");
+			return new ModelAndView(path);
+		}
+		
 		String url = request.getParameter("url");					  //get shoppingmall url..
-		ProductVO product = ParserMapping.getInstance().createParser(url); //run parser by url..
+		ProductVO product = null;
+		try {
+			product = ParserMapping.getInstance().createParser(url); //run parser by url..
+		} catch(Exception e) {
+			path="error.jsp";
+			e.printStackTrace();
+			System.out.println("에러 발생");
+			System.out.println(e.getMessage());
+			request.setAttribute("error", "해당페이지에 제품을 찾지 못했습니다.");
+			return new ModelAndView(path);	
+		}
 		ArrayList<ProductVO> productList=new ArrayList<ProductVO>();
 		
-		if (id == null || id.equals(""))
-			System.out.println("AddCartController >>> No session id...controller");	
+		if (id.equals("")) {
+			System.out.println("AddCartController >>> No session id...controller");
+			path="error.jsp";
+			System.out.println("에러 발생");
+			request.setAttribute("error", "로그인을 먼저 해주세요");
+			return new ModelAndView(path);
+		}
+			
 		else{
 			try{
 				dao = EzbasketDAOImpl.getInstance();
