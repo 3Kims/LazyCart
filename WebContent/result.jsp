@@ -11,7 +11,7 @@
 					<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
 				</c:when>
 				<c:otherwise>
-         							<li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+                                   <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
 			                       <li id="name">${product.name}</li>
 			                       <li id="price">${product.price}</li>
 			                       <li id="category">${product.category}</li>
