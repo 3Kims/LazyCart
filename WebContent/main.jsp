@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +17,9 @@
 <script src="../../../dist/2.9.3/Chart.min.js"></script>
 <!-- google font css -->
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 
 <!-- basic css,jquery 1.12.1 -->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Bootstrap CSS -->
@@ -28,7 +27,19 @@
 <title>Ezbasket</title>
 <style type="text/css">
 	body{
-		font-family: 'Balsamiq Sans', cursive;
+		@font-face {
+		  font-family: 'Balsamiq Sans', cursive;
+		  src: url("../fonts/notoSansKR/NotoSans-Bold.woff") format("woff");
+		  font-style: normal;
+		}
+		
+		@font-face {
+			font-family: 'Nanum Brush Script', serif;
+			src: url("../fonts/openSans/OpenSans-SemiBold.woff") format("woff");
+			unicode-range: U+0020-007E;
+			font-style: normal;
+		}
+	}
 	}
 	
 	/* bootstrap4 icon  */
@@ -111,7 +122,18 @@
 	#buttons{
 		text-align:center;margin:3%;
 	}
-	#phone1,#phone2,#phone3{width:60px;}	
+	#registerForm table input[id="phone1"], 
+	#registerForm table input[id="phone2"], 
+	#registerForm table input[id="phone3"]{width:58.5px;}
+	
+	#registerForm table input[id="postcode"]{
+		width: 60px;
+		margin-top: 30px;
+	}
+	#registerForm table input[id="searchPostCode"]{
+		width: 95px;
+		text-align: center;
+	}
 	
 	/* file box  */
 	.user_icon{
@@ -265,22 +287,22 @@
 	               		</div>
 	                </div>
                 </c:when>
-                <c:otherwise>
-	  								<div class="col-sm-12">
-	  								<div class = "input-group-append" style="float: right;">
-	  									<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
+               <c:otherwise>
+							<div class="col-sm-12">
+							<div class = "input-group-append" style="float: right;">
+								<form class="form-inline" action="profileImg.do" method="post" enctype="multipart/form-data">
 		                    <div id="fileBox" class="form-group"> 
 		                    		<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="#FF5733" xmlns="http://www.w3.org/2000/svg">
-														  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-														  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-														</svg>&nbsp;
+									  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+									  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+									</svg>&nbsp;
 		                        <label for="fileType">Select</label>
 		                        <input type="file" id="fileType" name="fileType" class="form-control-file">&nbsp;
 		                        <label for ="fileSubmit">
 			                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-															  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
-															  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
-															</svg>
+									  <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
+									  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
+									</svg>
 		                        </label>&nbsp;
 		                        <input id="fileSubmit" type="submit">
 		                    </div>
@@ -289,52 +311,52 @@
 	  									<span class="sr-only">(current)</span>
 		                  <label for="profileButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-												  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+							  <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+							</svg>
 		                  </label>
 		                  <button id="profileButton"></button></a>
 		                  
 	  									<span class="sr-only">(current)</span>
 		                  <label for="logoutButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+							</svg>
 		                  </label>
 		                  
 		                  <a href="LogoutController.do"><button id="logoutButton"></button></a>
 		                  <span class="sr-only">(current)</span>
 		                  <label for="updateUserInfoButton">
 		                  	<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+							</svg>
 		                  </label>
 		                  <a href="ChangeUserInfoController.do"><button id="updateUserInfoButton"></button></a>
 		                  <span class="sr-only">(current)</span>
 		                  <label for="withdrawButton">
 		                  	<svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-person-dash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
-												</svg>
+							  <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5-.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+							</svg>
 		                  </label>
 		                  <button class="deleteCustomer" id="withdrawButton"></button>
 		                  </div>
-	  								</div>
-                </c:otherwise>
-              </c:choose>
-            </div>
-          </div>
-		    </div>
-			</nav>
-		</div>
-  	</header>
-  		<!-- 레이어 나누기 -->
-	  	<div class="row">
-		    <div class="col-3">
-		      <!-- 위치 표시 -->
-		      <p>현재 위치 : 서울</p>
-		      <hr>
-		      <section>
-		      
+	  					</div>
+	                </c:otherwise>
+	              </c:choose>
+	            </div>
+	          </div>
+			    </div>
+				</nav>
+			</div>
+	  	</header>
+	  		<!-- 레이어 나누기 -->
+		  	<div class="row">
+			    <div class="col-3">
+			      <!-- 위치 표시 -->
+			      <p>현재 위치 : 서울</p>
+			      <hr>
+			      <section>
+			      
 		      <!-- 분류 조건영역 -->
 		        <div class = "category all">
 		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
@@ -363,14 +385,15 @@
 			    </c:forEach>
 			</div>
 		      <hr>
-	<!-- 	      카테고리 아날라이즈 -->
+				<!-- 카테고리 아날라이즈 -->
 		      <div class = "category analysis">
 		      	<p><b>Analysis</b></p>
 		      	<c:forEach items="${data}" var="shop">
 		      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
 		      	</c:forEach>
 		      </div>
-		    <!-- 도넛 그래프 -->
+		    
+      			  <!-- 도넛 그래프 -->
 				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 					<canvas id="doughnut-chart-area" style="display: block; height: 240px; width: 300px;" width="280" height="200" class="chartjs-render-monitor"></canvas>
 				</div>
@@ -403,6 +426,7 @@
 							data: {
 								datasets: [{
 									data: randomScalingFactor(),
+
 									backgroundColor: [
 										'rgba(255, 99, 132, 0.2)',
 						        'rgba(54, 162, 235, 0.2)',
@@ -410,11 +434,7 @@
 									],
 									label: 'Dataset 1'
 								}],
-								labels: [
-									'Coupang',
-									'Musinsa',
-									'Auction',
-								]
+								labels: ['Coupang','Musinsa','Auction',]
 							},
 							options: {
 								responsive: true,
@@ -464,8 +484,112 @@
 							window.myDoughnut.update();
 						});
 					</script>
+
+				
+				<p></p>
+				 <!-- 히스토그램  평균가격대|쇼핑몰 -->
+				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+					<canvas id="canvas" style="display: block; height: 30%; width: 100%;" width="100%" height="100%" class="chartjs-render-monitor"></canvas>
+				</div>
+					
+					<script>
+					var randomScalingFactor = function() {
+						var coupangCnt = 0;
+						var musinsaCnt = 0;
+						var auctionCnt = 0;
+						var coupangPrice = 0;
+						var musinsaPrice = 0;
+						var auctionPrice = 0;
+						
+						<c:forEach var="product" items="${productList}">
+							<c:if test="${product.shop eq 'coupang'}">
+								coupangPrice+=${product.price};
+								coupangCnt += 1;
+							</c:if>
+							<c:if test="${product.shop eq 'Musinsa'}">
+								musinsaPrice+=${product.price};
+								musinsaCnt += 1;
+							</c:if>
+							<c:if test="${product.shop eq 'Auction'}">
+								auctionPrice+=${product.price};
+								auctionCnt += 1;
+							</c:if>
+						</c:forEach>
+						
+						var coupangAvg = coupangPrice/coupangCnt;
+						var musinsaAvg= musinsaPrice/musinsaCnt;
+						var auctionAvg= auctionPrice/auctionCnt;
+						var shopCntArray = [coupangAvg,musinsaAvg,auctionAvg];
+					
+						return shopCntArray; 
+					};
+					 
+					new Chart(document.getElementById("canvas"), {
+					    type: 'bar',
+					    data: {
+					        labels: ['Coupang', 'Musinsa', 'Auction'],
+					        datasets: [{
+					            label: '쇼핑 몰별 평균 가격대',
+					            data: randomScalingFactor(),
+					            borderColor:
+					            	['rgba(255, 99, 132, 0.2)',
+							        'rgba(54, 162, 235, 0.2)',
+							        'rgba(255, 206, 86, 0.2)'],
+					            backgroundColor: 
+					            	['rgba(255, 99, 132, 0.2)',
+							        'rgba(54, 162, 235, 0.2)',
+							        'rgba(255, 206, 86, 0.2)'],
+					            fill: false,
+					        }]
+					    },
+					    options: {
+					        responsive: true,
+					        title: {
+					            display: true,
+					            text: '막대 차트 테스트'
+					        },
+					        tooltips: {
+					            mode: 'index',
+					            intersect: false,
+					            callbacks: {
+					                title: function(tooltipItems, data) {
+					                    return data.labels[tooltipItems[0].datasetIndex];
+					                }
+					            }
+					        },
+					        hover: {
+					            mode: 'nearest',
+					            intersect: true
+					        },
+					        scales: {
+					            xAxes: [{
+					                display: true,
+					                scaleLabel: {
+					                    display: true,
+					                    labelString: '쇼핑몰'
+					                },
+					                ticks: {
+					                    autoSkip: false
+					                }
+					            }],
+					            yAxes: [{
+					                display: true,
+					                ticks: {
+					                    suggestedMin: 0,
+					                },
+					                scaleLabel: {
+					                    display: true,
+					                    labelString: '평균 가격대'
+					                }
+					            }]
+					        }
+					    }
+					});
+					</script>
+
 					
 	
+
 		    </div>
 		    <div id="columnRightLayout" class="col-9">
 			    <nav>
@@ -514,7 +638,7 @@
 															<form action="LoginController.do" id="loginFrm" method="post">
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p></p><p></p>
-																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
+																PW &nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
 																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
@@ -562,8 +686,8 @@
 																		<td>주소</td>
 																		<td>
 																			<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-																			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																			<input type="button" id="searchPostCode" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소"><br>
 																			<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
@@ -581,52 +705,6 @@
 															</form>
 														</div>
 												</div>
-
-												<!-- 주소 찾기 API script -->									
-												<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-												<script><!-- 주소 찾기 API script -->
-												    function execDaumPostcode() {
-											        new daum.Postcode({
-										            oncomplete: function(data) {
-									                var roadAddr = data.roadAddress; // 도로명 주소 변수
-									                var extraRoadAddr = ''; // 참고 항목 변수
-									                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-									                    extraRoadAddr += data.bname;
-									                }
-									                // 건물명이 있고, 공동주택일 경우 추가한다.
-									                if(data.buildingName !== '' && data.apartment === 'Y'){
-									                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-									                }
-									                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-									                if(extraRoadAddr !== ''){
-									                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-									                }
-									
-									                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-									                document.getElementById('postcode').value = data.zonecode;
-									                document.getElementById("roadAddress").value = roadAddr;
-									                document.getElementById("jibunAddress").value = data.jibunAddress;
-									                
-									                var guideTextBox = document.getElementById("guide");
-									                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-									                if(data.autoRoadAddress) {
-								                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-								                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-								                    guideTextBox.style.display = 'block';
-									                }
-									                else if(data.autoJibunAddress) {
-								                    var expJibunAddr = data.autoJibunAddress;
-								                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-								                    guideTextBox.style.display = 'block';
-									                } 
-									                else {
-								                    guideTextBox.innerHTML = '';
-								                    guideTextBox.style.display = 'none';
-									                }
-										            }
-											        }).open();
-												    }
-												</script><!-- 주소 찾기 API script -->
 											</div>
 								    </div>
 							    </div>
@@ -644,7 +722,54 @@
 	
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
- 
+
+<!-- 주소 찾기 API script -->									
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function execDaumPostcode() {
+       new daum.Postcode({
+          oncomplete: function(data) {
+             var roadAddr = data.roadAddress; // 도로명 주소 변수
+             var extraRoadAddr = ''; // 참고 항목 변수
+             if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                 extraRoadAddr += data.bname;
+             }
+             // 건물명이 있고, 공동주택일 경우 추가한다.
+             if(data.buildingName !== '' && data.apartment === 'Y'){
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+             }
+             // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+             if(extraRoadAddr !== ''){
+                 extraRoadAddr = ' (' + extraRoadAddr + ')';
+             }
+
+             // 우편번호와 주소 정보를 해당 필드에 넣는다.
+             document.getElementById('postcode').value = data.zonecode;
+             document.getElementById("roadAddress").value = roadAddr;
+             document.getElementById("jibunAddress").value = data.jibunAddress;
+             
+             var guideTextBox = document.getElementById("guide");
+             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+             if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+             }
+             else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+             } 
+             else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+             }
+          }
+       }).open();
+    }
+</script>
+<!-- 주소 찾기 API script -->
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -678,9 +803,6 @@ $(function(){
 			$(".navbar_icon").attr("data-toggle", "");	
 		}
 	}
-	
-	
-  
 
   /* JQUERY 슬라이더 시작 */
   $("#slider-range").slider({
@@ -693,9 +815,8 @@ $(function(){
 		}
 	});
    $("#slider-range").children().addClass('FilterObject');
-    
-    
 	/* JQUERY 슬라이더 끝 */
+  
    /* 비동기 필터링 스타트 */
    $(document).on("keyup click mouseenter", ".FilterObject",function() {
    	var amount = $("input#amount").val();
@@ -806,6 +927,48 @@ getLocation();
 	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
 		location.innerHTML=positionError.message;
 	} */
+
+ 		
+	//password 일치 체크하고
+	function registerCheck(){
+		if($("#idCheck").text()=="이미 등록된 ID 입니다."){
+			alert("ID 중복 확인 해주세요.");
+			return false;	
+		}else if($("#idCheck").text()=="이미 등록된 ID 입니다."){
+			if($("#password1").val()==$("#password2").val()){
+				return confirm("입력하신 정보로 회원등록합니다.");
+			}else {
+				alert("비밀번호를 다시 확인해 주세요");
+				$("#password1").val("");
+				$("#password2").val("");
+				return false;
+			}
+		}
+	}
+
+	$("#register_id").keyup(function(){
+		$.ajax({
+			type:"post",
+			url:"IdCheckController.do?",
+			data:{"id":$("#register_id").val()},
+			success:function(data){
+				if($("#register_id").val()!=""){
+					if(data==false){
+						alert(data);
+						$("#idCheck").html("이미 등록된 ID 입니다.");//"이미 등록된 ID 입니다."
+					}else{$("#idCheck").html("사용가능한 ID 입니다.");}//"사용가능한 ID 입니다."
+				}else {$("#idCheck").html("ID를 입력해주세요.");}
+			}//success
+		});//ajax
+	});
+	
+	$("#initialize").click(function(){
+		if(confirm("초기화 하시겠습니까?")){
+			$("input[type=text]").val("");
+			$("input[type=password]").val("");
+		}
+	});
+
 });//document onload
 </script>
 </body>
