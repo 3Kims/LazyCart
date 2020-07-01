@@ -183,7 +183,7 @@
 			  </div> <!-- search icon-->
 			  
 			  <!-- 사용자로고  -->
-			  <div class="navbar_icon" data-toggle="collapse" data-target="#userinfo" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+			  <div class="navbar_icon" data-toggle="collapse" data-target="#userinfo" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 					<div class="navbar_icon">
 					  <c:choose>
 						  <c:when test="${empty sessionScope.customer.img}">
@@ -467,7 +467,7 @@
 					
 	
 		    </div>
-		    <div id="columnRightLayout" class="col-9">
+		    <div class="col-9">
 			    <nav>
 						<div><!-- 통계아이콘 --></div> <div><!-- 아이콘영역 --></div> <div><!-- 정렬 영역 --></div>
 					</nav>
@@ -478,7 +478,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div id="productList">
-									<span id = "productImgHeader"><li>Image</li></span><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
+									<li>Image</li><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
 								</div>
 								<div class="list-group">						
 								  <c:forEach items="${productList}" var="product">
@@ -488,11 +488,13 @@
 											</c:when>
 											<c:otherwise>
 												<ul class="list-group-item">
-                           <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
-							             <li id="name">${product.name}</li>
-							             <li id="price">${product.price}</li>
-							            <li id="category">${product.category}</li>
-							             <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height="20%"></a></li>
+												
+                                                   <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+							                       <li id="name">${product.name}</li>
+							                       <li id="price">${product.price}</li>
+							                       <li id="category">${product.category}</li>
+							                       <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
+											
 												</ul>
 											</c:otherwise>
 										</c:choose>
@@ -656,78 +658,60 @@
 
 <script>
 $(function(){
-	
-	forExtension();
-	noSessionCollapase();
-	
-	function forExtension(){
-		var windowHeight = $(window).height(); 
-	  var windowWidth = $(window).width(); 
-		console.log(windowHeight);
-		console.log(windowHeight);
-	  if(windowWidth <= 535){
-		  $(".col-3").hide();
-		  $("#columnRightLayout").attr('class', 'col-12');
-	  }
-	}
-	
-	function noSessionCollapase(){
-		var id = "${sessionScope.customer.id}";
-		if(id == 0){
-			console.log("nosession");
-			$(".navbar_icon").attr("data-toggle", "");	
-		}
-	}
-	
-	
-  
-
-  /* JQUERY 슬라이더 시작 */
-  $("#slider-range").slider({
+    
+    /* JQUERY 슬라이더 시작 */
+        $("#slider-range").slider({
 		range: true,
-		min: 0<c:out value="${priceList[0]}"/>,
-		max: 0<c:out value="${priceList[1]}"/>,
+		min: <c:out value="${priceList[0]}"/>,
+		max: <c:out value="${priceList[1]}"/>,
 		values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
 		slide: function(event, ui) {
 			$("#amount").val(ui.values[0]+" - "+ui.values[1]);
 		}
 	});
-   $("#slider-range").children().addClass('FilterObject');
-    
-    
 	/* JQUERY 슬라이더 끝 */
-   /* 비동기 필터링 스타트 */
-   $(document).on("keyup click mouseenter", ".FilterObject",function() {
-   	var amount = $("input#amount").val();
-   	var keyword = $("input#searchKeyword").val();
-       var category = "";
-       var shop= "";
-       var checkedBoxesCategory = $("input[id=categoryInput]:checked");
-	for (let index = 0; index < checkedBoxesCategory.length; index++) {
-		category += "~";
-		category +=checkedBoxesCategory[index].value;
-       }//for (let index = 0; index < checkedBoxesCategory.length; index++)
-	var checkedBoxesShop = $("input[id=shopInput]:checked");
-	for (let indexx = 0; indexx < checkedBoxesShop.length; indexx++) {
-		shop += "~";
-		shop += checkedBoxesShop[indexx].value;
-       }//for (let index = 0; index < checkedBoxesShop.length; index
-       $.ajax({
-           type: "post",
-           url: "category.do",
-           data: {'category':category,'shop':shop,'amount':amount,'keyword':keyword},
-           dataType : "text",
-           error:function(xhr,status,message){
-               alert("error : "+message );
-           },
-           success:function(data){
-               console.log(data);
-               var html = data;
-               $('.list-group').html(data);
-           }
-       });//categoryClick ajax
-   }); // evetnBinding
+    /* test
+        $( ".FilterObject" ).on("click", function() {
+        var checkedBoxesCategory = $("input[id=categoryInput]:checked");
+        alert(checkedBoxesCategory.length);
+    });//click
+    */ 
+    $(document).on("keyup click", ".FilterObject",function() {
+    /* 비동기 필터링 스타트 */
+    	var amount = $("input#amount").val();
+    	var keyword = $("input#searchKeyword").val();
+        var category = "";
+        var shop= "";
+        var checkedBoxesCategory = $("input[id=categoryInput]:checked");
+		for (let index = 0; index < checkedBoxesCategory.length; index++) {
+			category += "~";
+			category +=checkedBoxesCategory[index].value;
+        }//for (let index = 0; index < checkedBoxesCategory.length; index++)
+		var checkedBoxesShop = $("input[id=shopInput]:checked");
+		for (let indexx = 0; indexx < checkedBoxesShop.length; indexx++) {
+			shop += "~";
+			shop += checkedBoxesShop[indexx].value;
+        }//for (let index = 0; index < checkedBoxesShop.length; index
+        $.ajax({
+            type: "post",
+            url: "category.do",
+            data: {'category':category,'shop':shop,'amount':amount,'keyword':keyword},
+            dataType : "text",
+            error:function(xhr,status,message){
+                alert("error : "+message );
+            },
+            success:function(data){
+                console.log(data);
+                var html = data;
+                $('.list-group').html(data);
+            }
+        });//categoryClick ajax
+    });
+    /* 비동기 필터링 스타트 */
+    
+    
     /* 비동기 필터링 끝 */
+
 
 	/*회원탈퇴 재확인 시작*/
   $("button.deleteCustomer").click(function() {
@@ -804,8 +788,10 @@ getLocation();
 	  location.innerHTML ="<img src="+imgUrl+">";
 	}
 	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
-		location.innerHTML=positionError.message;
+		loaction.innerHTML=positionError.message;
 	} */
+ 	
+
 });//document onload
 </script>
 </body>
