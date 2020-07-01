@@ -1,9 +1,12 @@
-document.getElementById("login").addEventListener("click", goLogin);
+document.getElementById("login").addEventListener("click", loginLogic);
 document.getElementById("bucket").addEventListener("click", goBucket);
 //console.log(document.getElementById("iframe_main").contentDocument.getElementById("user_thumnail"));
 
-function goLogin() {
-	location.href = "login.html";
+function loginLogic(){
+	if(this.innerHTML == "로그인")
+		location.href="login.html";
+	if(this.innerHTML == "로그아웃")
+		location.href="http://localhost:8888/EZbasket/LogoutController.do";
 }
 function goBucket() {
 	location.href = "bucket.html";
@@ -44,5 +47,4 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     	loginTag.innerHTML="로그인";
         sendResponse({ data: "popup menu changed to 로그인"});
     }
-    
 });
