@@ -15,14 +15,14 @@ import servlet.controller.ModelAndView;
 public class SearchInCartController implements Controller {
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("LoginController start...");
+		System.out.println("SearchInCartController start...");
 		
 		CustomerVO customer = null;
 		ArrayList<ProductVO> productList = null;
 		String path="main.jsp";
 		String keyword = request.getParameter("SearchInCartKeyword");
-		
-		productList = (ArrayList<ProductVO>) request.getSession().getAttribute("productList");
+		HttpSession session = request.getSession();
+		productList = (ArrayList<ProductVO>) session.getAttribute("productList");
 		for (ProductVO product: productList) {
 			if (product.toString().toLowerCase().contains(keyword)) {
 				continue;

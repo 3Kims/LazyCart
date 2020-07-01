@@ -230,9 +230,9 @@
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-              <form action="search_product.do" method="post">
+              <form action="SearchInCart.do" method="post">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Please enter product's name...." name="url">
+                  <input type="text" class="form-control" placeholder="Please enter keyword...." name="SearchInCartKeyword">
                   <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit">
                       <i class="fa fa-search"> 
