@@ -6,7 +6,7 @@ function loginLogic(){
 	if(this.innerHTML == "로그인")
 		location.href="login.html";
 	if(this.innerHTML == "로그아웃")
-		location.href="http://localhost:8888/EZbasket/LogoutController.do";
+		location.href="logoutresult.html";
 }
 function goBucket() {
 	location.href = "bucket.html";

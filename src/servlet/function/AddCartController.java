@@ -47,6 +47,12 @@ public class AddCartController implements Controller {
 			request.setAttribute("error", "해당페이지에 제품을 찾지 못했습니다.");
 			return new ModelAndView(path);	
 		}
+		if(product==null) {
+			path="error.jsp";
+			System.out.println("에러 발생");
+			request.setAttribute("error", "해당페이지는 아직 파서가 적용되지 않습니다.");
+			return new ModelAndView(path);
+		}
 		ArrayList<ProductVO> productList=new ArrayList<ProductVO>();
 		
 		if (id.equals("")) {

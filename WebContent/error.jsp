@@ -484,8 +484,8 @@
 					<hr>
 					<article>
 					
-						<!-- 장바구니 리스트 영역 -->
-						<h1>${error}</h1>
+						<!-- 에러 메세지 영역-->
+						<h1 id="errorMessage">${error}</h1>
 					</article>
 				</div>
 			</div>
