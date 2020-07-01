@@ -222,7 +222,7 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 						rs.getString("name"),
 						rs.getString("address"),
 						rs.getString("phone"));
-			//System.out.println("customerVO vo:"+vo);
+			System.out.println("customerVO vo:"+customer);
 			System.out.println("searchCustomer success...");
 			}
 		}catch(Exception e){
@@ -427,8 +427,7 @@ public class EzbasketDAOImpl implements EzbasketDAO {
 			ps.setString(4, customer.getPhone());
 			ps.setString(5, customer.getId());
 			
-			ps.executeUpdate();
-			System.out.println("changeUserInfo success..");
+			System.out.println(ps.executeUpdate()+"changeUserInfo success..");
 		}finally {
 			closeAll(ps, conn);
 		}
