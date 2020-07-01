@@ -784,9 +784,11 @@ $(function(){
 	}
 	
 	function noSessionCollapase(){
-		<c:if test="${sessionScope.customer.id eq null}">
-			alert('nosession');
-		</c:if>
+		var id = "${sessionScope.customer.id}";
+		if(id == 0){
+			console.log("nosession");
+			$(".navbar_icon").attr("data-toggle", "");	
+		}
 	}
 	
 	
@@ -834,8 +836,8 @@ $(function(){
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
 		range: true,
-		min: <c:out value="${priceList[0]}"/>,
-		max: <c:out value="${priceList[1]}"/>,
+		min: 0<c:out value="${priceList[0]}"/>,
+		max: 0<c:out value="${priceList[1]}"/>,
 		values: [<c:out value="${priceList[0]}"/>,<c:out value="${priceList[1]}"/> ],
 		slide: function(event, ui) {
 			$("#amount").val(ui.values[0]+"원 - "+ui.values[1]+"원");

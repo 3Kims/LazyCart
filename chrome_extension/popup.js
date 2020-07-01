@@ -1,6 +1,5 @@
 document.getElementById("login").addEventListener("click", loginLogic);
 document.getElementById("bucket").addEventListener("click", goBucket);
-//console.log(document.getElementById("iframe_main").contentDocument.getElementById("user_thumnail"));
 
 function loginLogic(){
 	if(this.innerHTML == "로그인")
