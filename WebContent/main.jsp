@@ -20,7 +20,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
 <!-- basic css,jquery 1.12.1 -->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Bootstrap CSS -->
@@ -111,7 +110,18 @@
 	#buttons{
 		text-align:center;margin:3%;
 	}
-	#phone1,#phone2,#phone3{width:60px;}	
+	#registerForm table input[id="phone1"], 
+	#registerForm table input[id="phone2"], 
+	#registerForm table input[id="phone3"]{width:58.5px;}
+	
+	#registerForm table input[id="postcode"]{
+		width: 60px;
+		margin-top: 30px;
+	}
+	#registerForm table input[id="searchPostCode"]{
+		width: 95px;
+		text-align: center;
+	}
 	
 	/* file box  */
 	.user_icon{
@@ -404,9 +414,9 @@
 								datasets: [{
 									data: randomScalingFactor(),
 									backgroundColor: [
-										'rgba(255, 99, 132, 0.2)',
-						        'rgba(54, 162, 235, 0.2)',
-						        'rgba(255, 206, 86, 0.2)',
+										'rgba(255, 99, 132, 1)',
+						        'rgba(54, 162, 235, 1)',
+						        'rgba(255, 206, 86, 1)',
 									],
 									label: 'Dataset 1'
 								}],
@@ -516,7 +526,7 @@
 															<form action="LoginController.do" id="loginFrm" method="post">
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p></p><p></p>
-																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
+																PW &nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
 																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
@@ -564,8 +574,8 @@
 																		<td>주소</td>
 																		<td>
 																			<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-																			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																			<input type="button" id="searchPostCode" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소"><br>
 																			<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
@@ -633,7 +643,7 @@
 								    </div>
 							    </div>
 							  </div>
-							</div>
+							</div><!--carousel  -->
 							</c:otherwise>
 						</c:choose>
 					</article>
