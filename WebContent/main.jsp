@@ -193,7 +193,7 @@
 			  </div> <!-- search icon-->
 			  
 			  <!-- 사용자로고  -->
-			  <div class="navbar_icon" data-toggle="collapse" data-target="#userinfo" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			  <div class="navbar_icon" data-toggle="collapse" data-target="#userinfo" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
 					<div class="navbar_icon">
 					  <c:choose>
 						  <c:when test="${empty sessionScope.customer.img}">
@@ -477,7 +477,7 @@
 					
 	
 		    </div>
-		    <div class="col-9">
+		    <div id="columnRightLayout" class="col-9">
 			    <nav>
 						<div><!-- 통계아이콘 --></div> <div><!-- 아이콘영역 --></div> <div><!-- 정렬 영역 --></div>
 					</nav>
@@ -488,7 +488,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div id="productList">
-									<li>Image</li><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
+									<span id = "productImgHeader"><li>Image</li></span><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
 								</div>
 								<div class="list-group">						
 								  <c:forEach items="${productList}" var="product">
@@ -499,11 +499,11 @@
 											<c:otherwise>
 												<ul  class="list-group-item">
 												
-                                                   <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+                                     <li id="productImg" class="productImgClass" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
 							                       <li id="name">${product.name}</li>
 							                       <li id="price">${product.price}</li>
-							                       <li id="category">${product.category}</li>
-							                       <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
+							                       <li id="category" class="productCategoryClass">${product.category}</li>
+							                       <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height="20%"></a></li>
 											
 												</ul>
 											</c:otherwise>
@@ -668,8 +668,29 @@
 
 <script>
 $(function(){
-
-	/*category start*/
+	
+	forExtension();
+	noSessionCollapase();
+	
+	function forExtension(){
+		var windowHeight = $(window).height(); 
+	  var windowWidth = $(window).width(); 
+		console.log(windowHeight);
+		console.log(windowHeight);
+	  if(windowWidth <= 535){
+		  $(".col-3").hide();
+		  $("#columnRightLayout").attr('class', 'col-12');
+	  }
+	}
+	
+	function noSessionCollapase(){
+		<c:if test="${sessionScope.customer.id eq null}">
+			alert('nosession');
+		</c:if>
+	}
+	
+	
+  /*product category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		
 		var category = "";
