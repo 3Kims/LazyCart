@@ -208,7 +208,7 @@
 			      <div>
 				  		<form action="addcart.do" method="post">
 								<div class="input-group">
-							    <input type="text" class="form-control" placeholder="Please enter product's url...." name="url">
+							    <input type="text" id="searchKeyWord" class="form-control" placeholder="Please enter product's url...." name="url">
 							    <div class="input-group-append">
 							      <button class="btn btn-secondary" type="submit">
 							        <i class="fa fa-search"> 
@@ -230,11 +230,11 @@
 			  <div class="collapse navbar-collapse" id="search_product">
 			    <div class="navbar-nav">
 			      <div>
-              <form action="SearchInCart.do" method="post">
+              <form action="#" method="post">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Please enter keyword...." name="SearchInCartKeyword">
+                  <input type="text" id="searchKeyword" class="form-control FilterObject" placeholder="Please enter keyword...." name="SearchInCartKeyword">
                   <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit">
+                    <button class="btn btn-secondary" type="button">
                       <i class="fa fa-search"> 
                         <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><!-- icon -->
                          <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
@@ -343,15 +343,15 @@
 		      <div class = "category price">
 		      <p>가격</p>
             <p><input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;"></p>
-            <div id="slider-range"></div><hr>
+            <div id="slider-range" class="FilterObject"></div><hr>
 		      </div>
 			<div class = "category product">
 			    <p>카테고리</p>
 			    <c:forEach items="${categoryList}" var="category">
-			        <span><input type="checkbox" class="categoryClick category" value="${category.key}">${category.key}</span><br>
+			        <span><input type="checkbox" class="categoryClick category FilterObject" value="${category.key}">${category.key}</span><br>
 			        </c:forEach>
 			        <c:forEach items="${category.value}" var="secondCategory">
-			          <span><input type="checkbox" class="categoryClick category" value="${secondCategory}">${secondCategory}</span>
+			          <span><input type="checkbox" class="categoryClick category FilterObject" value="${secondCategory}">${secondCategory}</span>
 			      
 			</c:forEach>
 			</div>
@@ -359,7 +359,7 @@
 			<div class = "category seller">
 			    <p>쇼핑몰</p>
 			    <c:forEach items="${shopList}" var="shop">
-			      <span><input type="checkbox" class="categoryClick shop" value="${shop}">${shop}</span>
+			      <span><input type="checkbox" class="categoryClick shop FilterObject" value="${shop}">${shop}</span>
 			    </c:forEach>
 			</div>
 		      <hr>
@@ -659,44 +659,18 @@
 <script>
 $(function(){
 
+    $( ".FilterObject" ).on( "keyup click", function() {
+    alert("event");
+    });
+
+/*Search Cart 시작*/
+/*     $("#searchKeyword").keyup(function() {
+        alert("kewyword");
+       	alert($("input#searchKeyword").val());
+    }); */
+/*Search Cart 끝*/
 	/*category start*/
- 	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
-		
-		var category = "";
- 		var checkedBoxesCategory = $("input[class='categoryClick category']:checked");
-		for (let index = 0; index < checkedBoxesCategory.length; index++) {
-			category += "~";
-			category +=checkedBoxesCategory[index].value;
-			
-		}
-
-		var shop= "";
-		var checkedBoxesShop = $("input[class='categoryClick shop']:checked");
-		for (let index = 0; index < checkedBoxesShop.length; index++) {
-			shop += "~";
-			shop += checkedBoxesShop[index].value;
-
-		}
-		if (checkedBoxesCategory.length==0 && checkedBoxesShop.length==0) {
-            window.location.href = "main.jsp";
-        } else {
-            $("table.list-group")
-            $.ajax({
- 			type: "post",
- 			url: "category.do",
- 			data: {'category':category,'shop':shop},
- 			dataType : "text",
- 			error:function(xhr,status,message){
-				alert("error : "+message );
-			},
-			success:function(data){
-				console.log(data);
-				var html = data;
-				$('.list-group').html(data);
-			}
- 		});//categoryClick ajax
-        }
- 	});/*category finished*/
+ 	
      
 
 
