@@ -16,12 +16,10 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="../../../dist/2.9.3/Chart.min.js"></script>
-
 <!-- google font css -->
 <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
 
 <!-- basic css,jquery 1.12.1 -->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Bootstrap CSS -->
@@ -115,7 +113,18 @@
 	#buttons{
 		text-align:center;margin:3%;
 	}
-	#phone1,#phone2,#phone3{width:60px;}	
+	#registerForm table input[id="phone1"], 
+	#registerForm table input[id="phone2"], 
+	#registerForm table input[id="phone3"]{width:58.5px;}
+	
+	#registerForm table input[id="postcode"]{
+		width: 60px;
+		margin-top: 30px;
+	}
+	#registerForm table input[id="searchPostCode"]{
+		width: 95px;
+		text-align: center;
+	}
 	
 	/* file box  */
 	.user_icon{
@@ -136,7 +145,7 @@
 	#productList li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
 
 	.list-group{display:table;width:100%;}
-	.list-group li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
+	.list-group li{display:table-cell;width:20%;list-style-type:none;text-align:center;object-fit: contain;}
 																	
 
 	<!-- Chart.js --> 
@@ -377,7 +386,8 @@
 		      		<%-- <a class="analysisClick" id="analysis"><span>${data}</span><span class="checkbox"></span></a> --%>
 		      	</c:forEach>
 		      </div>
-		    <!-- 도넛 그래프 -->
+		    
+        <!-- 도넛 그래프 -->
 				<div id="canvas-holder" style="width:100%"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
 					<canvas id="doughnut-chart-area" style="display: block; height: 20%; width: 100%;" width="95%" height="100%" class="chartjs-render-monitor"></canvas>
 				</div>
@@ -411,18 +421,13 @@
 							data: {
 								datasets: [{
 									data: randomScalingFactor(),
-									backgroundColor: [
-										'rgba(255, 99, 132, 0.2)',
-								        'rgba(54, 162, 235, 0.2)',
-								        'rgba(255, 206, 86, 0.2)'
-									],
+									backgroundColor: 
+                  ['rgba(255, 99, 132, 0.2)',
+								   'rgba(54, 162, 235, 0.2)',
+								   'rgba(255, 206, 86, 0.2)'],
 									label: 'Dataset 1'
 								}],
-								labels: [
-									'Coupang',
-									'Musinsa',
-									'Auction',
-								]
+								labels: ['Coupang','Musinsa','Auction',]
 							},
 							options: {
 								responsive: true,
@@ -572,9 +577,7 @@
 					        }
 					    }
 					});
-					
 					</script>
-					
 		    </div>
 		    <div class="col-9">
 			    <nav>
@@ -587,7 +590,7 @@
 						<c:choose>
 							<c:when test="${!empty sessionScope.customer}">
 								<div id="productList">
-									<li>Image</li><li>Name</li><li>Price</li><li>Category</li>
+									<li>Image</li><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
 								</div>
 								<div class="list-group">						
 								  <c:forEach items="${productList}" var="product">
@@ -597,10 +600,11 @@
 											</c:when>
 											<c:otherwise>
 												<ul  class="list-group-item">
-													<li id="productImg"><img src="${product.img}" width="180px" height="180px"></li>
-													<li id="name">${product.name}</li>
-													<li id="price">${product.price}</li>
-													<li id="category">${product.category}</li>
+												  <li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+                           <li id="name">${product.name}</li>
+                           <li id="price">${product.price}</li>
+                           <li id="category">${product.category}</li>
+                           <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height=="20%"></a></li>
 												</ul>
 											</c:otherwise>
 										</c:choose>
@@ -622,7 +626,7 @@
 															<form action="LoginController.do" id="loginFrm" method="post">
 																<br>
 																ID &nbsp;&nbsp;<input type ="text" name="id" class = "lg_pw_textbox" required="required"><p></p><p></p>
-																PW &nbsp;&nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
+																PW &nbsp;<input type ="password" name="password" class="lg_pw_textbox" required="required" ><p></p><br>
 																<input type="submit" name="loginSubmit" value="Login" class="ui-button ui-widget ui-corner-all Signin_register_Btn"> &nbsp;
 																<a href="#carouselExampleControls" role="button" data-slide="next"><input type="button" id="registerCarousel" name="registerSubmit" value="Register" class="ui-button ui-widget ui-corner-all Signin_register_Btn"></a><p></p>
 																<p></p><p></p><p></p>
@@ -670,8 +674,8 @@
 																		<td>주소</td>
 																		<td>
 																			<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-																			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+																			<input type="button" id="searchPostCode" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+																			<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소"><br>
 																			<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
 																		</td>			
 																	</tr>
@@ -690,15 +694,15 @@
 														</div>
 													</div>
 												</div>
-										    </div>
-									    </div>
-									  </div>
-									</div>
-									</c:otherwise>
-								</c:choose>
-							</article>
-						</div>
-					</div>
+											</div>
+								    </div>
+							    </div>
+							  </div>
+							</div><!--carousel  -->
+							</c:otherwise>
+						</c:choose>
+					</article>
+
 				</div>
 				<p></p>
 				<hr width="90%">
@@ -706,8 +710,6 @@
 	
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-
 
 <!-- 주소 찾기 API script -->									
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -765,7 +767,7 @@
 
 
 <script>
-$(function(){	
+$(function(){
 	/*category start*/
  	$(".categoryClick").click(function(){	//카테고리 영역에서 원하는 가격 범위를 선택한경우
 		
@@ -804,7 +806,9 @@ $(function(){
  		});//categoryClick ajax
         }
  	});/*category finished*/
-	
+     
+
+
 	/* JQUERY 슬라이더 시작 */
  	$("#slider-range").slider({
 		range: true,
@@ -907,8 +911,7 @@ getLocation();
 	function error(positionError){ //GeolocationPositionError객체 매개변수로.. 
 		loaction.innerHTML=positionError.message;
 	} */
- 	
-	
+ 		
 	//password 일치 체크하고
 	function registerCheck(){
 		if($("#idCheck").text()=="이미 등록된 ID 입니다."){
