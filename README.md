@@ -34,8 +34,8 @@
 
 - 컨셉<br>
 EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"이라는 취지로<br>
-	1) 기능적인 측면에서 Chrome Extension을 사용하여 현재 상품 페이지 탭에서 탭 이동 없이 장바구니를 사용할 수 있습니다.<br>
-	2) 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br>
+1) 기능적인 측면에서 Chrome Extension을 사용하여 현재 상품 페이지 탭에서 탭 이동 없이 장바구니를 사용할 수 있습니다.<br>
+2) 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br>
 <img src="docImges/googleshopping.jpg"><br>
 
 ### Dependencies
@@ -104,6 +104,7 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 <img src="docImges/Web_Price_after.jpg"><br/><br/>
 
 4. Chrome Extension<br/>
+<img src="docImges/LazyCart_Extension.jpg><br/>
 4-1) 파일 정보<br>
 - manifest.json<br>
 : Chrome Extension의 기본적인 정보를 등록한다. 이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등등 <br><br>
