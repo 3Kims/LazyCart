@@ -83,8 +83,8 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 <br/><img src="docImges/Controller_folder (2).JPG"><br/>
 
 ### 2. Crawling 
-- Jsoup라이브러리 활용하여 쇼핑몰 url을 수집
-- 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성
+- Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
+- 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성.
 <br/><img src="docImges/Web_addcart.jpg">
 
 ### 3. 정렬/필터 기능<br/>
@@ -95,32 +95,32 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 <img src="docImges/Web_Category.jpg"><br/><br/>
 
 #### 3-3) 가격 필터링<br/><br/>
-<전><br/><br/>
+<필터링 전><br/><br/>
 <img src="docImges/Web_Price_before.jpg"><br/><br/>
 
-<후><br/><br/>
+<필터링 후><br/><br/>
 <img src="docImges/Web_Price_after.jpg"><br/><br/>
 
 ### 4. Chrome Extension<br/>
 <img src="docImges/LazyCart_Extension.jpg"> <br/>
 #### 4-1) 파일 정보<br>
 - manifest.json<br>
-: Chrome Extension의 기본적인 정보를 등록한다. 이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등등 <br><br>
+: Chrome Extension의 기본적인 정보를 등록합니다다. (이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등.) <br><br>
 - background.js<br>
-: Chrome Extension 전반에서 이벤트 발생시 특정한 기능을 처리한다. 페이지 이동, 익스텐션 설치, 텝 닫힘 등을 감지한다. Lazybasket Extension에서는 메시지 리스너를 추가해 콘텐츠 스크립트에서 전달된 메세지에 따라 로그인 배너를 아이콘 위에 표시하도록 했다.<br><br>
+: Chrome Extension 전반에서 이벤트 발생시 특정한 기능을 처리합니다. 페이지 이동, 익스텐션 설치, 텝 닫힘 등을 감지합니다. Lazybasket Extension에서는 메시지 리스너를 추가해 콘텐츠 스크립트에서 전달된 메세지에 따라 로그인 배너를 아이콘 위에 표시하도록 합니다.<br><br>
 - content.js<br>
- : manifest 파일에 content.js가 페이지가 http://localhost:8888/에 포함된 경우 호출되도록 match한다. 현재 크롬익스텐션은 모두 iframe 기반으로, 서버에서 받은 데이터를 iframe 내부에 호출한다. <br>웹 보안 정책인 same origin policy는 불러온 스크립트가 호스트가 다른 경우, 보안을 위해 접근을 제한한다. 따라서 content.js가 iframe 내부에서 호출되어 데이터를 받아오는 작업이 필수적이다. <br>본 프로그램에서 content.js는 background script와 iframe을 호출하는 모든 페이지와 메세지를 주고받는다. content.js는 로그인 여부, 작업 성공 여부를 검사한다.<br><br>
+ : manifest 파일에 content.js가 페이지가 http://localhost:8888/에 포함된 경우 호출되도록 match한다. 현재 크롬익스텐션은 모두 iframe 기반으로, 서버에서 받은 데이터를 iframe 내부에 호출합니다. <br>웹 보안 정책인 same origin policy는 불러온 스크립트가 호스트가 다른 경우, 보안을 위해 접근을 제한합니다. 따라서 content.js가 iframe 내부에서 호출되어 데이터를 받아오는 작업이 필수적입니다. <br>본 프로그램에서 content.js는 background script와 iframe을 호출하는 모든 페이지와 메세지를 주고받습니다. content.js는 로그인 여부, 작업 성공 여부를 검사합니다.<br><br>
 - 기타 html 확장자<br>
- : 모든 html파일은 별개로 각자의 js파일을 가진다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록한다.<br><br>
+ : 모든 html파일은 별개로 각자의 js파일을 가집니다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록합니다.<br><br>
 
 #### 4-2) 동작 순서<br><br> 
-(1) content script 가 로그인 여부를 검사한다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출된다.<br>
-(2) background script가 content script에서 전달된 메세지를 받는다. 배너가 로그인 여부에 따라 ON/OFF로 바뀐다.<br>
-(3) popup.html이 content script에서 전달된 메세지를 받는다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀐다.<br>
-(4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작한다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장된다.<br>
+(1) content script 가 로그인 여부를 검사합니다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출됩니다.<br>
+(2) background script가 content script에서 전달된 메세지를 받습니다. 배너가 로그인 여부에 따라 ON/OFF로 바뀝니다.<br>
+(3) popup.html이 content script에서 전달된 메세지를 받습니다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀝니다.<br>
+(4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작합니다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장됩니다.<br>
 
 ### 5. Analysis <br>
-- Chart.JS 라이브러리 사용.
+- Chart.JS 활용
 - 쇼핑몰별 상품비율을 나타내는 도넛 그래프, 쇼핑몰별 상품의 평균 가격대 비교하는 히스토그램.
 - SessionAttribute에 저장된 ProductList를 SJTL을 활용하여 데이터로 사용.<br/>
 <img src="docImges/Analysis.jpg">
@@ -131,7 +131,7 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
   - 팀원끼리 번갈아가며 업무일지 회의록 작성함으로써 팀원 모두 업무 현황을 공유.
   - 매일 회의에서 팀 및 개인적 차원에서 오늘/내일 할 일들을 정리.
 ### 2. 간트차트
-간트차트로 업무 진척도 파악<br>
+간트차트로 업무 진척도 파악.<br>
 <img src="docImges/gant.jpg">
 ### 3. Slack
   - 메신저<br/>
