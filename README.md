@@ -53,7 +53,7 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 | Jquery  | CDN | 3.5.1 / 1.12.4 / 1.12.1 | JavaScript Library |
 | (구글) analytics.js  | CDN | 1.2.1 | 웹분석서비스 |
 | Chart.js  | CDN | 2.7.1 / 2.9.3 | 차트 |
-| Util.js  | CDN | ? | JavaScript Library |
+| Util.js  | CDN | 1 | JavaScript Library |
 | (다음) postcode.js  | CDN | 2 | 회원가입 주소검색 |
 | popper.js  | CDN | 1.16.0 | 차트 말풍선 |
 | Bootstrap  | CDN | 4.5.0 | CSS-프레임워크 |
