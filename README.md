@@ -1,8 +1,9 @@
-<p align="center"><a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img src="docImges/cart.png" alt="logo"></a></p>
+<p align="center"><a href="README.md" target="_blank" rel="noopener noreferrer"><img src="docImges/cart.png" alt="logo"></a></p>
 
 # LAZY-CART
 
 > <<<<---img src="totalShoppingExp.jpg">
+
 >LazyCart (레이지카트)는 <b>소비자중심</b>의 "YongHunDotCom-licensed 오픈소스 웹-서비스"입니다. </br>레이지카트는 전적으로 감사하는 후원자님들과 테크니컬-파트너분들의 지속적인 참여를 통해 운영되는 서비스입니다.
 
 저희 LazyCart와 함께하고 싶으시다면:</br>
@@ -29,7 +30,9 @@
 
 <img src="docImges/conceptDiagram.jpg" width="70%">
 
-### 서비스 정의 / 서비스 목적
+### 서비스 정의
+
+
 ### 서비스 목적
 ### 팀소개
 ### Dependencies
