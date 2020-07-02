@@ -97,20 +97,21 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 - 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성
 <img src="docImges/Web_addcart.jpg"><br/><br/>
 
-3. 정렬/필터 기능
-3-1) 상품명으로 Cart 정렬(default)
+3. 정렬/필터 기능<br/>
+3-1) 상품명으로 Cart 정렬(default)<br/>
 <img src="docImges/Web_cart.jpg"><br/><br/>
 
-3-2) 카테고리 필터링
+3-2) 카테고리 필터링<br/>
 <img src="docImges/Web_Category.jpg"><br/><br/>
 
-3-3) 가격 필터링
-<전>
-<img src="docImges/Web_Price_after.jpg"><br/>
-<후>
-<img src="docImges/Web_Price_before.jpg"><br/>
+3-3) 가격 필터링<br/><br/>
+<전><br/><br/>
+<img src="docImges/Web_Price_before.jpg"><br/><br/>
 
-4. Chrome Extension	
+<후><br/><br/>
+<img src="docImges/Web_Price_after.jpg"><br/><br/>
+
+4. Chrome Extension<br/>
 4-1) 파일 정보<br>
 - manifest.json<br>
 : Chrome Extension의 기본적인 정보를 등록한다. 이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등등 <br><br>
@@ -142,9 +143,9 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 간트차트로 업무 진척도 파악<br/>
 <img src="docImges/gant.jpg"><br/>
 #### 3. Slack
-  - 메신저
-  - 깃헙 연동 알람 (Repository Subscription)
-<img src="docImges/git.png"><br/>
+  - 메신저<br/>
+  - 깃헙 연동 알람 (Repository Subscription)<br/>
+
 #### 4. Version Control System (Github)
 
 1. 각자 편한 Github 프로그램 사용 <br/>
