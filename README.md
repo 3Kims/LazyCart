@@ -42,22 +42,21 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 
 | 라이브러리 | 경로 | 버전| 용도|
 |---------|--------|-------|-------------|
-| Apache Tomcat | 로컬 | 8.5.55 | 웹 프레임워크 |
-|Java EE | 로컬| 8 | 서버사이드 언어 / DB 커넥션 |
+| Apache Tomcat | 로컬 | 8.5(Runtime)/3.1(Servlet) | 웹 프레임워크 |
+|Java EE | 로컬| 8 | 서버사이드 랭귀지 / DB커넥션 |
 |MySQL | 로컬 | 8.0 | 데이터베이스 |
 |Eclipse Photon | 개인 | 4.8 | 통합 IDE |
-| Jsoup  | .jar | 1.13.1 | ??????? |
-| JSTL  | .jar | ???? | ??????? |
-| Standard  | .jar | ???? | ??????? |
-| Commons-io  | .jar | 2.7 | ??????? |
-| Commons-Fileload  | .jar | 1.4 | ??????? |
-| Jquery  | CDN | 3.5.1 / 1.12.4 / 1.12.1 | ??????? |
-| (구글) analytics.js  | CDN | 1.2.1 | ???? |
-| Chart.js  | CDN | 2.7.1 / 2.9.3 | ???? |
-| Util.js  | CDN | ? | ???? |
-| (다음) postcode.v2.js  | CDN | ? | ???? |
-| popper.js  | CDN | 1.16.0 | ???? |
-| Bootstrap  | CDN | 4.5.0 | ???? |
+| Jsoup  | .jar | 1.13.1 | Java HTML Parser |
+| JSTL/Standard  | .jar | 1.2/1.2.3.| JSP 표준 태그 라이브러리 |
+| Commons-io  | .jar | 2.7 | 파일업로드 |
+| Commons-Fileload  | .jar | 1.4 | 파일업로드 |
+| Jquery  | CDN | 3.5.1 / 1.12.4 / 1.12.1 | JavaScript Library |
+| (구글) analytics.js  | CDN | 1.2.1 | 웹분석서비스 |
+| Chart.js  | CDN | 2.7.1 / 2.9.3 | 차트 |
+| Util.js  | CDN | ? | JavaScript Library |
+| (다음) postcode.js  | CDN | 2 | 회원가입 주소검색 |
+| popper.js  | CDN | 1.16.0 | 차트 말풍선 |
+| Bootstrap  | CDN | 4.5.0 | CSS-프레임워크 |
 
 <br><br>
 
