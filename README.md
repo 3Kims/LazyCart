@@ -79,32 +79,32 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 <img src="docImges/DB.jpg"><br/>
 
 ## 주요 기능 소개
-1. 기본 기능
+### 1. 기본 기능
 Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관련 기능입니다.
 <img src="docImges/Controller_folder (2).JPG"><br/>
 
-2. Crawling 
+### 2. Crawling 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집
 - 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성
 <img src="docImges/Web_addcart.jpg"><br/><br/>
 
-3. 정렬/필터 기능<br/>
-3-1) 상품명으로 Cart 정렬(default)<br/>
+### 3. 정렬/필터 기능<br/>
+#### 3-1) 상품명으로 Cart 정렬(default)<br/>
 <img src="docImges/Web_cart.jpg"><br/><br/>
 
-3-2) 카테고리 필터링<br/>
+#### 3-2) 카테고리 필터링<br/>
 <img src="docImges/Web_Category.jpg"><br/><br/>
 
-3-3) 가격 필터링<br/><br/>
+#### 3-3) 가격 필터링<br/><br/>
 <전><br/><br/>
 <img src="docImges/Web_Price_before.jpg"><br/><br/>
 
 <후><br/><br/>
 <img src="docImges/Web_Price_after.jpg"><br/><br/>
 
-4. Chrome Extension<br/>
-<img src="docImges/"LazyCart_Extension.jpg"> <br/>
-4-1) 파일 정보<br>
+### 4. Chrome Extension<br/>
+<img src="docImges/LazyCart_Extension.jpg"> <br/>
+#### 4-1) 파일 정보<br>
 - manifest.json<br>
 : Chrome Extension의 기본적인 정보를 등록한다. 이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등등 <br><br>
 - background.js<br>
@@ -114,13 +114,13 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 - 기타 html 확장자<br>
  : 모든 html파일은 별개로 각자의 js파일을 가진다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록한다.<br><br>
 
-4-2) 동작 순서<br><br> 
+#### 4-2) 동작 순서<br><br> 
 (1) content script 가 로그인 여부를 검사한다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출된다.
 (2) background script가 content script에서 전달된 메세지를 받는다. 배너가 로그인 여부에 따라 ON/OFF로 바뀐다.
 (3) popup.html이 content script에서 전달된 메세지를 받는다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀐다.
 (4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작한다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장된다.<br><br>
 
-5. Analysis <br>
+### 5. Analysis <br>
 - Chart.JS 라이브러리 사용.
 - 쇼핑몰별 상품비율을 나타내는 도넛 그래프, 쇼핑몰별 상품의 평균 가격대 비교하는 히스토그램.
 - SessionAttribute에 저장된 ProductList를 SJTL을 활용하여 데이터로 사용.<br/>
@@ -128,21 +128,21 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 
 	
 ## 협업방식
-#### 1. 업무 일지,
+### 1. 업무 일지,
   - 팀원끼리 번갈아가며 업무일지 회의록 작성함으로써 팀원 모두 업무 현황을 공유.
   - 매일 회의에서 팀 및 개인적 차원에서 오늘/내일 할 일들을 정리.
-#### 2. 간트차트
+### 2. 간트차트
 간트차트로 업무 진척도 파악<br/>
 <img src="docImges/gant.jpg"><br/>
-#### 3. Slack
+### 3. Slack
   - 메신저<br/>
   - 깃헙 연동 알람 (Repository Subscription)<br/>
 
-#### 4. Version Control System (Github)
+### 4. Version Control System (Github)
 
-1. 각자 편한 Github 프로그램 사용 <br/>
-1.1. master pull >  work > new branch > pull request <br/>
-1.2. master pull > work > updated master pull & merge > test > push master <br/>
+#### 1. 각자 편한 Github 프로그램 사용 <br/>
+#### 1.1. master pull >  work > new branch > pull request <br/>
+#### 1.2. master pull > work > updated master pull & merge > test > push master <br/>
 
 <img src="docImges/vcs12.jpg"><br/>
 
