@@ -84,8 +84,8 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 
 ### 2. Crawling 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
-- 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성.
-<br/><img src="docImges/Web_addcart.jpg">
+- 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성.<br/>
+<br/><img src="docImges/Web_addcart.jpg"><br/>
 
 ### 3. 정렬/필터 기능<br/>
 #### 3-1) 상품명으로 Cart 정렬(default)<br/>
@@ -113,7 +113,7 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 - 기타 html 확장자<br>
  : 모든 html파일은 별개로 각자의 js파일을 가집니다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록합니다.<br><br>
 
-#### 4-2) 동작 순서<br><br> 
+#### 4-2) 동작 순서<br>
 (1) content script 가 로그인 여부를 검사합니다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출됩니다.<br>
 (2) background script가 content script에서 전달된 메세지를 받습니다. 배너가 로그인 여부에 따라 ON/OFF로 바뀝니다.<br>
 (3) popup.html이 content script에서 전달된 메세지를 받습니다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀝니다.<br>
@@ -123,8 +123,7 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 - Chart.JS 활용
 - 쇼핑몰별 상품비율을 나타내는 도넛 그래프, 쇼핑몰별 상품의 평균 가격대 비교하는 히스토그램.
 - SessionAttribute에 저장된 ProductList를 SJTL을 활용하여 데이터로 사용.<br/>
-<img src="docImges/Analysis.jpg">
-
+<img src="docImges/Analysis.jpg"><br/>
 	
 ## 협업방식
 ### 1. 업무 일지,
