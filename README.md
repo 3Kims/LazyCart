@@ -114,10 +114,10 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
  : 모든 html파일은 별개로 각자의 js파일을 가진다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록한다.<br><br>
 
 #### 4-2) 동작 순서<br><br> 
-(1) content script 가 로그인 여부를 검사한다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출된다.
-(2) background script가 content script에서 전달된 메세지를 받는다. 배너가 로그인 여부에 따라 ON/OFF로 바뀐다.
-(3) popup.html이 content script에서 전달된 메세지를 받는다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀐다.
-(4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작한다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장된다.<br><br>
+(1) content script 가 로그인 여부를 검사한다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출된다.<br>
+(2) background script가 content script에서 전달된 메세지를 받는다. 배너가 로그인 여부에 따라 ON/OFF로 바뀐다.<br>
+(3) popup.html이 content script에서 전달된 메세지를 받는다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀐다.<br>
+(4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작한다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장된다.<br>
 
 ### 5. Analysis <br>
 - Chart.JS 라이브러리 사용.
@@ -131,17 +131,16 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
   - 팀원끼리 번갈아가며 업무일지 회의록 작성함으로써 팀원 모두 업무 현황을 공유.
   - 매일 회의에서 팀 및 개인적 차원에서 오늘/내일 할 일들을 정리.
 ### 2. 간트차트
-간트차트로 업무 진척도 파악<br/>
-<img src="docImges/gant.jpg"><br/>
+간트차트로 업무 진척도 파악<br>
+<img src="docImges/gant.jpg">
 ### 3. Slack
   - 메신저<br/>
-  - 깃헙 연동 알람 (Repository Subscription)<br/>
+  - 깃헙 프로젝트 저장소 구독 (Repository Subscription)<br/>
 
 ### 4. Version Control System (Github)
-
-#### 1. 각자 편한 Github 프로그램 사용 <br/>
-#### 1.1. master pull >  work > new branch > pull request <br/>
-#### 1.2. master pull > work > updated master pull & merge > test > push master <br/>
+1. 각자 편한 Github 프로그램 사용 <br/>
+ 1.1. master pull >  work > new branch > pull request <br/>
+ 1.2. master pull > work > updated master pull & merge > test > push master <br/>
 
 <img src="docImges/vcs12.jpg"><br/>
 
