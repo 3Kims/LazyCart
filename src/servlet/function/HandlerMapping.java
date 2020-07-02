@@ -1,5 +1,17 @@
 package servlet.function;
 
+import servlet.function.cart.AddCartController;
+import servlet.function.cart.ajax.CategoryController;
+import servlet.function.cart.ajax.SearchInCartController;
+import servlet.function.product.DeleteProductController;
+import servlet.function.user.ChangeProfileController;
+import servlet.function.user.ChangeUserInfoController;
+import servlet.function.user.DeleteCustomerController;
+import servlet.function.user.LoginController;
+import servlet.function.user.LogoutController;
+import servlet.function.user.RegisterController;
+import servlet.function.user.ajax.IdCheckController;
+
 public class HandlerMapping {
 	
 	private static HandlerMapping handler = new HandlerMapping();   

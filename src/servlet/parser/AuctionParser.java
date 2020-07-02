@@ -8,7 +8,6 @@ import java.util.Iterator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servlet.function.CategoryController;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,6 +16,7 @@ import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import model.ProductVO;
+import servlet.function.cart.ajax.CategoryController;
 
 public class AuctionParser implements Parser{
 

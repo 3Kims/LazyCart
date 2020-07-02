@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.cart.ajax;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import org.apache.coyote.RequestGroupInfo;
 
 import model.ProductVO;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
 public class CategoryController implements Controller {
 

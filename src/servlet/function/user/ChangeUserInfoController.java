@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.user;
 
 import java.sql.SQLException;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import model.CustomerVO;
 import model.EzbasketDAOImpl;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
 public class ChangeUserInfoController implements Controller{
 

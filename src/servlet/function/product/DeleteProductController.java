@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.product;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import model.CustomerVO;
 import model.EzbasketDAOImpl;
 import model.ProductVO;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
 public class DeleteProductController implements Controller{
 

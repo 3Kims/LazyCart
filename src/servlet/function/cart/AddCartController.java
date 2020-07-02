@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.cart;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import model.EzbasketDAO;
 import model.EzbasketDAOImpl;
 import model.ProductVO;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 import servlet.parser.ParserMapping;
 
 public class AddCartController implements Controller {

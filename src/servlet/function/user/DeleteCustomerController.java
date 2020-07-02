@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.user;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +9,7 @@ import model.CustomerVO;
 import model.EzbasketDAOImpl;
 import model.ProductVO;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 import servlet.parser.ParserMapping;
 public class DeleteCustomerController implements Controller {
 	@Override

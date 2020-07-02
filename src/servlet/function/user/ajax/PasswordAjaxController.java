@@ -1,9 +1,10 @@
-package servlet.function;
+package servlet.function.user.ajax;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
 public class PasswordAjaxController implements Controller{
 

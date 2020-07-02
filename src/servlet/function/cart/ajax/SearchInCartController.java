@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.cart.ajax;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +12,7 @@ import model.CustomerVO;
 import model.EzbasketDAOImpl;
 import model.ProductVO;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 public class SearchInCartController implements Controller {
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response){

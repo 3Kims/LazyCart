@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.user;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +19,7 @@ import model.CustomerVO;
 import model.EzbasketDAO;
 import model.EzbasketDAOImpl;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
 
 @MultipartConfig (fileSizeThreshold=1024*1024*10, maxFileSize=1024*1024*50, maxRequestSize=1024*1024*100)  

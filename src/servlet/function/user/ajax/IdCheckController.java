@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.function.user.ajax;
 
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.CustomerVO;
 import model.EzbasketDAOImpl;
 import servlet.controller.ModelAndView;
+import servlet.function.Controller;
 
 public class IdCheckController implements Controller{
 
