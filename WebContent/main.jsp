@@ -369,7 +369,7 @@
 	      <!-- 분류 조건영역 -->
 	      	<!-- 전체보기 -->
 		      <div class = "category all">
-		      	<a class="categoryClick" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
+		      	<a href="main.jsp" id="all"><span>전체보기</span><span class="checkbox"></span></a><br>
 		     	</div>
 	     	<hr>
 	     		<!-- 가격대 설정 -->
@@ -455,8 +455,8 @@
 									data: randomScalingFactor(),
 									backgroundColor: [
 										'rgba(255, 99, 132, 1)',
-						        'rgba(54, 162, 235, 1)',
-						        'rgba(255, 206, 86, 1)',
+								        'rgba(54, 162, 235, 1)',
+								        'rgba(255, 206, 86, 1)',
 									],
 									label: 'Dataset 1'
 								}],
@@ -633,7 +633,8 @@
 					<c:choose>
 						<c:when test="${!empty sessionScope.customer}">
 							<div id="productList">
-								<span id = "productImgHeader"><li>Image</li></span><li>Name</li><li>Price</li><li>Category</li><li>Delete</li>
+								
+								<ul id = "productImgHeader" class="list-group-item"><li>Image</li></span><li>Name</li><li>Price</li><li>Category</li><li>Delete</li></ul>
 							</div>
 							<div class="list-group">						
 							  <c:forEach items="${productList}" var="product">
@@ -642,13 +643,13 @@
 											<!-- 카트가 비어있을 경우 아무것도 표시 안함. -->
 										</c:when>
 										<c:otherwise>
-											<ul class="list-group-item">
-                     		<li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
+										<ul class="list-group-item">
+                     					<li id="productImg" alt="${product.id}"><a href="${product.url}"><img src="${product.img}" width="180px" height="180px"></a></li>
 							            <li id="name">${product.name}</li>
 							            <li id="price">${product.price}</li>
 							            <li id="category">${product.category}</li>
 							            <li id="delete"><a href="DeleteProduct.do?productId=${product.id}"><img id="DeleteProduct" src="img/delete.png" width="20%" height="20%"></a></li>
-												</ul>
+										</ul>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
