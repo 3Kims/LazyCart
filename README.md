@@ -3,16 +3,14 @@
 # LAZY-CART
 
 
->LazyCart (레이지카트)는 <b>소비자중심</b>의 "YongHunDotCom-licensed 오픈소스 웹-서비스"입니다. </br>레이지카트는 전적으로 감사하는 후원자님들과 테크니컬-파트너분들의 지속적인 참여를 통해 운영되는 서비스입니다.
+> LazyCart (레이지카트)는 <b>소비자중심</b>의 "YongHunDotCom-licensed 오픈소스 웹-서비스"입니다.
+> 레이지카트는 전적으로 감사하는 후원자님들과 테크니컬-파트너분들의 지속적인 참여를 통해 운영되는 서비스입니다.
 
-저희 LazyCart와 함께하고 싶으시다면:</br>
-
+### LazyCart는 우리 모두의 참여로 발전해나가는 공동체입니다 :
 <ul>
 	<li><a href="mailto:beanskobe@gmail.com">후원을 통한 참여</a></li>
 	<li><a href="mailto:beanskobe@gmail.com">기술적 참여</a></li>
-
 </ul>
-
 ## Table of contents
 
 * [서비스 설명](#서비스-설명)
@@ -34,8 +32,8 @@
 
 ### 2. 컨셉<br>
 EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"이라는 취지로...
-1) 기능적인 측면에서 Chrome Extension을 사용하여 현재 상품 페이지 탭에서 탭 이동 없이 장바구니를 사용할 수 있습니다.<br>
-2) 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br>
+- 기능적인 측면에서 Chrome Extension을 사용하여 현재 상품 페이지 탭에서 탭 이동 없이 장바구니를 사용할 수 있습니다.<br>
+- 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br>
 <img src="docImges/googleshopping.jpg"><br>
 
 ### Dependencies
