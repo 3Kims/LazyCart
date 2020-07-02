@@ -60,7 +60,7 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 
 <br><br>
 
-## 유저 중심의 기능 분석
+## User-centric 유저 중심의 기능 분석
 익스텐션과 웹은 공통된 기능 및 화면을 사용하면서도 각각 특징에 맞는 기능과 UI를 나눠서 구상했습니다.<br>
 - Chrome Extension은 장바구니 담기와 상품 조회 목적에 최소화하며 화면 또한 단순화하여 쇼핑에 집중할 수 있도록 합니다.<br/>
 웹은 필터링/검색/Analysis 등 추가적 기능을 포함하며 특히, 장바구니 상품을 가격, 쇼핑몰, 카테고리 등 기준으로 비교할 수 있습니다.<br/>
@@ -70,7 +70,7 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 <img src="docImges/userservice2.JPG"><br>
 
 ## 서비스 패턴	
-패턴 (다이어그램)<br>
+### 패턴 (다이어그램)<br>
 <img src="docImges/ucd.png"><br/>
 <img src="docImges/Structure.jpg"><br/>
 
@@ -81,12 +81,12 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 ## 주요 기능 소개
 ### 1. 기본 기능
 Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관련 기능입니다.
-<img src="docImges/Controller_folder (2).JPG"><br/>
+<br/><img src="docImges/Controller_folder (2).JPG"><br/>
 
 ### 2. Crawling 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집
 - 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성
-<img src="docImges/Web_addcart.jpg"><br/><br/>
+<br/><img src="docImges/Web_addcart.jpg">
 
 ### 3. 정렬/필터 기능<br/>
 #### 3-1) 상품명으로 Cart 정렬(default)<br/>
