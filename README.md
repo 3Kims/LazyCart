@@ -3,10 +3,9 @@
 # LAZY-CART
 
 
-> LazyCart (레이지카트)는 <b>소비자중심</b>의 "YongHunDotCom-licensed 오픈소스 웹-서비스"입니다.
-> 레이지카트는 전적으로 감사하는 후원자님들과 테크니컬-파트너분들의 지속적인 참여를 통해 운영되는 서비스입니다.
-
-### LazyCart는 우리 모두의 참여로 발전해나가는 공동체입니다 :
+> LazyCart (레이지카트)는 <b>소비자중심 "YongHunDotCom-licensed 오픈소스 웹-서비스"</b>입니다.<br>
+> LazyCart는 전적으로 감사하는 후원자님들과 테크니컬-파트너분들의 지속적인 참여를 통해 운영되는 서비스입니다.
+### LazyCart는 우리 모두의 참여로 발전해나가는 공동체입니다.<br>함께 하세요 :)
 <ul>
 	<li><a href="mailto:beanskobe@gmail.com">후원을 통한 참여</a></li>
 	<li><a href="mailto:beanskobe@gmail.com">기술적 참여</a></li>
