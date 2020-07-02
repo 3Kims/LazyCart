@@ -341,7 +341,6 @@
 	  	<div class="row">
 		    <div class="col-3">
 		      <!-- 위치 표시 -->
-		      <p>현재 위치 : 서울</p>
 		      <hr>
 		      <section>
 		      

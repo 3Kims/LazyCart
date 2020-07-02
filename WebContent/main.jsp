@@ -962,7 +962,7 @@ getLocation();
 		if($("#idCheck").text()=="이미 등록된 ID 입니다."){
 			alert("ID 중복 확인 해주세요.");
 			return false;	
-		}else if($("#idCheck").text()=="이미 등록된 ID 입니다."){
+		}else if($("#idCheck").text()!="이미 등록된 ID 입니다."){
 			if($("#password1").val()==$("#password2").val()){
 				return confirm("입력하신 정보로 회원등록합니다.");
 			}else {
