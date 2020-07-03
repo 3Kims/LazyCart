@@ -137,8 +137,8 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
   - 메신저<br/>
   - 깃헙 프로젝트 저장소 구독 (Repository Subscription)<br/>
 
-### 4. Version Control System (Github)
-1. 각자 편한 Github 프로그램 사용 <br/>
+### 4. Version Control System (Github desktop, git bash, sourcetree)
+1. 각자 편한 VCS 사용 <br/>
 	1.1. master pull > new branch > work > pull request <br/>
 	1.2. master pull > work > updated master pull & merge > test > push master <br/>
 
