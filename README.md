@@ -32,8 +32,8 @@
 ### 2. 컨셉<br>
 EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로써...
 - 기능적인 측면에서 Chrome Extension을 사용하여 현재 상품 페이지 탭에서 탭 이동 없이 장바구니를 사용할 수 있습니다.<br>
-- 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br>
-<img width="80%" src="docImges/googleshopping.jpg"><br>
+- 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br><br>
+<img width="80%" src="docImges/googleshopping.jpg"><br/>
 
 ### 3. Dependencies
 
@@ -61,23 +61,26 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 - Chrome Extension은 장바구니 담기와 상품 조회 목적에 최소화하며 화면 또한 단순화하여 쇼핑에 집중할 수 있도록 합니다.<br/>
 웹은 필터링/검색/Analysis 등 추가적 기능을 포함하며 특히, 장바구니 상품을 가격, 쇼핑몰, 카테고리 등 기준으로 비교할 수 있습니다.<br/>
 
-- 프로토타입 및 유저 중심의 기능 분석<br>
+- 프로토타입 및 유저 중심의 기능 분석<br><br/>
 <img width="80%" src="docImges/userservice1.JPG"><br>
 <img width="80%" src="docImges/userservice2.JPG"><br>
 
 ## 서비스 패턴	
 ### 패턴 (다이어그램)<br>
-<img width="80%" src="docImges/ucd.png"><br/>
+<img width="80%" src="docImges/ucd.png"><br/><br/>
 <img width="80%" src="docImges/Structure.jpg"><br/>
 
 ## 데이터베이스
-데이터베이스는 유저(customer)와 상품 정보(product) 엔터티가 <b>다:다관계</b>로, 각각 장바구니(cart) 엔터티와의 <b>1:다관계</b>로 설정합니다.<br/>
+데이터베이스는 유저(customer)와 상품 정보(product) 엔터티가 <b>다:다관계</b>로, 각각 장바구니(cart) 엔터티와의 <br><b>1:다관계</b>로 설정합니다.<br/><br/>
 <img width="80%" src="docImges/DB.jpg"><br/>
 
 ## 주요 기능 소개
 ### 1. 기본 기능
-Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관련 기능입니다.
-<br/><img src="docImges/kjh_structure.jpg"><br/>
+- User CRUD
+- Product CRUD
+- Cart CRUD 
+- Controller & Ajax 관련 기능입니다.
+<br/><br/><img src="docImges/kjh_structure.jpg"><br/>
 
 ### 2. Crawling 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
@@ -91,24 +94,24 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 #### 3-2) 카테고리 필터링<br/>
 <img width="80%" src="docImges/Web_Category.jpg"><br/><br/>
 
-#### 3-3) 가격 필터링<br/><br/>
+#### 3-3) 가격 필터링<br/>
 <필터링 전><br/><br/>
-<img width="80%" src="docImges/Web_Price_before.jpg"><br/><br/>
+<img width="80%" src="docImges/Web_Price_before.jpg"><br/>
 
-<필터링 후><br/><br/>
-<img width="80%" src="docImges/Web_Price_after.jpg"><br/><br/>
+<필터링 후><br/>
+<img width="80%" src="docImges/Web_Price_after.jpg"><br/>
 
 ### 4. Chrome Extension<br/>
 <img width="80%" src="docImges/LazyCart_Extension.jpg"> <br/>
 #### 4-1) 파일 정보<br>
 - manifest.json<br>
-: Chrome Extension의 기본적인 정보를 등록합니다다. (이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등.) <br><br>
+: Chrome Extension의 기본적인 정보를 등록합니다다. (이름, 아이콘, 기본 팝업창, background script, content script, 어떤 사이트에서 스크립트가 사용될지 등.) <br>
 - background.js<br>
-: Chrome Extension 전반에서 이벤트 발생시 특정한 기능을 처리합니다. 페이지 이동, 익스텐션 설치, 텝 닫힘 등을 감지합니다. Lazybasket Extension에서는 메시지 리스너를 추가해 콘텐츠 스크립트에서 전달된 메세지에 따라 로그인 배너를 아이콘 위에 표시하도록 합니다.<br><br>
+: Chrome Extension 전반에서 이벤트 발생시 특정한 기능을 처리합니다. 페이지 이동, 익스텐션 설치, 텝 닫힘 등을 감지합니다. Lazybasket Extension에서는 메시지 리스너를 추가해 콘텐츠 스크립트에서 전달된 메세지에 따라 로그인 배너를 아이콘 위에 표시하도록 합니다.<br>
 - content.js<br>
- : manifest 파일에 content.js가 페이지가 http://localhost:8888/에 포함된 경우 호출되도록 match한다. 현재 크롬익스텐션은 모두 iframe 기반으로, 서버에서 받은 데이터를 iframe 내부에 호출합니다. <br>웹 보안 정책인 same origin policy는 불러온 스크립트가 호스트가 다른 경우, 보안을 위해 접근을 제한합니다. 따라서 content.js가 iframe 내부에서 호출되어 데이터를 받아오는 작업이 필수적입니다. <br>본 프로그램에서 content.js는 background script와 iframe을 호출하는 모든 페이지와 메세지를 주고받습니다. content.js는 로그인 여부, 작업 성공 여부를 검사합니다.<br><br>
+ : manifest 파일에 content.js가 페이지가 http://localhost:8888/에 포함된 경우 호출되도록 match한다. 현재 크롬익스텐션은 모두 iframe 기반으로, 서버에서 받은 데이터를 iframe 내부에 호출합니다. <br>웹 보안 정책인 same origin policy는 불러온 스크립트가 호스트가 다른 경우, 보안을 위해 접근을 제한합니다. 따라서 content.js가 iframe 내부에서 호출되어 데이터를 받아오는 작업이 필수적입니다. <br>본 프로그램에서 content.js는 background script와 iframe을 호출하는 모든 페이지와 메세지를 주고받습니다. content.js는 로그인 여부, 작업 성공 여부를 검사합니다.<br>
 - 기타 html 확장자<br>
- : 모든 html파일은 별개로 각자의 js파일을 가집니다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록합니다.<br><br>
+ : 모든 html파일은 별개로 각자의 js파일을 가집니다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록합니다.<br>
 
 #### 4-2) 동작 순서<br>
 (1) content script 가 로그인 여부를 검사합니다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출됩니다.<br><br>
