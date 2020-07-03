@@ -83,7 +83,17 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 ### 2. Crawling 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
 - 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성.<br/>
-<br/><img width="80%" src="docImges/Web_addcart.jpg"><br/>
+<br/>
+
+<img width="80%" src="docImges/Web_addcart.jpg"><br/>
+
+<br>
+
+<img width="80%" src="docImges/parserFolder.png"><br/>
+
+<br>
+
+<img width="80%" src="docImges/musinsaparser.png"><br/>
 
 ### 3. 정렬/필터 기능<br/>
 #### 3-1) 상품명으로 Cart 정렬(default)<br/>
@@ -110,6 +120,11 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 <img width="80%" src="docImges/filecode.png"><br/>
 
 ### 4. Chrome Extension<br/>
+
+<img width="80%" src="docImges/chromeextension.png"> <br/>
+
+<br>
+
 <img width="80%" src="docImges/LazyCart_Extension.jpg"> <br/>
 
 #### 4-1) 파일 정보<br>
@@ -138,17 +153,28 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 <img width="50%" src="docImges/extensionFile.png"><br/>
 
 #### 4-2) 동작 순서<br>
+
 (1) content script 가 로그인 여부를 검사합니다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출됩니다.<br><br>
-<img width="50%" src="docImges/Ex_login.jpg" width="50%"> <br/><br/>
+
+<img width="50%" src="docImges/Ex_login.jpg" width="50%"> <br/>
+
 (2) background script가 content script에서 전달된 메세지를 받습니다. 배너가 로그인 여부에 따라 ON/OFF로 바뀝니다.<br>
-(3) popup.html이 content script에서 전달된 메세지를 받습니다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀝니다.<br><br>
-<img width="80%" src="docImges/Ex_floating.jpg" width="50%" height="10%"> <br/><br>
-(4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작합니다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장됩니다.<br><br>
+
+(3) popup.html이 content script에서 전달된 메세지를 받습니다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀝니다.<br>
+<img width="80%" src="docImges/Ex_floating.jpg" width="50%" height="10%"> <br/>
+
+(4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작합니다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장됩니다.<br>
+
 <img width="50%" src="docImges/Ex_cart.jpg" width="50%"> <br/>
 
 ### 5. Analysis <br>
-- Chart.JS 활용
+
+- [Chart.JS](https://www.chartjs.org/) 활용
+
+<img width="50%" src="docImges/charjs.png"><br/>
+
 - 쇼핑몰별 상품비율을 나타내는 도넛 그래프, 쇼핑몰별 상품의 평균 가격대 비교하는 히스토그램.
+
 - SessionAttribute에 저장된 ProductList를 SJTL을 활용하여 데이터로 사용.<br/>
 <img width="80%" src="docImges/Analysis.jpg"><br/>
 
@@ -161,19 +187,25 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 
 <img width="80%" src="docImges/bubbleSort.png"><br/>
 
-가격 순 - 
 ## 협업방식
+
 ### 1. 업무 일지,
+
   - 팀원끼리 번갈아가며 업무일지 회의록 작성함으로써 팀원 모두 업무 현황을 공유.
   - 매일 회의에서 팀 및 개인적 차원에서 오늘/내일 할 일들을 정리.
+
 ### 2. 간트차트
-간트차트로 업무 진척도 파악.<br>
+
+간트차트로 업무 진척도 파악.
+
 <img width="80%" src="docImges/gant.jpg">
+
 ### 3. Slack
   - 메신저<br/>
   - 깃헙 프로젝트 저장소 구독 (Repository Subscription)<br/>
 
 ### 4. Version Control System (Github desktop, git bash, sourcetree)
+
 1. 각자 편한 VCS 사용 <br/>
 	1.1. master pull > new branch > work > pull request <br/>
 	1.2. master pull > work > updated master pull & merge > test > push master <br/>
