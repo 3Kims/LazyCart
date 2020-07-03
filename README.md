@@ -37,13 +37,6 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 - 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br>
 <img width="80%" src="docImges/googleshopping.jpg"><br>
 
-
-### 서비스 정의
-
-
-### 서비스 목적
-### 팀소개
-
 ### Dependencies
 
 | 라이브러리 | 경로 | 버전| 용도|
@@ -63,8 +56,6 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 | (다음) postcode.js  | CDN | 2 | 회원가입 주소검색 |
 | popper.js  | CDN | 1.16.0 | 차트 말풍선 |
 | Bootstrap  | CDN | 4.5.0 | CSS-프레임워크 |
-
-<br><br>
 
 ## User-centric 유저 중심의 기능 분석
 
