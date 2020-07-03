@@ -153,11 +153,9 @@
 	#productImg{object-fiti:contain;}
 	#productList{display:table;width:100%;text-align:center;}
 	#productList li{display:table-cell;width:25%;list-style-type:none;text-align:center;}
-
 	.list-group{display:table;width:100%;}
 	.list-group li{display:table-cell;width:20%;list-style-type:none;text-align:center;object-fit: contain;}
 																	
-
 	<!-- Chart.js --> 
 	/* 도넛 그래프 */
 	canvas {
@@ -447,7 +445,6 @@
 		
 							return shopCntArray; 
 						}
-						
 						var config = {
 							type: 'doughnut',
 							data: {
@@ -833,7 +830,6 @@ $(function(){
 			$(".navbar_icon").attr("data-toggle", "");	
 		}
 	}
-
   /* JQUERY 슬라이더 시작 */
   $("#slider-range").slider({
 		range: true,
@@ -881,7 +877,6 @@ $(function(){
     });//categoryClick ajax
 	}); // evetnBinding
     /* 비동기 필터링 끝 */
-
 	/*회원탈퇴 재확인 시작*/
   $("button.deleteCustomer").click(function() {
   	var deleteConfirm = confirm("정말 회원탈퇴 하시겠습니까? (회원탈퇴시 모든 회원정보와 장바구니 기록은 자동삭제됩니다.)");
@@ -935,7 +930,6 @@ $(function(){
  		$('#fileSubmitIcon').attr('fill', '#0EFCF3');
  	});
 /*  Google API Key가 있어야함.  클라우드 환경 필요. 
-
 getLocation();
  	
  	var location = document.getElementById("geoLocation");
@@ -957,7 +951,6 @@ getLocation();
 		location.innerHTML=positionError.message;
 	} */
 
-		
 	//password 일치 체크하고
 	function registerCheck(){
 		if($("#idCheck").text()=="이미 등록된 ID 입니다."){
@@ -974,8 +967,7 @@ getLocation();
 			}
 		}
 	}
-	
-	
+
 	$("#register_id").keyup(function(){
 		$.ajax({
 			type:"post",
@@ -1000,7 +992,7 @@ getLocation();
 			$("input[type=password]").val("");
 		}
 	});
-	
+
 });//document onload
 </script>
 </body>
