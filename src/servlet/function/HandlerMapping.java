@@ -58,6 +58,9 @@ public class HandlerMapping {
 		}else if(command.equals("card.do")) {
 			controller = new CardController();
 			System.out.println("Create CardController Instance");
+		}else if(command.equals("sort.do")) {
+			controller = new SortController();
+			System.out.println("Create SortController Instance");
 		}
 		return controller;
 	}

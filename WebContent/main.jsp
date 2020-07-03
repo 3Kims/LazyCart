@@ -624,6 +624,15 @@
 	    
 	    <!-- 오른쪽 레이어 : 장바구니 리스트 -->
 	    <div id="columnRightLayout" class="col-9">
+	    	<hr>
+		    	<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="SortRadio" id="priceSort" value="priceSort">
+					  <label class="form-check-label" for="priceSort">가격순</label>
+					</div>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="SortRadio" id="nameSort" value="nameSort">
+					  <label class="form-check-label" for="nameSort">이름순</label>
+					</div>
 				<hr>
 				<article>			
 					<!-- 장바구니 리스트 영역 -->
@@ -843,6 +852,48 @@ $(function(){
    $("#slider-range").children().addClass('FilterObject');
 	/* JQUERY 슬라이더 끝 */
   
+	/*정렬스타트*/
+	
+	$('#priceSort').click(function () {
+    // getter
+    var radioVal = $('input[name="SortRadio"]:checked').val();
+    $.ajax({
+	    type: "post",
+	    url: "sort.do",
+	    data: {'sortContent':radioVal},
+	    dataType : "text",
+	    error:function(xhr,status,message){
+      	alert("error : "+message );
+	    },
+	    success:function(data){
+	      console.log(data);
+	      var html = data;
+	      $('.list-group').html(data);
+	    }
+    });//sortRadioClick ajax
+  });
+
+  $('#nameSort').click(function () {
+	  var radioVal = $('input[name="SortRadio"]:checked').val();
+	  $.ajax({
+		    type: "post",
+		    url: "sort.do",
+		    data: {'sortContent':radioVal},
+		    dataType : "text",
+		    error:function(xhr,status,message){
+	      	alert("error : "+message );
+		    },
+		    success:function(data){
+		      console.log(data);
+		      var html = data;
+		      $('.list-group').html(data);
+		    }
+	    });//sortRadioClick ajax
+  });
+	
+	/*정렬엔드*/
+	
+	
    /* 비동기 필터링 스타트 */
   $(document).on("keyup click mouseenter", ".FilterObject",function() {
    	var amount = $("input#amount").val();
