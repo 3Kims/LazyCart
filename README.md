@@ -80,7 +80,8 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 - Controller & Ajax 관련 기능입니다.
 <br/><br/><img src="docImges/kjh_structure.jpg"><br/>
 
-### 2. Crawling 
+### 2. [Crawling](https://jsoup.org/)
+ 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
 - 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성.<br/>
 <br/>
