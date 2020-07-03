@@ -73,7 +73,7 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 <img width="80%" src="docImges/Structure.jpg"><br/>
 
 ## 데이터베이스
-데이터베이스는 유저(customer)와 상품 정보(product) 엔터티가 다:다 관계로, 각각 장바구니(cart) 엔터티와의 1:다 관계로 설정합니다.<br/>
+데이터베이스는 유저(customer)와 상품 정보(product) 엔터티가 <b>다:다관계</b>로, 각각 장바구니(cart) 엔터티와의 <b>1:다관계</b>로 설정합니다.<br/>
 <img width="80%" src="docImges/DB.jpg"><br/>
 
 ## 주요 기능 소개
