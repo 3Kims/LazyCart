@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.controller.workers;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.coyote.RequestGroupInfo;
 
-import model.ProductVO;
-import servlet.controller.ModelAndView;
+import model.VO.ProductVO;
+import servlet.controller.Controller;
 
 public class CategoryController implements Controller {
 

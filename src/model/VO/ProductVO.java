@@ -1,4 +1,4 @@
-package model;
+package model.VO;
 
 public class ProductVO {
 	private int id;

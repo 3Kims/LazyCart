@@ -1,4 +1,4 @@
-package servlet.parser;
+package servlet.parser.workers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,8 +11,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
-import model.ProductVO;
-public class MusinsaParser implements Parser {
+
+import model.VO.ProductVO;
+import servlet.parser.Parser;
+public class DanawaParser implements Parser {
 	@Override
 	public ProductVO handle(String URL) throws Exception{
 		ProductVO product = null;

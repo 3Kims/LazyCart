@@ -1,14 +1,14 @@
-package servlet.function;
+package servlet.controller.workers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.CustomerVO;
 import model.EzbasketDAOImpl;
-import model.ProductVO;
-import servlet.controller.ModelAndView;
+import model.VO.CustomerVO;
+import model.VO.ProductVO;
+import servlet.controller.Controller;
 import servlet.parser.ParserMapping;
 public class DeleteCustomerController implements Controller {
 	@Override

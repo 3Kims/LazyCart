@@ -1,10 +1,10 @@
-package servlet.function;
+package servlet.controller.workers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import servlet.controller.ModelAndView;
+import servlet.controller.Controller;
 
 public class LogoutController implements Controller{
 

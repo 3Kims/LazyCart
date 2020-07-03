@@ -1,4 +1,4 @@
-package servlet.controller;
+package servlet.controller.workers;
 /*
  * 결과페이지 이름과
  * 이동방식(forward | redirect)에 대한 정보를 담고 있는 객체

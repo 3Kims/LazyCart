@@ -1,5 +1,5 @@
 package servlet.parser;
-import model.ProductVO;
+import model.VO.ProductVO;
 
 
 public interface Parser {

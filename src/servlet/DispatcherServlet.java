@@ -1,4 +1,4 @@
-package servlet.controller;
+package servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import servlet.function.Controller;
-import servlet.function.HandlerMapping;
+import servlet.controller.Controller;
+import servlet.controller.HandlerMapping;
+import servlet.controller.workers.ModelAndView;
 
 
 @WebServlet("*.do")

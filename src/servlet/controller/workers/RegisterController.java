@@ -1,11 +1,12 @@
-package servlet.function;
+package servlet.controller.workers;
 
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.CustomerVO;
+
 import model.EzbasketDAOImpl;
-import servlet.controller.ModelAndView;
+import model.VO.CustomerVO;
+import servlet.controller.Controller;
 
 public class RegisterController implements Controller {
 

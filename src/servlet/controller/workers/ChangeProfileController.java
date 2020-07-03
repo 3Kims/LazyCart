@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.controller.workers;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +15,10 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import model.CustomerVO;
 import model.EzbasketDAO;
 import model.EzbasketDAOImpl;
-import servlet.controller.ModelAndView;
+import model.VO.CustomerVO;
+import servlet.controller.Controller;
 
 
 @MultipartConfig (fileSizeThreshold=1024*1024*10, maxFileSize=1024*1024*50, maxRequestSize=1024*1024*100)  

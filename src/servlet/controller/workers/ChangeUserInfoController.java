@@ -1,4 +1,4 @@
-package servlet.function;
+package servlet.controller.workers;
 
 import java.sql.SQLException;
 
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.CustomerVO;
 import model.EzbasketDAOImpl;
-import servlet.controller.ModelAndView;
+import model.VO.CustomerVO;
+import servlet.controller.Controller;
 
 public class ChangeUserInfoController implements Controller{
 

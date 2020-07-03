@@ -1,4 +1,4 @@
-package model;
+package model.VO;
 
 public class CustomerVO {
 	private String id;

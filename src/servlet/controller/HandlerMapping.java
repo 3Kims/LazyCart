@@ -1,4 +1,16 @@
-package servlet.function;
+package servlet.controller;
+
+import servlet.controller.workers.AddCartController;
+import servlet.controller.workers.CategoryController;
+import servlet.controller.workers.ChangeProfileController;
+import servlet.controller.workers.ChangeUserInfoController;
+import servlet.controller.workers.DeleteCustomerController;
+import servlet.controller.workers.DeleteProductController;
+import servlet.controller.workers.IdCheckController;
+import servlet.controller.workers.LoginController;
+import servlet.controller.workers.LogoutController;
+import servlet.controller.workers.RegisterController;
+import servlet.controller.workers.SearchInCartController;
 
 public class HandlerMapping {
 	

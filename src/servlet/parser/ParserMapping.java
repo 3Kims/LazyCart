@@ -1,5 +1,8 @@
 package servlet.parser;
-import model.ProductVO;
+import model.VO.ProductVO;
+import servlet.parser.workers.AuctionParser;
+import servlet.parser.workers.CoupangParser;
+import servlet.parser.workers.MusinsaParser;
 
 public class ParserMapping {
 	

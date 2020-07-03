@@ -1,4 +1,4 @@
-package servlet.parser;
+package servlet.parser.workers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,7 +8,9 @@ import java.util.Iterator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servlet.function.CategoryController;
+
+import servlet.controller.workers.CategoryController;
+import servlet.parser.Parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,9 +18,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-import model.ProductVO;
+import model.VO.ProductVO;
 
-public class AuctionParser implements Parser{
+public class NaverParser implements Parser{
 
 	@Override
 	public ProductVO handle(String url) throws Exception{

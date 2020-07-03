@@ -9,6 +9,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import model.VO.CartVO;
+import model.VO.CustomerVO;
+import model.VO.ProductVO;
+
 public class EzbasketDAOImpl implements EzbasketDAO {
 
 	private DataSource ds;

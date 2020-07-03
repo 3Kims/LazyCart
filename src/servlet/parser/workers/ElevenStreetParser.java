@@ -1,11 +1,13 @@
-package servlet.parser;
+package servlet.parser.workers;
 import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import model.ProductVO;
-public class CoupangParser implements Parser {
+
+import model.VO.ProductVO;
+import servlet.parser.Parser;
+public class ElevenStreetParser implements Parser {
 	public ProductVO handle(String url) throws Exception{
 		ProductVO product = null;
 		Document doc;

@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.VO.CustomerVO;
+import model.VO.ProductVO;
+
 public interface EzbasketDAO {
 	
 	//util
