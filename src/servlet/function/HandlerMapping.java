@@ -55,6 +55,9 @@ public class HandlerMapping {
 		}else if(command.equals("DeleteProduct.do")) {
 			controller = new DeleteProductController();
 			System.out.println("Create DeleteProductController Instance");
+		}else if(command.equals("sort.do")) {
+			controller = new SortController();
+			System.out.println("Create SortController Instance");
 		}
 		return controller;
 	}
