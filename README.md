@@ -6,12 +6,10 @@
 > LazyCart (레이지카트)는 <br> - <b>소비자중심 "YongHunDotCom-licensed 오픈소스 웹-서비스"</b>입니다.<br>- LazyCart는 전적으로 감사하는 후원자님들과 테크니컬-파트너분들의 지속적인 참여를 통해 운영되는 서비스입니다.
 
 ### LazyCart는 우리 모두의 참여로 발전해나가는 공동체입니다.<br>함께 하세요 :)
-
 <ul>
 	<li><a href="mailto:beanskobe@gmail.com">후원을 통한 참여</a></li>
 	<li><a href="mailto:beanskobe@gmail.com">기술적 참여</a></li>
 </ul>
-
 ## Table of contents
 
 * [서비스 설명](#서비스-설명)
@@ -58,10 +56,9 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 ## 유저 중심의 기능 분석
 
 익스텐션과 웹은 공통된 기능 및 화면을 사용하면서도 각각 특징에 맞는 기능과 UI를 나눠서 구상했습니다.<br>
-- Chrome Extension은 장바구니 담기와 상품 조회 목적에 최소화하며 화면 또한 단순화하여 쇼핑에 집중할 수 있도록 합니다.<br/>
-- 웹은 필터링/검색/Analysis 등 추가적 기능을 포함하며 특히, 장바구니 상품을 가격, 쇼핑몰, 카테고리 등 기준으로 비교할 수 있습니다.<br/>
-
-- 프로토타입 및 유저 중심의 기능 분석<br><br/>
+- Chrome Extension은 장바구니 담기와 상품 조회 목적에 최소화하며 화면 또한 단순화하여 쇼핑에 집중할 수 있도록 합니다.
+- 웹은 필터링/검색/Analysis 등 추가적 기능을 포함하며 특히, 장바구니 상품을 가격, 쇼핑몰, 카테고리 등 기준으로 비교할 수 있습니다.
+- 프로토타입 및 유저 중심의 기능 분석<br/>
 <img width="80%" src="docImges/userservice1.JPG"><br>
 <img width="80%" src="docImges/userservice2.JPG"><br>
 
