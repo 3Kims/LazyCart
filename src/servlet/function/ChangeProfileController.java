@@ -75,9 +75,9 @@ public class ChangeProfileController implements Controller {
             System.out.println("items: "+items);
             for (FileItem item : items) {
                 if (item.isFormField()) {
-                    System.out.printf("파라미터 명 : %s, 파라미터 값 :  %s \n", item.getFieldName(), item.getString("utf-8"));
+                    System.out.printf("parameter name : %s, parameter value :  %s \n", item.getFieldName(), item.getString("utf-8"));
                 } else {
-                    System.out.printf("파라미터 명 : %s, 파일 명 : %s,  파일 크기 : %s bytes \n", item.getFieldName(),
+                    System.out.printf("parameter name : %s, parameter value : %s,  filename : %s bytes \n", item.getFieldName(),
                             item.getName(), item.getSize());
                     if (item.getSize() > 0) {
                         String separator = File.separator;
