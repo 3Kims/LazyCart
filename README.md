@@ -79,7 +79,7 @@ EasyBasket은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"�
 ## 주요 기능 소개
 ### 1. 기본 기능
 Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관련 기능입니다.
-<br/><img src="docImges/kjh_structure.jpg">
+<br/><img src="docImges/kjh_structure.jpg"><br/>
 
 ### 2. Crawling 
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
