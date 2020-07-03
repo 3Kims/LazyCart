@@ -123,12 +123,12 @@ Lazybasket에서 기본 기능은 User, Product,Cart CRUD controller & ajax 관�
 
 #### 4-2) 동작 순서<br>
 (1) content script 가 로그인 여부를 검사합니다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출됩니다.<br>
-<img src="docImges/Ex_login.jpg"> <br/>
+<img src="docImges/Ex_login.jpg" width="80%"> <br/>
 (2) background script가 content script에서 전달된 메세지를 받습니다. 배너가 로그인 여부에 따라 ON/OFF로 바뀝니다.<br>
 (3) popup.html이 content script에서 전달된 메세지를 받습니다. 로그인 여부에 따라 메뉴가 로그인/로그아웃으로 바뀝니다.<br>
-<img src="docImges/Ex_floating.jpg"> <br/>
+<img src="docImges/Ex_floating.jpg" width="80%" height="10%"> <br/>
 (4) popup.html에 메뉴를 클릭하면 각각의 기능이 동작합니다. iframe이 호출된 경우, 정보는 모두 서버로 전달되고 저장됩니다.<br>
-<img src="docImges/Ex_cart.jpg"> <br/>
+<img src="docImges/Ex_cart.jpg" width="80%"> <br/>
 
 ### 5. Analysis <br>
 - Chart.JS 활용
