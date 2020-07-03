@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<table>
+	<table>	
 		<c:forEach items="${productListByCategory}" var="product">
 			<c:choose>
 				<c:when test="${empty product.img}">

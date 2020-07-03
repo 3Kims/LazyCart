@@ -903,7 +903,7 @@ $(function(){
 	
 	
    /* 비동기 필터링 스타트 */
-  $(document).on("keyup click mouseenter", ".FilterObject",function() {
+  $(document).on("keyup click", ".FilterObject",function() {
    	var amount = $("input#amount").val();
    	var keyword = $("input#searchKeyword").val();
     var category = "";

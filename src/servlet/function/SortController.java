@@ -49,12 +49,11 @@ public class SortController implements Controller {
 					oldProductList.set(j, oldProductList.get(j+1));
 					oldProductList.set(j+1, tempProduct);
 				}
-				for(ProductVO product: oldProductList) {
-					System.out.println(product);
-				}
 			}
-			for(ProductVO product: oldProductList) {
-				System.out.println(product);
+		}
+		for(ProductVO product: oldProductList) {
+			if(product.getId() == 1) {
+				product.setName(null);
 			}
 		}
 		return oldProductList;
