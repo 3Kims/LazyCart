@@ -119,7 +119,7 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 
 <img width="80%" src="docImges/filecode.png"><br/>
 
-### 4. Chrome Extension<br/>
+### 4. [Chrome Extension](https://developer.chrome.com/extensions/devguide)<br/>
 
 <img width="80%" src="docImges/chromeextension.png"> <br/>
 
