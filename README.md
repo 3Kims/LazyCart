@@ -126,16 +126,6 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 - SessionAttribute에 저장된 ProductList를 SJTL을 활용하여 데이터로 사용.<br/>
 <img width="80%" src="docImges/Analysis.jpg"><br/>
 
-### 6. 주요 알고리즘<br/>
-
-- 가격순으로 리스트 보여주기 - 기수정렬
-
-<img width="80%" src="docImges/countSort.jpg"><br/>
-
-- 이름순으로 리스트 보여주기 - 버블정렬
-
-<img width="80%" src="docImges/bubbleSort.jpg"><br/>
-
 가격 순 - 
 ## 협업방식
 ### 1. 업무 일지,
