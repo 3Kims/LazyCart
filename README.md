@@ -31,6 +31,11 @@
 ### 2. 컨셉<br>
 LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로써...
 - 기능적인 측면에서 Chrome Extension을 사용하여 현재 상품 페이지 탭에서 탭 이동 없이 장바구니를 사용할 수 있습니다.<br>
+
+<img width="80%" src="docImges/chromeextension.png"> <br/>
+
+<br>
+
 - 화면 구성 또한 단순한 구성과 색상으로 Assistance Program으로써 기능적인 면에 보다 충실하고자 합니다. 구글 쇼핑 UI를 참고했습니다.<br><br>
 <img width="80%" src="docImges/googleshopping.jpg"><br/>
 
@@ -81,7 +86,7 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 <br/><br/><img src="docImges/kjh_structure.jpg"><br/>
 
 ### 2. [Crawling](https://jsoup.org/)
- 
+
 - Jsoup라이브러리 활용하여 쇼핑몰 url을 수집.
 - 쇼핑몰마다 HTML 구조가 다르게 셋팅되어 있어 각각에 맞는 Parser Controller 구현, Parser만 분류하는 Parser Handler를 별도로 작성.<br/>
 <br/>
@@ -122,9 +127,6 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
 
 ### 4. [Chrome Extension](https://developer.chrome.com/extensions/devguide)<br/>
 
-<img width="80%" src="docImges/chromeextension.png"> <br/>
-
-<br>
 
 <img width="80%" src="docImges/LazyCart_Extension.jpg"> <br/>
 
