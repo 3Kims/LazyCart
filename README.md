@@ -112,7 +112,7 @@ LAZY-CART은 "편리한 온라인 쇼핑을 돕는 장바구니 프로그램"로
  : 모든 html파일은 별개로 각자의 js파일을 가집니다. js파일에는 기본적인 javascript 함수들과 chrome.extension API 기능을 사용한 함수를 등록합니다.<br>
 
 <br>
-<img width="80%" src="docImges/extensionFile.jpg"><br/>
+<img width="50%" src="docImges/extensionFile.jpg"><br/>
 
 #### 4-2) 동작 순서<br>
 (1) content script 가 로그인 여부를 검사합니다. 사이트에 접속하거나 익스텐션 아이콘을 누르면 호출됩니다.<br><br>
